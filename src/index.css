@@ -18,20 +18,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.App {
-  text-align: center;
-}
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
+/* loggo spin */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 
 @keyframes App-logo-spin {
   from {
@@ -41,22 +34,58 @@ body {
     transform: rotate(360deg);
   }
 }
+/* wrapper for whole page */
+.appWrapper {
+  text-align: center;
+  background-color: var(--clr_primary);
+  min-height: 100vh;
+}
+/* Header */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
 .nav{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 90%;
+  margin: auto;
 }
 
 .btn{
   height: 25px;
   width: fit-content;
-  font-size: .6rem;
-  padding: .3rem 1.3rem;
-  font-weight: 900;
+  font-size: .5rem;
+  padding: .3rem 1rem;
+  font-weight: 700;
   letter-spacing: .5em;
   justify-content: center;
   align-items: center;
   border: none;
   border-radius: 10px;
   cursor:pointer;
+  text-transform: uppercase;
+}
+
+/* Main Page Section */
+
+.heroConteiner{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    min-width:90%;
+    color:var(--clr_text_ligt);
+    letter-spacing:.2rem;
+    line-height:2.5rem;
+}
+.heroConteiner h1{
+  font-size:28px;
+   padding:1.5rem 0;
+}
+.heroConteiner h2{
+  padding:1.5rem 2rem;
+  font-size:22px;
 }
