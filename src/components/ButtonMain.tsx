@@ -6,12 +6,12 @@ const MainButton = ({ color, text, onClick }: ButtonProp) => {
 }
 MainButton.defaultProps = {
     text: 'Sign Up',
-    color: '--clr_button'
+    color: '#0DF5E3'
 }
 type ButtonProp = {
     text: string,
     color: string,
-    onClick: any
+    onClick(event: React.MouseEvent<HTMLButtonElement>): void
 }
 
 

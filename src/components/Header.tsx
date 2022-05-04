@@ -1,12 +1,22 @@
 import LogoSvg from "./LogoSvg"
-import TopButtons from "./TopButtons"
+import MainButton from "./ButtonMain"
 
 const Header = () => {
+    const onClick = () => {
+        console.log('click')
+    }
+    const onClick2 = () => {
+        console.log('click2')
+    }
+
     return (
-        <nav className='nav'>
+        <header className='nav'>
             <LogoSvg />
-            <TopButtons />
-        </nav>
+            <div className='buttonWraper' style={{ display: 'flex', gap: '2rem' }}>
+                <MainButton onClick={onClick} text={"Log In"}></MainButton>
+                <MainButton onClick={onClick2}></MainButton>
+            </div>
+        </header>
     )
 }
 
