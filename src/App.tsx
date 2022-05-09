@@ -1,10 +1,10 @@
 import './index.css';
-import MainPage from './pages/MainPage'
+import Routs from './routing/Routs';
 
 function App() {
   return (
     <>
-      <MainPage />
+      <Routs />
     </>
   );
 }

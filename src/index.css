@@ -17,6 +17,9 @@ body {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: var(--clr_primary);
+  min-height: 100vh;
 }
 
 /* loggo spin */
@@ -55,12 +58,11 @@ body {
 }
 
 .btn{
-  height: 25px;
-  width: fit-content;
-  font-size: .5rem;
+  height: 2rem;
+  width: 5rem;
+  font-size: .6rem;
   padding: .3rem 1rem;
   font-weight: 700;
-  letter-spacing: .5em;
   justify-content: center;
   align-items: center;
   border: none;
@@ -88,4 +90,85 @@ body {
 .heroConteiner h2{
   padding:1.5rem 2rem;
   font-size:22px;
+}
+
+/* Sign up log in form */
+.signUp{
+  background-color:var(--clr_primary);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  max-height:100vh;
+  min-width:100vw;
+}
+form,.form_wrapper{
+  background-color: var(--clr_text_ligt);
+  position:relative;
+  border-radius: 5px;
+  padding:.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  max-width:400px;
+}
+.form_wrapper{
+  padding:0 0 1rem 0;
+  gap: 1rem;
+}
+.form_wrapper>form{
+  gap: 1.5rem;
+}
+.close {
+  position:absolute;
+  right:1rem;
+  top:1rem;
+  cursor:pointer;
+}
+input{
+  width:80%;
+  color:black;
+  height:2.5rem;
+  border-radius:5px;
+  border:solid 1px black;
+  background-color:transparent;
+  padding:1rem;
+}
+input::placeholder{
+  color:black;
+}
+input:focus{
+  background-color:lightgrey;
+}
+.register{
+  width:80%;
+  height:2.5rem;
+  border-radius:5px;
+  border:none;
+  background-color:var(--clr_button);
+  cursor:pointer;
+}
+p{
+  font-size:.6rem;
+}
+span{
+  border-bottom:1px solid black;
+  cursor:pointer;
+}
+.buttonGoogle{
+  background-color:transparent;
+  border:none;
+  border-bottom:1px solid black;
+  cursor:pointer;
+  display: flex;
+  gap:1rem;
+  font-size:.6rem;
+  margin-bottom: .5rem;
+}
+.svg{
+  width:1.5rem;
+  height:1.5rem;
+  padding:0 5px 5px 0;
 }
