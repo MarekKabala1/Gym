@@ -8,6 +8,7 @@ import {
 import HomePage from "../pages/HomePage";
 import SignUp from "../components/layout/SignUp";
 import LogIn from "../components/layout/LogIn";
+import UsersPage from "../pages/UsersPage";
 
 const Routs = () => {
     return (
@@ -17,6 +18,7 @@ const Routs = () => {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/register" element={<SignUp />} />
                     <Route path="/login" element={<LogIn />} />
+                    <Route path="/userpage" element={<UsersPage />} />
                 </Routes>
             </Router>
         </>

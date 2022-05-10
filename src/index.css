@@ -172,3 +172,74 @@ span{
   height:1.5rem;
   padding:0 5px 5px 0;
 }
+
+/* user page */
+.conteiner{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:4rem;
+  background-color:var(--clr_primary);
+  padding:2rem 2rem;
+  min-width:100vw;
+  min-height:100vh;
+  max-height:100vh;
+}
+.headerWrapper{
+  display:flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+.flexGapWrapper{
+  display:flex;
+  gap:1.2rem;
+  margin-top:2rem;
+}
+.avatar{
+  background-color: var(--clr_text_ligt);
+  font-weight: 900;
+  font-size: 1.1rem;
+  height: 2.3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding-top:.5rem;
+}
+.mainContent{
+  display:flex;
+  flex-direction:column;
+  max-width:100%;
+  max-height:100%;
+  justify-content:center;
+  align-items:center;
+  gap:5rem;
+}
+.imgWrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-width:90%;
+  height:150px;
+  cursor:pointer;
+  border-radius:5px;
+}
+.imgGym{
+  background:rgba(247, 240, 240,0.4) url(../public/img-svg/img/gym.jpg);
+  background-position:center;
+  background-size: cover;
+  background-blend-mode: lighten;
+  mix-blend-mode: lighten;
+  text-align: center;
+}
+.imgNutri{
+  background:rgba(247, 240, 240,0.4) url(../public/img-svg/img/nutrition.jpg);
+  background-position:center;
+  background-size: cover;
+  background-blend-mode: lighten;
+  mix-blend-mode: lighten;
+  margin:auto;
+}
+.imgWrapper>p{
+  font-size:1.5rem;
+  color:var(--clr_primary);
+  font-weight:bold;
+}

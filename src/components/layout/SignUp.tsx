@@ -52,8 +52,11 @@ const SignUp = () => {
                         auth,
                         email,
                         password
-                    );
+                    )
                     const user = userCredential.user;
+                    updateProfile(user, {
+                        displayName: firstName + surname
+                    })
                     await addDoc(collection(db, "users"), {
                         uid: user.uid,
                         email: user.email,
@@ -61,7 +64,8 @@ const SignUp = () => {
                         surname: surname,
                         created: new Date()
                     });
-                    return true
+                    navigate('/userpage')
+                    console.log(user)
                 } catch (error: any) {
                     return setError(error.message)
                 };
@@ -76,6 +80,7 @@ const SignUp = () => {
         setTimeout(() => {
             setError('')
         }, 2000)
+
     }
 
     return (
