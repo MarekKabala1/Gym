@@ -1,15 +1,71 @@
 //components
 import SvgLogo2 from '../components/LogoSvg'
 import MainButton from '../components/ButtonMain';
-import Avatar from '@mui/material/Avatar';
-// import Alert from '@mui/material/Alert';
-import { auth } from '../firebseConfig/fireaseConfig'
+//firestore irebase
+import { auth, db } from '../firebseConfig/fireaseConfig'
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore"
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import React from 'react';
+
+
 
 const UsersPage = () => {
-    const logOut = () => {
-        console.log('logged out')
+    let navigate = useNavigate();
+    const [authed, setAuthed] = useState(false);
+    const [newUser, setNewUser] = useState<any[]>([]);
+
+
+
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // const students: DocumentData[] = []
+                // const querySnapshot = await getDocs(collection(db, "users"));
+                // querySnapshot.forEach((doc: { data: () => any; }) => {
+                //     const data = doc.data()
+                //     students.push(data)
+                //     // doc.data() is never undefined for query doc snapshots
+                //     console.log(students)
+                // });
+                setAuthed(false)
+                navigate('/')
+                console.log(authed, 'logged out')
+                return authed
+                // const uid = user.uid
+                // console.log(authed, uid);
+
+            } else {
+                setAuthed(true)
+                const fetchData = async () => {
+                    const Ref = doc(db, "users", `${user.uid}`);
+                    const Snap = await getDoc(Ref);
+                    const data: any = Snap.data()
+                    setNewUser(() => [data])
+                    console.log(newUser);
+
+                    return newUser
+                }
+                fetchData()
+
+            }
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+
+
+
+    const logOut = async () => {
+        await signOut(auth)
+            .then((authed) => {
+                setAuthed(false)
+                return authed
+            })
+            .catch(Error)
     }
 
     return (
@@ -18,9 +74,27 @@ const UsersPage = () => {
                 <SvgLogo2 />
                 <div className="flexGapWrapper">
                     <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut}></MainButton>
-                    <div className='avatar'>MK</div>
+                    {
+                        React.Children.toArray(
+                            newUser.map((data) => (
+                                <div className='avatar' key={data.id}>
+                                    {data.name.charAt(0)}
+                                    {data.surname.charAt(0)}
+                                </div>
+                            ))
+                        )
+                    }
                 </div>
             </header>
+            {
+                React.Children.toArray(
+                    newUser.map((data) => (
+                        <p key={data.id} style={{ fontSize: '1.4rem', color: 'rgba(247, 240, 240)', fontWeight: '700' }}>
+                            Hi {data.name}
+                        </p>
+                    ))
+                )
+            }
             <article className='mainContent'>
                 <div className="imgWrapper imgGym">
                     <p>Gym</p>
@@ -30,7 +104,11 @@ const UsersPage = () => {
                 </div>
             </article>
         </section>
+
     )
 }
 
 export default UsersPage
+
+
+

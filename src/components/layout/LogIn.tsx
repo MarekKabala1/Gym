@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { IoMdClose } from 'react-icons/io';
 import { Link } from "react-router-dom";
@@ -16,9 +16,24 @@ const LogIn = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
     let navigate = useNavigate();
+    // const { uid } = useParams();
 
-    const handelLogIn = (e: { preventDefault: () => void; }) => {
+
+    const handelLogIn = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        ).then((userCred) => {
+            const user = userCred.user;
+            navigate(`/userpage/${user.uid}`)
+            // return user
+        }).catch((error: { message: SetStateAction<string>; }) => {
+            return setError(error.message)
+        });
+        setEmail('')
+        setPassword('')
     }
 
     return (

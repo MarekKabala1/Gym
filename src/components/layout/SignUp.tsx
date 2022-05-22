@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 //google firebase-firestore
 import { db, auth } from '../../firebseConfig/fireaseConfig'
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 
@@ -20,6 +20,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [repetPassword, setRepetPassword] = useState('');
     const [error, setError] = useState('')
+
     let navigate = useNavigate();
 
     //Vaalidate a password
@@ -48,24 +49,29 @@ const SignUp = () => {
         if (validatePassword()) {
             const signUp = async (email: string, password: string) => {
                 try {
-                    const userCredential = await createUserWithEmailAndPassword(
+                    const userCred = await createUserWithEmailAndPassword(
                         auth,
                         email,
                         password
                     )
-                    const user = userCredential.user;
+                    const user = userCred.user;
                     updateProfile(user, {
-                        displayName: firstName + surname
+                        displayName: `${firstName} ${surname}`
                     })
-                    await addDoc(collection(db, "users"), {
+                    const id = user.uid
+                    const newUser = doc(collection(db, "users"), id)
+                    await setDoc(newUser, {
                         uid: user.uid,
                         email: user.email,
                         name: firstName,
                         surname: surname,
-                        created: new Date()
-                    });
-                    navigate('/userpage')
-                    console.log(user)
+                        created: new Date(),
+                        weekRutines: ''
+                    })
+                    // console.log(user, newUser)
+                    navigate(`/userpage/${user.uid}`)
+                    // console.log(newUser);
+                    // return user
                 } catch (error: any) {
                     return setError(error.message)
                 };
@@ -79,7 +85,7 @@ const SignUp = () => {
         setRepetPassword('')
         setTimeout(() => {
             setError('')
-        }, 2000)
+        }, 20000)
 
     }
 
@@ -89,7 +95,9 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Create Your Account</h2>
-                    {error && <Alert sx={{ maxWidth: '70%' }} severity="error">{error}</Alert>}
+                    {
+                        error && <Alert sx={{ maxWidth: '70%' }} severity="error">{error}</Alert>
+                    }
                     <input className="textField"
                         name="name"
                         placeholder=' Name'
