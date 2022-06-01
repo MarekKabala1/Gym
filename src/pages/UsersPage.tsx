@@ -1,23 +1,35 @@
+import React, { useContext } from 'react';
 //components
 import SvgLogo2 from '../components/LogoSvg'
 import MainButton from '../components/ButtonMain';
 //firestore irebase
 import { auth, db } from '../firebseConfig/fireaseConfig'
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut, onAuthStateChanged, deleteUser, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore"
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import React from 'react';
+import { useAuth } from '../firebseConfig/AuthContext';
+
 
 
 
 const UsersPage = () => {
     let navigate = useNavigate();
-    const [authed, setAuthed] = useState(false);
+    const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
+    const [error, setError] = useState<any>('')
+    const currentUser = useAuth()
 
-
-
+    const logOut = async () => {
+        await signOut(auth)
+            .then((authed) => {
+                setAuthed(false)
+                return authed
+            })
+            .catch(() => {
+                return setError(error.message)
+            });
+    }
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -44,36 +56,39 @@ const UsersPage = () => {
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
-                    console.log(newUser);
+                    console.log(newUser, user, data);
 
-                    return newUser
+                    return { newUser, user }
                 }
                 fetchData()
-
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
+    // const deleteCurrentUser = (user: User) => {
+    //     // const user = currentUser
+    //     deleteUser(user).then(() => {
+    //         // User deleted.
+    //         navigate('/')
+    //     }).catch((error: any) => {
+    //         setError(error.message)
+    //     });
+    //     console.log('delete')
+
+    // };
 
 
 
-    const logOut = async () => {
-        await signOut(auth)
-            .then((authed) => {
-                setAuthed(false)
-                return authed
-            })
-            .catch(Error)
-    }
 
     return (
         <section className='conteiner'>
             <header className='headerWrapper'>
                 <SvgLogo2 />
                 <div className="flexGapWrapper">
-                    <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut}></MainButton>
+                    <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
+                    {/* <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser}></MainButton> */}
                     {
                         React.Children.toArray(
                             newUser.map((data) => (
@@ -109,6 +124,8 @@ const UsersPage = () => {
 }
 
 export default UsersPage
+
+
 
 
 

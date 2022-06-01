@@ -16,8 +16,8 @@ const HomePage = () => {
             <header className='nav'>
                 <LogoSvg />
                 <div className='buttonWraper' style={{ display: 'flex', gap: '2rem' }}>
-                    <MainButton color={'lightgreen'} onClick={onClick2}></MainButton>
-                    <MainButton onClick={onClick} text={"Log In"}></MainButton>
+                    <MainButton color={'lightgreen'} onClick={onClick2} type={""}></MainButton>
+                    <MainButton onClick={onClick} text={"Log In"} type={""}></MainButton>
                 </div>
             </header>
             <section className='heroConteiner'>

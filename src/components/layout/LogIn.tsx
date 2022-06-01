@@ -9,18 +9,21 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 // import { collection } from 'firebase/firestore';
 //styled
 import Alert from '@mui/material/Alert';
+import MainButton from '../ButtonMain'
 
 
 const LogIn = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('')
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
     let navigate = useNavigate();
     // const { uid } = useParams();
 
 
     const handelLogIn = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        setLoading(true)
         await signInWithEmailAndPassword(
             auth,
             email,
@@ -34,6 +37,7 @@ const LogIn = () => {
         });
         setEmail('')
         setPassword('')
+        setLoading(false)
     }
 
     return (
@@ -59,7 +63,7 @@ const LogIn = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button className='register' type="submit">Log In</button>
+                    <button disabled={loading} className='register' type="submit">Log In</button>
                     <p>or</p>
                     <div className="divGoogleButton">
                         <FcGoogle />
@@ -67,7 +71,7 @@ const LogIn = () => {
                     </div>
                     <p>If you don`t have a account <Link to='/register'><span>Sign Up</span></Link></p>
                 </form>
-                <p><Link to='/newpassword'><span>Forgot Password</span></Link></p>
+                <p><Link to='/resetpassword'><span>Forgot Password</span></Link></p>
             </div>
         </div>
     )

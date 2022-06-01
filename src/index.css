@@ -25,16 +25,16 @@ body {
 /* loggo spin */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
 }
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotateY(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotateY(360deg);
   }
 }
 /* wrapper for whole page */
@@ -92,8 +92,8 @@ body {
   font-size:22px;
 }
 
-/* Sign up log in form */
-.signUp{
+/* Sign up log in form reset password */
+.signUp,.resetPassword{
   background-color:var(--clr_primary);
   padding: 2rem 0;
   display: flex;
@@ -102,6 +102,9 @@ body {
   justify-content: center;
   max-height:100vh;
   min-width:100vw;
+}
+.resetPassword>.form_wrapper{
+  padding: 1rem 1rem;
 }
 form,.form_wrapper{
   background-color: var(--clr_text_ligt);
@@ -126,6 +129,7 @@ form,.form_wrapper{
   right:1rem;
   top:1rem;
   cursor:pointer;
+  z-index: 100;
 }
 input{
   width:80%;
