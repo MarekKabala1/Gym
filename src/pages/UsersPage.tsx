@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+//react, react-router
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //components
 import SvgLogo2 from '../components/LogoSvg'
-import MainButton from '../components/ButtonMain';
+import MainButton from '../components/ButtonMain'
+
 //firestore irebase
 import { auth, db } from '../firebseConfig/fireaseConfig'
-import { signOut, onAuthStateChanged, deleteUser, User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../firebseConfig/AuthContext';
+import { signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
+import { doc, getDoc, deleteDoc } from "firebase/firestore"
 
 
 
@@ -18,7 +19,6 @@ const UsersPage = () => {
     const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
-    const currentUser = useAuth()
 
     const logOut = async () => {
         await signOut(auth)
@@ -56,7 +56,7 @@ const UsersPage = () => {
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
-                    console.log(newUser, user, data);
+                    console.log(data);
 
                     return { newUser, user }
                 }
@@ -66,21 +66,26 @@ const UsersPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const deleteCurrentUser = () => {
+        const user = auth.currentUser;
 
-    // const deleteCurrentUser = (user: User) => {
-    //     // const user = currentUser
-    //     deleteUser(user).then(() => {
-    //         // User deleted.
-    //         navigate('/')
-    //     }).catch((error: any) => {
-    //         setError(error.message)
-    //     });
-    //     console.log('delete')
+        if (user) {
+            // const user = currentUser
+            deleteUser(user).then(() => {
+                // User deleted.
+                navigate('/')
+            }).catch((error: any) => {
+                setError(error.message)
+            });
+            // const ref = doc(collection(db, 'users'), `${user.uid}`)
+            deleteDoc(doc(db, "users", `${user.uid}`));
+            console.log('delete')
 
-    // };
-
-
-
+        } else {
+            setError(error.message)
+            console.log(error.message)
+        }
+    };
 
     return (
         <section className='conteiner'>
@@ -88,7 +93,7 @@ const UsersPage = () => {
                 <SvgLogo2 />
                 <div className="flexGapWrapper">
                     <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
-                    {/* <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser}></MainButton> */}
+                    <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser} type={''}></MainButton>
                     {
                         React.Children.toArray(
                             newUser.map((data) => (

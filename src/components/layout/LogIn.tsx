@@ -9,7 +9,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 // import { collection } from 'firebase/firestore';
 //styled
 import Alert from '@mui/material/Alert';
-import MainButton from '../ButtonMain'
 
 
 const LogIn = () => {

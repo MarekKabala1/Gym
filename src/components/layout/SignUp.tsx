@@ -8,7 +8,7 @@ import Alert from '@mui/material/Alert';
 //google firebase-firestore
 import { db, auth } from '../../firebseConfig/fireaseConfig'
 import { collection, doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth'
 import { useAuth } from '../../firebseConfig/AuthContext';
 
 
@@ -18,7 +18,7 @@ import { useAuth } from '../../firebseConfig/AuthContext';
 const SignUp = () => {
     const [firstName, setfirstName] = useState<string>('');
     const [surname, setSurname] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
+    const [email, setEmail] = useState<any>('');
     const [password, setPassword] = useState<string>('');
     const [repetPassword, setRepetPassword] = useState<string>('');
     const [error, setError] = useState<string>('')
@@ -42,33 +42,32 @@ const SignUp = () => {
         }
         try {
             setError('')
-            signUp = async (setEmail: string, setPassword: string) => {
-                setLoading(true)
-                const userCred = await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                )
-                const user = userCred.user;
-                updateProfile(user, {
-                    displayName: `${firstName} ${surname}`
-                })
-                const id = user.uid
-                const newUser = doc(collection(db, "users"), id)
-                await setDoc(newUser, {
-                    uid: user.uid,
-                    email: user.email,
-                    name: firstName,
-                    surname: surname,
-                    created: new Date(),
-                    weekRutines: ''
-                })
+            setLoading(true)
+            const userCred = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
+            const user = (userCred).user;
+            updateProfile(user, {
+                displayName: `${firstName} ${surname}`
+            })
+            const id = user.uid
+            const newUser = doc(collection(db, "users"), id)
+            await setDoc(newUser, {
+                uid: user.uid,
+                email: user.email,
+                name: firstName,
+                surname: surname,
+                created: new Date(),
+                weekRutines: ''
+            })
 
-                // console.log(user, newUser)
-                navigate(`/userpage/${user.uid}`)
-                // console.log(newUser);
-                // return user
-            }
+            // console.log(user, newUser)
+            navigate(`/userpage/${user.uid}`)
+            // console.log(newUser);
+            // return user
+
         } catch {
             setError(error)
         }

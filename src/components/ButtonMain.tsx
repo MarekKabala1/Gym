@@ -12,7 +12,7 @@ type ButtonProp = {
     text: string,
     color: string,
     type: string,
-    onClick: () => void;
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 
