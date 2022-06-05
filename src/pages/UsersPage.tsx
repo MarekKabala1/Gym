@@ -17,17 +17,6 @@ const UsersPage = () => {
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
 
-    const logOut = async () => {
-        await signOut(auth)
-            .then((authed) => {
-                setAuthed(false)
-                return authed
-            })
-            .catch(() => {
-                return setError(error.message)
-            });
-    }
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (!user) {
@@ -51,6 +40,21 @@ const UsersPage = () => {
         unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const logOut = () => {
+        signOut(auth)
+            .then((authed) => {
+                navigate('/')
+                setAuthed(false)
+                console.log('click')
+                return authed
+
+            })
+            .catch(() => {
+                console.log('somthing wrong')
+                return setError(error.message)
+            });
+    }
 
     const deleteCurrentUser = () => {
         const user = auth.currentUser;
