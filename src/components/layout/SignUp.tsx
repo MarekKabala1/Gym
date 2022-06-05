@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc'
 import { IoMdClose } from 'react-icons/io';
@@ -8,12 +7,7 @@ import Alert from '@mui/material/Alert';
 //google firebase-firestore
 import { db, auth } from '../../firebseConfig/fireaseConfig'
 import { collection, doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth'
-import { useAuth } from '../../firebseConfig/AuthContext';
-
-
-
-
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 const SignUp = () => {
     const [firstName, setfirstName] = useState<string>('');
@@ -25,8 +19,6 @@ const SignUp = () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     let navigate = useNavigate();
-    let signUp = useAuth()
-
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -43,6 +35,7 @@ const SignUp = () => {
         try {
             setError('')
             setLoading(true)
+
             const userCred = await createUserWithEmailAndPassword(
                 auth,
                 email,
@@ -62,17 +55,13 @@ const SignUp = () => {
                 created: new Date(),
                 weekRutines: ''
             })
-
             // console.log(user, newUser)
             navigate(`/userpage/${user.uid}`)
             // console.log(newUser);
-            // return user
-
+            return user
         } catch {
             setError(error)
         }
-
-
         setLoading(false)
         setfirstName('')
         setSurname('')
@@ -82,7 +71,6 @@ const SignUp = () => {
         setTimeout(() => {
             setError('')
         }, 6000)
-
     }
 
     return (
