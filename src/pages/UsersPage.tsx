@@ -5,13 +5,10 @@ import { useNavigate } from 'react-router-dom';
 //components
 import SvgLogo2 from '../components/LogoSvg'
 import MainButton from '../components/ButtonMain'
-
 //firestore irebase
 import { auth, db } from '../firebseConfig/fireaseConfig'
 import { signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore"
-
-
 
 
 const UsersPage = () => {
@@ -32,23 +29,12 @@ const UsersPage = () => {
     }
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (!user) {
-                // const students: DocumentData[] = []
-                // const querySnapshot = await getDocs(collection(db, "users"));
-                // querySnapshot.forEach((doc: { data: () => any; }) => {
-                //     const data = doc.data()
-                //     students.push(data)
-                //     // doc.data() is never undefined for query doc snapshots
-                //     console.log(students)
-                // });
                 setAuthed(false)
                 navigate('/')
                 console.log(authed, 'logged out')
                 return authed
-                // const uid = user.uid
-                // console.log(authed, uid);
-
             } else {
                 setAuthed(true)
                 const fetchData = async () => {
@@ -57,12 +43,12 @@ const UsersPage = () => {
                     const data: any = Snap.data()
                     setNewUser(() => [data])
                     console.log(data);
-
                     return { newUser, user }
                 }
                 fetchData()
             }
         });
+        unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -70,47 +56,48 @@ const UsersPage = () => {
         const user = auth.currentUser;
 
         if (user) {
-            // const user = currentUser
             deleteUser(user).then(() => {
-                // User deleted.
+                // auth User deleted.
                 navigate('/')
             }).catch((error: any) => {
-                setError(error.message)
+                return setError(error.message)
             });
-            // const ref = doc(collection(db, 'users'), `${user.uid}`)
+            //cloud firestore user deleted
             deleteDoc(doc(db, "users", `${user.uid}`));
             console.log('delete')
-
         } else {
-            setError(error.message)
             console.log(error.message)
+            return setError(error.message)
         }
     };
 
     return (
         <section className='conteiner'>
             <header className='headerWrapper'>
-                <SvgLogo2 />
+                {
+                    React.Children.toArray(
+                        newUser.map((data) => (
+                            <div className='avatar' key={data.id}>
+                                {data.name.charAt(0)}
+                                {data.surname.charAt(0)}
+                            </div>
+                        ))
+                    )
+                }
                 <div className="flexGapWrapper">
                     <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
                     <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser} type={''}></MainButton>
-                    {
-                        React.Children.toArray(
-                            newUser.map((data) => (
-                                <div className='avatar' key={data.id}>
-                                    {data.name.charAt(0)}
-                                    {data.surname.charAt(0)}
-                                </div>
-                            ))
-                        )
-                    }
                 </div>
             </header>
+            <div className='svgWrapper'>
+                <SvgLogo2 />
+            </div>
+
             {
                 React.Children.toArray(
                     newUser.map((data) => (
                         <p key={data.id} style={{ fontSize: '1.4rem', color: 'rgba(247, 240, 240)', fontWeight: '700' }}>
-                            Hi {data.name}
+                            Hi <span className='userPageName'>{data.name.toUpperCase()}</span><br /> have a lovely day
                         </p>
                     ))
                 )
