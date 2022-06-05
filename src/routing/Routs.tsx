@@ -10,12 +10,14 @@ import SignUp from "../components/layout/SignUp";
 import LogIn from "../components/layout/LogIn";
 import UsersPage from "../pages/UsersPage";
 import ResetPassword from "../components/layout/ResetPassword";
+import PageNotFound from "../pages/PageNotFound";
 
 const Routs = () => {
     return (
         <>
             <Router>
                 <Routes>
+                    <Route path="*" element={<PageNotFound />} />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/register" element={<SignUp />} />
                     <Route path="/login" element={<LogIn />} />

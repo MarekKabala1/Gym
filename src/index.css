@@ -22,6 +22,14 @@ body {
   background-color: var(--clr_primary);
   min-height: 100vh;
 }
+.flex{
+  display: flex;
+  flex-direction: column;
+}
+.center{
+  justify-content: center;
+  align-items: center;
+}
 
 /* loggo spin */
 @media (prefers-reduced-motion: no-preference) {
@@ -43,6 +51,24 @@ body {
   text-align: center;
   background-color: var(--clr_primary);
   min-height: 100vh;
+}
+/* 404 page */
+.npageNotFound_wrapper{
+  background-color: var(--clr_primary);
+  height: 100vh;
+}
+.pageNotFound{
+  color: var(--clr_text_ligt);
+  padding-bottom: 2rem;
+}
+.pageNotFound_number{
+  font-size: 6rem;
+  font-weight: 900;
+  border: none;
+}
+.pageNotFound_link{
+  text-decoration: none;
+  color: var(--clr_button_secendary);
 }
 /* Header */
 .App-logo {
