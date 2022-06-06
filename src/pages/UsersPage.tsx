@@ -76,19 +76,19 @@ const UsersPage = () => {
     };
 
     return (
-        <section className='conteiner'>
-            <header className='headerWrapper'>
+        <section className='conteiner flex-column'>
+            <header className='headerWrapper flex'>
                 {
                     React.Children.toArray(
                         newUser.map((data) => (
-                            <div className='avatar' key={data.id}>
+                            <div className='avatar flex center' key={data.id}>
                                 {data.name.charAt(0)}
                                 {data.surname.charAt(0)}
                             </div>
                         ))
                     )
                 }
-                <div className="flexGapWrapper">
+                <div className="userPage-flex_gap flex">
                     <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
                     <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser} type={''}></MainButton>
                 </div>
@@ -106,11 +106,11 @@ const UsersPage = () => {
                     ))
                 )
             }
-            <article className='mainContent'>
-                <div className="imgWrapper imgGym">
+            <article className='mainContent flex-column center'>
+                <div className="imgWrapper imgGym flex center">
                     <p>Gym</p>
                 </div>
-                <div className="imgWrapper imgNutri">
+                <div className="imgWrapper imgNutri flex center">
                     <p>Nutrition</p>
                 </div>
             </article>

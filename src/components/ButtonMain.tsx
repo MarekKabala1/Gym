@@ -1,7 +1,7 @@
 const MainButton = ({ color, text, onClick, type }: ButtonProp) => {
 
     return (
-        <button type={'button'} className="btn" onClick={onClick} style={{ backgroundColor: color }}>{text}</button>
+        <button type={'button'} className="btn center" onClick={onClick} style={{ backgroundColor: color }}>{text}</button>
     )
 }
 MainButton.defaultProps = {

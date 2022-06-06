@@ -33,7 +33,7 @@ const ResetPassword = () => {
 
 
     return (
-        <div className="resetPassword">
+        <div className="resetPassword flex-column center">
             <div className="form_wrapper">
                 <Link to="/"><IoMdClose className="close" /></Link>
                 <form>

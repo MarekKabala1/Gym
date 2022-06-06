@@ -74,7 +74,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signUp">
+        <div className="signUp flex-column center">
             <div className="form_wrapper">
                 <form onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
