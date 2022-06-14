@@ -7,6 +7,7 @@ function App() {
     <AuthProvider>
       <Routs />
     </AuthProvider>
+
   );
 }
 

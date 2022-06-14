@@ -36,7 +36,7 @@ const ResetPassword = () => {
         <div className="resetPassword flex-column center">
             <div className="form_wrapper">
                 <Link to="/"><IoMdClose className="close" /></Link>
-                <form>
+                <form className="flex-column f-space-a">
                     {success && <Alert severity="success">Reset Email Send Go to yor Inbox</Alert>}
                     {error && <Alert severity="error">{error}</Alert>}
                     <h2>Reset Password</h2>
@@ -48,8 +48,9 @@ const ResetPassword = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    <MainButton onClick={send} text={"send"} type={""}></MainButton>
                 </form>
-                <MainButton onClick={send} text={"send"} type={""}></MainButton>
+
             </div>
         </div>
     )

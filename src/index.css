@@ -33,6 +33,18 @@ body {
   justify-content: center;
   align-items: center;
 }
+.f-space-b{
+  justify-content: space-between;
+  align-items: center;
+}
+.f-space-a{
+  justify-content: space-around;
+  align-items: center;
+}
+.f-start{
+  justify-content: flex-start;
+  align-items: center;
+}
 
 /* loggo spin */
 @media (prefers-reduced-motion: no-preference) {
@@ -130,10 +142,6 @@ form,.form_wrapper{
   position:relative;
   border-radius: 5px;
   padding:.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
   max-width:400px;
   min-width: 300px;
 }
@@ -207,10 +215,6 @@ span{
   min-height:100vh;
   max-height:100vh;
 }
-.headerWrapper{
-  justify-content:space-between;
-  align-items: center;
-}
 .userPage-flex_gap{
   gap:1.2rem;
 }
@@ -257,4 +261,12 @@ span{
   font-size:1.5rem;
   color:var(--clr_primary);
   font-weight:bold;
+}
+.bottomMenu_wrapper{
+  padding:0 1rem 1rem 1rem;
+}
+.bottomMenu_wrapper svg{
+   height:2.2rem;
+   width:2.2rem;
+   fill:var(--clr_button_secendary)
 }

@@ -1,7 +1,7 @@
 //react, react-router
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //components
 import SvgLogo2 from '../components/LogoSvg'
 import MainButton from '../components/ButtonMain'
@@ -9,6 +9,7 @@ import MainButton from '../components/ButtonMain'
 import { auth, db } from '../firebseConfig/fireaseConfig'
 import { signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore"
+import { useAuth } from '../firebseConfig/AuthContext';
 
 
 const UsersPage = () => {
@@ -16,6 +17,7 @@ const UsersPage = () => {
     const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
+    const currentUser = useAuth()
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -77,7 +79,7 @@ const UsersPage = () => {
 
     return (
         <section className='conteiner flex-column'>
-            <header className='headerWrapper flex'>
+            <header className='headerWrapper flex f-space-b'>
                 {
                     React.Children.toArray(
                         newUser.map((data) => (
@@ -106,15 +108,17 @@ const UsersPage = () => {
                     ))
                 )
             }
-            <article className='mainContent flex-column center'>
-                <div className="imgWrapper imgGym flex center">
+            <article className='mainContent flex-column '>
+                <Link to="/gym"><div className="imgWrapper imgGym flex center">
                     <p>Gym</p>
                 </div>
+                </Link>
                 <div className="imgWrapper imgNutri flex center">
                     <p>Nutrition</p>
                 </div>
             </article>
         </section>
+
 
     )
 }

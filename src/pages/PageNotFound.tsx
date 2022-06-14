@@ -9,7 +9,7 @@ const PageNotFound = () => {
                 <span className="pageNotFound_number">404</span><br />
                 Page not found!!!
             </h1>
-            <Link to="/" className="pageNotFound_link">Redirect to homepage</Link>
+            <Link to="" className="pageNotFound_link">Redirect to homepage</Link>
         </div>
     )
 }
