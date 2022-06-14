@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 //google firebase-firestore
-import { db, auth } from '../../firebseConfig/fireaseConfig'
+import { db } from '../../firebseConfig/fireaseConfig'
 import { collection, doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { updateProfile } from 'firebase/auth'
+import { useAuth } from '../../firebseConfig/AuthContext';
+
 
 const SignUp = () => {
     const [firstName, setfirstName] = useState<string>('');
@@ -19,6 +21,7 @@ const SignUp = () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     let navigate = useNavigate();
+    const signUp = useAuth()
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -36,11 +39,12 @@ const SignUp = () => {
             setError('')
             setLoading(true)
 
-            const userCred = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            )
+            // const userCred = await createUserWithEmailAndPassword(
+            //     auth,
+            //     email,
+            //     password)
+            const userCred = await signUp(email, password)
+
             const user = (userCred).user;
             updateProfile(user, {
                 displayName: `${firstName} ${surname}`
@@ -75,8 +79,8 @@ const SignUp = () => {
 
     return (
         <div className="signUp flex-column center">
-            <div className="form_wrapper">
-                <form onSubmit={handleSubmit}>
+            <div className="form_wrapper flex-column f-space-a">
+                <form className="flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Create Your Account</h2>
                     {
@@ -135,5 +139,3 @@ const SignUp = () => {
     )
 };
 export default SignUp
-
-
