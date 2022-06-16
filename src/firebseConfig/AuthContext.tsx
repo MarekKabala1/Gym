@@ -2,13 +2,6 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/aut
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from './fireaseConfig'
 
-
-// type Ifunction = [
-//     currentUser:boolean,
-//     signUp:()=>void,
-//     email:string,
-//     password:string,
-// ]
 const AuthContext = createContext<any>(undefined!)
 const useAuth = () => {
     return useContext(AuthContext)
@@ -26,7 +19,6 @@ export function AuthProvider({ children }: PropChildren) {
 
         )
     }
-
     useEffect(() => {
         onAuthStateChanged(auth, (user) => setCurrentUser(user))
     }, [])
@@ -35,7 +27,6 @@ export function AuthProvider({ children }: PropChildren) {
         currentUser,
         signUp
     }
-
 
     return (
         <AuthContext.Provider value={value} >
