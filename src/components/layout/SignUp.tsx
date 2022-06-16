@@ -14,17 +14,18 @@ import { useAuth } from '../../firebseConfig/AuthContext';
 const SignUp = () => {
     const [firstName, setfirstName] = useState<string>('');
     const [surname, setSurname] = useState<string>('');
-    const [email, setEmail] = useState<any>('');
+    const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repetPassword, setRepetPassword] = useState<string>('');
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
     let navigate = useNavigate();
-    const signUp = useAuth()
+    const { signUp } = useAuth()
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        console.log(signUp)
 
         if (password !== '' && repetPassword !== '') {
             if (password !== repetPassword) {
@@ -34,15 +35,9 @@ const SignUp = () => {
                 console.log('Pasword not long')
                 return setError('Password not long enough')
             }
-        }
-        try {
+        } try {
             setError('')
             setLoading(true)
-
-            // const userCred = await createUserWithEmailAndPassword(
-            //     auth,
-            //     email,
-            //     password)
             const userCred = await signUp(email, password)
 
             const user = (userCred).user;

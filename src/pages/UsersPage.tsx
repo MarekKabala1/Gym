@@ -17,7 +17,7 @@ const UsersPage = () => {
     const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
-    const currentUser = useAuth()
+    const { currentUser } = useAuth()
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -59,9 +59,9 @@ const UsersPage = () => {
     }
 
     const deleteCurrentUser = () => {
-        const user = auth.currentUser;
+        const user = currentUser;
 
-        if (user) {
+        if (currentUser) {
             deleteUser(user).then(() => {
                 // auth User deleted.
                 navigate('/')
