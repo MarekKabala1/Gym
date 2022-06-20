@@ -3,22 +3,28 @@ import {
     IoEllipseSharp,
     IoEllipsisVerticalSharp
 } from 'react-icons/io5';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../firebseConfig/AuthContext';
+
 
 const BottomMenu = () => {
+    const navigate = useNavigate()
+    const { currentUser } = useAuth()
+
+    const navigateBack = () => {
+        navigate(-1)
+    }
+    const navigateUserPage = () => {
+        const user = currentUser
+        navigate(`/userpage/${user.uid}`)
+    }
     return (
-        <Wrapper className="bottomMenu_wrapper flex f-space-b">
-            <div className="bottomMenu_arrow"><IoArrowUndoSharp /></div>
-            <div className="bottomMenu_middle-button"><IoEllipseSharp /></div>
-            <div className="bottomMenu_menu"><IoEllipsisVerticalSharp /></div>
-        </Wrapper>
+        <div className="bottomMenu_wrapper flex f-space-b">
+            <div className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoArrowUndoSharp /></div>
+            <div className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp /></div>
+            <div className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></div>
+        </div>
     )
 }
-const Wrapper = styled.div`
-
-    svg{
-
-    }
-`
 
 export default BottomMenu

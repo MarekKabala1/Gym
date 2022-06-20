@@ -12,6 +12,7 @@ import UsersPage from "../pages/UsersPage";
 import ResetPassword from "../components/layout/ResetPassword";
 import PageNotFound from "../pages/PageNotFound";
 import GymPage from "../pages/GymPage";
+import Loading from "../pages/Loading";
 
 const Routs = () => {
 
@@ -22,6 +23,7 @@ const Routs = () => {
                     {/* public routs */}
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="" element={<HomePage />} />
+                    <Route path="loading" element={<Loading />} />
                     <Route path="register" element={<SignUp />} />
                     <Route path="login" element={<LogIn />} />
                     <Route path="resetpassword" element={<ResetPassword />} />

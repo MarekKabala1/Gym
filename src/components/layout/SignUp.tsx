@@ -9,6 +9,7 @@ import { db } from '../../firebseConfig/fireaseConfig'
 import { collection, doc, setDoc } from "firebase/firestore";
 import { updateProfile } from 'firebase/auth'
 import { useAuth } from '../../firebseConfig/AuthContext';
+import Loading from '../../pages/Loading';
 
 
 const SignUp = () => {
@@ -25,7 +26,6 @@ const SignUp = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        console.log(signUp)
 
         if (password !== '' && repetPassword !== '') {
             if (password !== repetPassword) {
@@ -73,7 +73,8 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signUp flex-column center">
+
+        <Loading /> && <div className="signUp flex-column center">
             <div className="form_wrapper flex-column f-space-a">
                 <form className="flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
@@ -131,6 +132,7 @@ const SignUp = () => {
                 <p>If you have a account <Link to='/login'><span>Log In</span></Link> </p>
             </div>
         </div>
+
     )
 };
 export default SignUp

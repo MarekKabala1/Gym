@@ -11,7 +11,6 @@ import { signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore"
 import { useAuth } from '../firebseConfig/AuthContext';
 
-
 const UsersPage = () => {
     let navigate = useNavigate();
     const [authed, setAuthed] = useState<boolean>(false);

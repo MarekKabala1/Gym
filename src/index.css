@@ -22,6 +22,9 @@ body {
   background-color: var(--clr_primary);
   min-height: 100vh;
 }
+a{
+  text-decoration: none;
+}
 .flex{
   display: flex;
 }
@@ -262,10 +265,20 @@ span{
   color:var(--clr_primary);
   font-weight:bold;
 }
-.bottomMenu_wrapper{
-  padding:0 1rem 1rem 1rem;
+/* gym page */
+.gym-section{
+  color: var(--clr_text_ligt);
+  padding:1rem;
 }
-.bottomMenu_wrapper svg{
+.gym-section h1{
+    letter-spacing: .6rem;
+}
+.bottomMenu{
+  border:none;
+  cursor: pointer;
+}
+.bottomMenu_wrapper svg,
+.gym-sectionWrapper svg{
    height:2.2rem;
    width:2.2rem;
    fill:var(--clr_button_secendary)
