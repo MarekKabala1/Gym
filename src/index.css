@@ -266,20 +266,37 @@ span{
   font-weight:bold;
 }
 /* gym page */
-.gym-section{
+.gymPage-section{
   color: var(--clr_text_ligt);
   padding:1rem;
 }
-.gym-section h1{
+.gymPage_heading{
     letter-spacing: .6rem;
+    margin-bottom: 1rem;
 }
 .bottomMenu{
   border:none;
   cursor: pointer;
 }
-.bottomMenu_wrapper svg,
-.gym-sectionWrapper svg{
+.bottomMenu_wrapper svg{
    height:2.2rem;
    width:2.2rem;
    fill:var(--clr_button_secendary)
+}
+.gymPage_add{
+  gap: 1.5rem;
+  padding:.3rem 2rem .3rem 2rem;
+  border:1px solid var(--clr_text_ligt);
+  border-radius: 10px;
+  width:fit-content;
+  cursor: pointer;
+}
+.gymPage_add span{
+  border:none;
+}
+.gymPage_add svg{
+  fill:var(--clr_text_ligt);
+  height:2.2rem;
+  width:2.2rem;
+  cursor: pointer;
 }
