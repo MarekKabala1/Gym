@@ -269,6 +269,7 @@ span{
 .gymPage-section{
   color: var(--clr_text_ligt);
   padding:1rem;
+  gap: 1rem;
 }
 .gymPage_heading{
     letter-spacing: .6rem;
@@ -299,4 +300,10 @@ span{
   height:2.2rem;
   width:2.2rem;
   cursor: pointer;
+}
+.gymPage_workout{
+  width: 13rem;
+  height: 5rem;
+  border:1px solid var(--clr_text_ligt);
+  border-radius: 10px;
 }
