@@ -265,6 +265,22 @@ span{
   color:var(--clr_primary);
   font-weight:bold;
 }
+/* bottom menu */
+.bottomMenu{
+  border:none;
+  cursor: pointer;
+}
+.bottomMenu_wrapper svg{
+   height:2.2rem;
+   width:2.2rem;
+   fill:var(--clr_button_secendary)
+}
+.bottomMenu_wrapper{
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+}
 /* gym page */
 .gymPage-section{
   color: var(--clr_text_ligt);
@@ -274,15 +290,6 @@ span{
 .gymPage_heading{
     letter-spacing: .6rem;
     margin-bottom: 1rem;
-}
-.bottomMenu{
-  border:none;
-  cursor: pointer;
-}
-.bottomMenu_wrapper svg{
-   height:2.2rem;
-   width:2.2rem;
-   fill:var(--clr_button_secendary)
 }
 .gymPage_add{
   gap: 1.5rem;
@@ -303,7 +310,7 @@ span{
 }
 .gymPage_workout{
   width: 13rem;
-  height: 5rem;
+  height: 2rem;
   border:1px solid var(--clr_text_ligt);
   border-radius: 10px;
 }
