@@ -1,47 +1,64 @@
+//React react router react hooks
 import { useEffect, useState } from "react";
-import BottomMenu from "../components/BottomMenu";
-import { useAuth } from "../firebseConfig/AuthContext"
+import { Outlet, useNavigate } from "react-router-dom";
 import { IoIosAddCircleOutline } from "react-icons/io"
+//Components
+import BottomMenu from "../components/BottomMenu";
+import WorkOutList from "../components/WorkoutList";
+//Firebase Firestore and config
+import { useAuth } from "../firebseConfig/AuthContext"
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth, db } from "../firebseConfig/fireaseConfig";
+import {
+    doc,
+    onSnapshot,
+    setDoc,
+} from "firebase/firestore";
+
 
 const GymPage = () => {
+    let navigate = useNavigate();
     const currentUser = useAuth()
-    const [workOutDiv, setWorkOutDiv] = useState<any>([])
-    const [typeOfWorkout, setTypeOfWorkout] = useState<string>()
-    useEffect(() => {
-        if (currentUser) {
+    const [inputDiv, setInputDiv] = useState<any>()
 
-        }
-    }, [currentUser])
-
-
-    const newDiv = () => {
-        return (
-            <form className="form_wrapper flex-column center" style={{ paddingTop: '1rem' }} onSubmit={submitTypeOfWorkout}>
-                <input
-                    className="gymPage_workout"
-                    placeholder="Workout type"
-                    type="text"
-                    required
-                    value={typeOfWorkout}
-                    onChange={(e) => setTypeOfWorkout(e.target.value)} />
-                <button
-                    className="btn"
-                    style={{ backgroundColor: 'lightgreen' }}
-                    type="submit">Add</button>
-            </form>
-        )
-    }
-
-    const submitTypeOfWorkout = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        console.log('1');
-        return typeOfWorkout
+    const input = () => {
+        return <WorkOutList />
     }
 
     const addWorkout = () => {
-        return setWorkOutDiv(newDiv)
+        console.log(currentUser.currentUser.displayName);
+        return setInputDiv(input)
     }
 
+    const WorkOutDiv = () => {
+        return (
+            <div>
+                <div className="flex f-space-b">
+
+                </div>
+            </div>
+        )
+    }
+
+    const currentUserData = (currentUser: User) => {
+        onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+            console.log("Current data: ", doc.data());
+        });
+    }
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                navigate('/gym')
+                // newSnapshot()
+                currentUserData(currentUser)
+                // newSnapshot()
+            } else {
+                navigate('/')
+            }
+        });
+        unsubscribe()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
@@ -50,11 +67,11 @@ const GymPage = () => {
                 <div className="gymPage-sectionWrapper flex-column center">
                     <div className="gymPage_add flex center " onClick={addWorkout}><IoIosAddCircleOutline /><span>Add Workout</span></div>
                 </div>
-                <div style={{ gap: '1rem' }} className="flex-column center">
-                    {workOutDiv}{typeOfWorkout}
+                <div className="outputDiv flex-column f-space-b">
+                    {inputDiv}
                 </div>
-
             </section>
+
             <BottomMenu />
         </>
     )

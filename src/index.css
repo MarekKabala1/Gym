@@ -25,6 +25,7 @@ body {
 a{
   text-decoration: none;
 }
+/* flex */
 .flex{
   display: flex;
 }
@@ -47,6 +48,28 @@ a{
 .f-start{
   justify-content: flex-start;
   align-items: center;
+}
+.gap{
+  gap: 1rem;
+}
+.gap-s{
+  gap: .5rem;
+}
+.gap-l{
+  gap: 1.5rem;
+}
+.gap-xl{
+  gap: 2rem;
+}
+/* margins-paddings */
+.margin-top-bottom{
+  margin: 1rem 0 1rem 0;
+}
+.padding-top-bottom{
+  padding: 1rem 0 1rem 0;
+}
+.padding-l-top-bottom{
+  padding: 1.5rem 0 1.5rem 0;
 }
 
 /* loggo spin */

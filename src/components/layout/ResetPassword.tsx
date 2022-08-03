@@ -48,7 +48,7 @@ const ResetPassword = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <MainButton onClick={send} text={"send"} type={""}></MainButton>
+                    <MainButton disabled={false} onClick={send} text={"send"} type={""}></MainButton>
                 </form>
 
             </div>

@@ -9,7 +9,7 @@ const useAuth = () => {
 
 export function AuthProvider({ children }: PropChildren) {
 
-    const [currentUser, setCurrentUser] = useState<any>(false)
+    const [currentUser, setCurrentUser] = useState<boolean | any>(false)
 
     const signUp: Function = (email: string, password: string) => {
         return createUserWithEmailAndPassword(
@@ -20,7 +20,10 @@ export function AuthProvider({ children }: PropChildren) {
         )
     }
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => setCurrentUser(user))
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            return setCurrentUser(user)
+        })
+        return unsubscribe()
     }, [])
 
     const value = {

@@ -19,8 +19,8 @@ const UsersPage = () => {
     const { currentUser } = useAuth()
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (!user) {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (!currentUser) {
                 setAuthed(false)
                 navigate('/')
                 console.log(authed, 'logged out')
@@ -28,12 +28,12 @@ const UsersPage = () => {
             } else {
                 setAuthed(true)
                 const fetchData = async () => {
-                    const Ref = doc(db, "users", `${user.uid}`);
+                    const Ref = doc(db, "users", `${currentUser.uid}`);
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
                     console.log(data);
-                    return { newUser, user }
+                    return { newUser, currentUser }
                 }
                 fetchData()
             }
@@ -60,18 +60,19 @@ const UsersPage = () => {
     const deleteCurrentUser = () => {
         const user = currentUser;
 
-        if (currentUser) {
-            deleteUser(user).then(() => {
-                // auth User deleted.
-                navigate('/')
-            }).catch((error: any) => {
-                return setError(error.message)
-            });
+        if (user) {
+            deleteUser(user)
+                .then(() => {
+                    // auth User deleted.
+                    navigate('/')
+                }).catch((error: any) => {
+                    return setError(error.message)
+                });
             //cloud firestore user deleted
             deleteDoc(doc(db, "users", `${user.uid}`));
             console.log('delete')
         } else {
-            console.log(error.message)
+            console.log(error.message, 'somthing wrong')
             return setError(error.message)
         }
     };
@@ -90,8 +91,8 @@ const UsersPage = () => {
                     )
                 }
                 <div className="userPage-flex_gap flex">
-                    <MainButton text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
-                    <MainButton text={'Delete'} color={'red'} onClick={deleteCurrentUser} type={''}></MainButton>
+                    <MainButton disabled={false} text={'Log Out'} color={'lightgreen'} onClick={logOut} type={''}></MainButton>
+                    <MainButton disabled={false} text={`Delete account`} color={'red'} onClick={deleteCurrentUser} type={''}></MainButton>
                 </div>
             </header>
             <div className='svgWrapper'>

@@ -39,6 +39,8 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             const userCred = await signUp(email, password)
+            localStorage.setItem('email', JSON.stringify(email))
+            localStorage.setItem('password', JSON.stringify(password))
 
             const user = (userCred).user;
             updateProfile(user, {
@@ -52,7 +54,7 @@ const SignUp = () => {
                 name: firstName,
                 surname: surname,
                 created: new Date(),
-                weekRutines: ''
+                weekRutines: []
             })
             // console.log(user, newUser)
             navigate(`/userpage/${user.uid}`)
