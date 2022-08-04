@@ -1,6 +1,6 @@
 //React react router react hooks
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IoIosAddCircleOutline } from "react-icons/io"
 //Components
 import BottomMenu from "../components/BottomMenu";
@@ -12,7 +12,6 @@ import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
     onSnapshot,
-    setDoc,
 } from "firebase/firestore";
 
 
@@ -28,16 +27,6 @@ const GymPage = () => {
     const addWorkout = () => {
         console.log(currentUser.currentUser.displayName);
         return setInputDiv(input)
-    }
-
-    const WorkOutDiv = () => {
-        return (
-            <div>
-                <div className="flex f-space-b">
-
-                </div>
-            </div>
-        )
     }
 
     const currentUserData = (currentUser: User) => {
