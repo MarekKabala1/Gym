@@ -12,13 +12,16 @@ import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
     onSnapshot,
+    getDoc,
 } from "firebase/firestore";
+import React from "react";
 
 
 const GymPage = () => {
     let navigate = useNavigate();
     const currentUser = useAuth()
     const [inputDiv, setInputDiv] = useState<any>()
+    const [workOutData, setWorkOutData] = useState<any>()
 
     const input = () => {
         return <WorkOutList />
@@ -31,16 +34,26 @@ const GymPage = () => {
 
     const currentUserData = (currentUser: User) => {
         onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
-            console.log("Current data: ", doc.data());
+            console.log("Current data: ", doc.data())
+
         });
     }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 navigate('/gym')
-                // newSnapshot()
                 currentUserData(currentUser)
-                // newSnapshot()
+                const fetchData = async () => {
+                    const Ref = doc(db, "users", `${currentUser.uid}`);
+                    const Snap = await getDoc(Ref);
+                    const data: any = Snap.data()
+                    setWorkOutData(() => [data])
+                    console.log(data, data.weekRutines);
+                    return { workOutData, currentUser }
+                }
+                fetchData()
+
             } else {
                 navigate('/')
             }
