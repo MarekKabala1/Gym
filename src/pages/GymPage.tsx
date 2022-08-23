@@ -28,7 +28,6 @@ const GymPage = () => {
     }
 
     const addWorkout = () => {
-        console.log(currentUser.currentUser.displayName);
         return setInputDiv(input)
     }
 
