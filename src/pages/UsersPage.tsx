@@ -7,20 +7,18 @@ import SvgLogo2 from '../components/LogoSvg'
 import MainButton from '../components/ButtonMain'
 //firestore irebase
 import { auth, db } from '../firebseConfig/fireaseConfig'
-import { signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
+import { signOut, onAuthStateChanged, deleteUser, getAuth } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore"
-import { useAuth } from '../firebseConfig/AuthContext';
 
 const UsersPage = () => {
     let navigate = useNavigate();
     const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
-    const { currentUser } = useAuth()
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (!currentUser) {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (!user) {
                 setAuthed(false)
                 navigate('/')
                 console.log(authed, 'logged out')
@@ -28,19 +26,19 @@ const UsersPage = () => {
             } else {
                 setAuthed(true)
                 const fetchData = async () => {
-                    const Ref = doc(db, "users", `${currentUser.uid}`);
+                    const Ref = doc(db, "users", `${user.uid}`);
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
-                    console.log(data);
-                    return { newUser, currentUser }
+                    // console.log(data);
+                    return { newUser, user }
                 }
                 fetchData()
             }
         });
         unsubscribe()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
+    }, [authed, navigate, newUser])
 
     const logOut = () => {
         signOut(auth)
@@ -58,8 +56,8 @@ const UsersPage = () => {
     }
 
     const deleteCurrentUser = () => {
-        const user = currentUser;
-
+        const auth = getAuth();
+        const user = auth.currentUser;
         if (user) {
             deleteUser(user)
                 .then(() => {
@@ -70,7 +68,7 @@ const UsersPage = () => {
                 });
             //cloud firestore user deleted
             deleteDoc(doc(db, "users", `${user.uid}`));
-            console.log('delete')
+            console.log('user deleted')
         } else {
             console.log(error.message, 'somthing wrong')
             return setError(error.message)
