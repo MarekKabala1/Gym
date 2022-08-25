@@ -6,27 +6,27 @@ To install React i use npx create-react-app my-app --template typescript
 
 ## Used technologies and libraries to create this App
 
-# React Js
+## React Js
 
-# Typescript
+## Typescript
 
-# Firebase/Firestore
+## Firebase/Firestore
 
-# MUI
+## MUI
 
-# React-router
+## React-router
 
-# Styled-components
+## Styled-components
 
-# emotion
+## Emotion
 
-## Learn More
+# Learn More
 
-# Link to my Github Repositorie:
+## Link to my Github Repositorie:
 
 https://github.com/MarekKabala1/Gym
 
-# Link for a live version:
+## Link for a live version:
 
 https://gym-hazel.vercel.app/userpage/BShp4ndPLYZgEX0VBcoUSBcW7R82
 
