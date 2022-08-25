@@ -30,7 +30,7 @@ const UsersPage = () => {
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
-                    // console.log(data);
+                    // console.log(data.name);
                     return { newUser, user }
                 }
                 fetchData()
@@ -38,7 +38,8 @@ const UsersPage = () => {
         });
         unsubscribe()
 
-    }, [authed, navigate, newUser])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const logOut = () => {
         signOut(auth)
@@ -69,6 +70,7 @@ const UsersPage = () => {
             //cloud firestore user deleted
             deleteDoc(doc(db, "users", `${user.uid}`));
             console.log('user deleted')
+
         } else {
             console.log(error.message, 'somthing wrong')
             return setError(error.message)

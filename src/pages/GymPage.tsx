@@ -6,8 +6,7 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 import BottomMenu from "../components/BottomMenu";
 import WorkOutList from "../components/WorkoutList";
 //Firebase Firestore and config
-import { useAuth } from "../firebseConfig/AuthContext"
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
@@ -19,7 +18,7 @@ import React from "react";
 
 const GymPage = () => {
     let navigate = useNavigate();
-    const currentUser = useAuth()
+    // const currentUser = useAuth()
     const [inputDiv, setInputDiv] = useState<any>()
     const [workOutData, setWorkOutData] = useState<any>()
 
@@ -31,25 +30,25 @@ const GymPage = () => {
         return setInputDiv(input)
     }
 
-    const currentUserData = (currentUser: User) => {
-        onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+    const currentUserData = (user: any) => {
+        onSnapshot(doc(db, "users", user.uid), (doc) => {
             console.log("Current data: ", doc.data())
 
         });
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
                 navigate('/gym')
-                currentUserData(currentUser)
+                currentUserData(user)
                 const fetchData = async () => {
-                    const Ref = doc(db, "users", `${currentUser.uid}`);
+                    const Ref = doc(db, "users", `${user.uid}`);
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setWorkOutData(() => [data])
                     console.log(data, data.weekRutines);
-                    return { workOutData, currentUser }
+                    return { workOutData, user }
                 }
                 fetchData()
 

@@ -22,7 +22,7 @@ const Routs = () => {
                 <Routes>
                     {/* public routs */}
                     <Route path="*" element={<PageNotFound />} />
-                    <Route path="" element={<HomePage />} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="loading" element={<Loading />} />
                     <Route path="register" element={<SignUp />} />
                     <Route path="login" element={<LogIn />} />
