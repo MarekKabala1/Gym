@@ -56,9 +56,7 @@ const SignUp = () => {
                 created: new Date(),
                 weekRutines: []
             })
-            // console.log(user, newUser)
             navigate(`/userpage/${user.uid}`)
-            // console.log(newUser);
             return user
         } catch {
             setError(error)
