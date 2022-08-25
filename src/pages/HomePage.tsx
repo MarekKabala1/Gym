@@ -13,14 +13,14 @@ const HomePage = () => {
 
     return (
         <>
-            <header className='nav'>
+            <header className='nav flex'>
                 <LogoSvg />
                 <div className='buttonWraper' style={{ display: 'flex', gap: '2rem' }}>
-                    <MainButton color={'lightgreen'} onClick={onClick2} type={""}></MainButton>
-                    <MainButton onClick={onClick} text={"Log In"} type={""}></MainButton>
+                    <MainButton disabled={false} color={'lightgreen'} onClick={onClick2} type={""}></MainButton>
+                    <MainButton disabled={false} onClick={onClick} text={"Log In"} type={""}></MainButton>
                 </div>
             </header>
-            <section className='heroConteiner'>
+            <section className='heroConteiner flex-column center'>
                 <h1>MAKE YOUR OWN PLAN </h1>
                 <h2>TRACK YOUR PROGRES</h2>
                 <h2>NUTRITION AND GYM IN ONE PLACE</h2>

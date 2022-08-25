@@ -2,18 +2,16 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/aut
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from './fireaseConfig'
 
-const AuthContext = createContext({})
+const AuthContext = createContext<any>(undefined!)
 const useAuth = () => {
     return useContext(AuthContext)
 }
 
-
-
 export function AuthProvider({ children }: PropChildren) {
 
-    const [currentUser, setCurrentUser] = useState<any>()
+    const [currentUser, setCurrentUser] = useState<boolean | any>(false)
 
-    const signUp = (email: string, password: string) => {
+    const signUp: Function = (email: string, password: string) => {
         return createUserWithEmailAndPassword(
             auth,
             email,
@@ -21,9 +19,11 @@ export function AuthProvider({ children }: PropChildren) {
 
         )
     }
-
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => setCurrentUser(user))
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            return setCurrentUser(user)
+        })
+        return unsubscribe()
     }, [])
 
     const value = {
@@ -38,11 +38,11 @@ export function AuthProvider({ children }: PropChildren) {
     )
 }
 type PropChildren = {
-    children: JSX.Element
+    children?: JSX.Element
     | JSX.Element[]
     | React.ReactNode
-    | React.ReactFragment
 }
 
 export default AuthContext
 export { useAuth }
+

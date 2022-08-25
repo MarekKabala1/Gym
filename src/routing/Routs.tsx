@@ -2,7 +2,7 @@
 import {
     BrowserRouter as Router,
     Routes,
-    Route,
+    Route
 } from "react-router-dom";
 //Components pages
 import HomePage from "../pages/HomePage";
@@ -10,17 +10,26 @@ import SignUp from "../components/layout/SignUp";
 import LogIn from "../components/layout/LogIn";
 import UsersPage from "../pages/UsersPage";
 import ResetPassword from "../components/layout/ResetPassword";
+import PageNotFound from "../pages/PageNotFound";
+import GymPage from "../pages/GymPage";
+import Loading from "../pages/Loading";
 
 const Routs = () => {
+
     return (
         <>
             <Router>
                 <Routes>
+                    {/* public routs */}
+                    <Route path="*" element={<PageNotFound />} />
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/register" element={<SignUp />} />
-                    <Route path="/login" element={<LogIn />} />
-                    <Route path="/resetpassword" element={<ResetPassword />} />
-                    <Route path="/userpage/:uid" element={<UsersPage />} />
+                    <Route path="loading" element={<Loading />} />
+                    <Route path="register" element={<SignUp />} />
+                    <Route path="login" element={<LogIn />} />
+                    <Route path="resetpassword" element={<ResetPassword />} />
+                    {/* protected routs */}
+                    <Route path="userpage/:uid" element={<UsersPage />} />
+                    <Route path="gym" element={<GymPage />} />
                 </Routes>
             </Router>
         </>

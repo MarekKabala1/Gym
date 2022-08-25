@@ -40,9 +40,9 @@ const LogIn = () => {
     }
 
     return (
-        <div className='signUp'>
+        <div className='signUp flex-column center'>
             <div className="form_wrapper">
-                <form onSubmit={handelLogIn}>
+                <form className='flex-column f-space-a' onSubmit={handelLogIn}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Log In</h2>
                     {error && <Alert severity="error">{error}</Alert>}

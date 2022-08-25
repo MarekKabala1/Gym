@@ -5,20 +5,24 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 //google firebase-firestore
-import { db, auth } from '../../firebseConfig/fireaseConfig'
+import { db } from '../../firebseConfig/fireaseConfig'
 import { collection, doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { updateProfile } from 'firebase/auth'
+import { useAuth } from '../../firebseConfig/AuthContext';
+import Loading from '../../pages/Loading';
+
 
 const SignUp = () => {
     const [firstName, setfirstName] = useState<string>('');
     const [surname, setSurname] = useState<string>('');
-    const [email, setEmail] = useState<any>('');
+    const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [repetPassword, setRepetPassword] = useState<string>('');
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
     let navigate = useNavigate();
+    const { signUp } = useAuth()
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -31,16 +35,13 @@ const SignUp = () => {
                 console.log('Pasword not long')
                 return setError('Password not long enough')
             }
-        }
-        try {
+        } try {
             setError('')
             setLoading(true)
+            const userCred = await signUp(email, password)
+            localStorage.setItem('email', JSON.stringify(email))
+            localStorage.setItem('password', JSON.stringify(password))
 
-            const userCred = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            )
             const user = (userCred).user;
             updateProfile(user, {
                 displayName: `${firstName} ${surname}`
@@ -53,11 +54,9 @@ const SignUp = () => {
                 name: firstName,
                 surname: surname,
                 created: new Date(),
-                weekRutines: ''
+                weekRutines: []
             })
-            // console.log(user, newUser)
             navigate(`/userpage/${user.uid}`)
-            // console.log(newUser);
             return user
         } catch {
             setError(error)
@@ -74,9 +73,10 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signUp">
-            <div className="form_wrapper">
-                <form onSubmit={handleSubmit}>
+
+        <Loading /> && <div className="signUp flex-column center">
+            <div className="form_wrapper flex-column f-space-a">
+                <form className="flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Create Your Account</h2>
                     {
@@ -132,8 +132,7 @@ const SignUp = () => {
                 <p>If you have a account <Link to='/login'><span>Log In</span></Link> </p>
             </div>
         </div>
+
     )
 };
 export default SignUp
-
-

@@ -3,7 +3,7 @@
   --clr_button: rgba(13, 245, 227);
   --clr_button_secendary:rgb(144, 238, 144);
   --clr_secendary: rgba(55, 49, 66);
-  --clr_text_ligt: rgba(247, 240, 240);
+  --clr_text_ligt: rgb(246, 238, 238);
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
 }
@@ -21,6 +21,55 @@ body {
   text-align: center;
   background-color: var(--clr_primary);
   min-height: 100vh;
+}
+a{
+  text-decoration: none;
+}
+/* flex */
+.flex{
+  display: flex;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.center{
+  justify-content: center;
+  align-items: center;
+}
+.f-space-b{
+  justify-content: space-between;
+  align-items: center;
+}
+.f-space-a{
+  justify-content: space-around;
+  align-items: center;
+}
+.f-start{
+  justify-content: flex-start;
+  align-items: center;
+}
+.gap{
+  gap: 1rem;
+}
+.gap-s{
+  gap: .5rem;
+}
+.gap-l{
+  gap: 1.5rem;
+}
+.gap-xl{
+  gap: 2rem;
+}
+/* margins-paddings */
+.margin-top-bottom{
+  margin: 1rem 0 1rem 0;
+}
+.padding-top-bottom{
+  padding: 1rem 0 1rem 0;
+}
+.padding-l-top-bottom{
+  padding: 1.5rem 0 1.5rem 0;
 }
 
 /* loggo spin */
@@ -44,6 +93,24 @@ body {
   background-color: var(--clr_primary);
   min-height: 100vh;
 }
+/* 404 page */
+.npageNotFound_wrapper{
+  background-color: var(--clr_primary);
+  height: 100vh;
+}
+.pageNotFound{
+  color: var(--clr_text_ligt);
+  padding-bottom: 2rem;
+}
+.pageNotFound_number{
+  font-size: 6rem;
+  font-weight: 900;
+  border: none;
+}
+.pageNotFound_link{
+  text-decoration: none;
+  color: var(--clr_button_secendary);
+}
 /* Header */
 .App-logo {
   height: 40vmin;
@@ -51,7 +118,6 @@ body {
 }
 
 .nav{
-  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 90%;
@@ -64,8 +130,6 @@ body {
   font-size: .6rem;
   padding: .3rem 1rem;
   font-weight: 700;
-  justify-content: center;
-  align-items: center;
   border: none;
   border-radius: 10px;
   cursor:pointer;
@@ -75,10 +139,6 @@ body {
 /* Main Page Section */
 
 .heroConteiner{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
     min-width:90%;
     color:var(--clr_text_ligt);
     letter-spacing:.2rem;
@@ -97,10 +157,6 @@ body {
 .signUp,.resetPassword{
   background-color:var(--clr_primary);
   padding: 2rem 0;
-  display: flex;
-  flex-direction:column;
-  align-items: center;
-  justify-content: center;
   max-height:100vh;
   min-width:100vw;
 }
@@ -112,11 +168,8 @@ form,.form_wrapper{
   position:relative;
   border-radius: 5px;
   padding:.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
   max-width:400px;
+  min-width: 300px;
 }
 .form_wrapper{
   padding:0 0 1rem 0;
@@ -180,8 +233,6 @@ span{
 
 /* user page */
 .conteiner{
-  display:flex;
-  flex-direction:column;
   justify-content:flex-start;
   gap:1rem;
   background-color:var(--clr_primary);
@@ -190,19 +241,10 @@ span{
   min-height:100vh;
   max-height:100vh;
 }
-.headerWrapper{
-  display:flex;
-  justify-content:space-between;
-  align-items: center;
-}
-.flexGapWrapper{
-  display:flex;
+.userPage-flex_gap{
   gap:1.2rem;
 }
 .avatar{
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--clr_text_ligt);
   font-weight: 900;
   font-size: 1.1rem;
@@ -211,12 +253,8 @@ span{
   border-radius:50%;
 }
 .mainContent{
-  display:flex;
-  flex-direction:column;
   max-width:100%;
   max-height:100%;
-  justify-content:center;
-  align-items:center;
   gap:5rem;
 }
 .userPageName{
@@ -224,9 +262,6 @@ span{
   color:var(--clr_button_secendary) ;
 }
 .imgWrapper{
-  display:flex;
-  justify-content:center;
-  align-items:center;
   min-width:90%;
   height:150px;
   cursor:pointer;
@@ -252,4 +287,53 @@ span{
   font-size:1.5rem;
   color:var(--clr_primary);
   font-weight:bold;
+}
+/* bottom menu */
+.bottomMenu{
+  border:none;
+  cursor: pointer;
+}
+.bottomMenu_wrapper svg{
+   height:2.2rem;
+   width:2.2rem;
+   fill:var(--clr_button_secendary)
+}
+.bottomMenu_wrapper{
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+}
+/* gym page */
+.gymPage-section{
+  color: var(--clr_text_ligt);
+  padding:1rem;
+  gap: 1rem;
+}
+.gymPage_heading{
+    letter-spacing: .6rem;
+    margin-bottom: 1rem;
+}
+.gymPage_add{
+  gap: 1.5rem;
+  padding:.3rem 2rem .3rem 2rem;
+  border:1px solid var(--clr_text_ligt);
+  border-radius: 10px;
+  width:fit-content;
+  cursor: pointer;
+}
+.gymPage_add span{
+  border:none;
+}
+.gymPage_add svg{
+  fill:var(--clr_text_ligt);
+  height:2.2rem;
+  width:2.2rem;
+  cursor: pointer;
+}
+.gymPage_workout{
+  width: 13rem;
+  height: 2rem;
+  border:1px solid var(--clr_text_ligt);
+  border-radius: 10px;
 }
