@@ -57,7 +57,7 @@ const SignUp = () => {
                 weekRutines: []
             })
             navigate(`/userpage/${user.uid}`)
-            return user
+            return newUser
         } catch {
             setError(error)
         }
@@ -69,7 +69,7 @@ const SignUp = () => {
         setRepetPassword('')
         setTimeout(() => {
             setError('')
-        }, 6000)
+        }, 3000)
     }
 
     return (
