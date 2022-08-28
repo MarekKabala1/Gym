@@ -30,24 +30,24 @@ const GymPage = () => {
         return setInputDiv(input)
     }
 
-    const currentUserData = (user: any) => {
-        onSnapshot(doc(db, "users", user.uid), (doc) => {
-            console.log("Current data: ", doc.data())
+    // const currentUserData = (user: any) => {
+    //     onSnapshot(doc(db, "users", user.uid), (doc) => {
+    //         console.log("Current data: ", doc.data())
 
-        });
-    }
+    //     });
+    // }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigate('/gym')
-                currentUserData(user)
+                // currentUserData(user)
                 const fetchData = async () => {
                     const Ref = doc(db, "users", `${user.uid}`);
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setWorkOutData(() => [data])
-                    console.log(data, data.weekRutines);
+                    console.log(data.weekRutines);
                     return { workOutData, user }
                 }
                 fetchData()
