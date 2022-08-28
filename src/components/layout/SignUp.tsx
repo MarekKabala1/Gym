@@ -39,8 +39,6 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             const userCred = await signUp(email, password)
-            localStorage.setItem('email', JSON.stringify(email))
-            localStorage.setItem('password', JSON.stringify(password))
 
             const user = (userCred).user;
             updateProfile(user, {
@@ -48,6 +46,7 @@ const SignUp = () => {
             })
             const id = user.uid
             const newUser = doc(collection(db, "users"), id)
+            console.log(newUser)
             await setDoc(newUser, {
                 uid: user.uid,
                 email: user.email,
