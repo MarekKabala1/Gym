@@ -46,7 +46,6 @@ const SignUp = () => {
             })
             const id = user.uid
             const newUser = doc(collection(db, "users"), id)
-            console.log(newUser)
             await setDoc(newUser, {
                 uid: user.uid,
                 email: user.email,

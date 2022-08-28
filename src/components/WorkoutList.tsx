@@ -21,7 +21,8 @@ const WorkOutList = () => {
 
         const newWorkout = { workout }
         if (workout) {
-            const userRef = doc(db, 'users', `${currentUser.uid}`);
+
+            const userRef = doc(db, 'users', currentUser.uid);
             await updateDoc(userRef, {
                 weekRutines: arrayUnion(newWorkout)
             })
@@ -43,11 +44,14 @@ const WorkOutList = () => {
 
     return (
         <div className="signUp flex-column center ">
-            <Link to="/gym" > <IoMdClose style={{ position: 'absolute', zIndex: '100', right: '1.5rem' }} /></Link>
             <form className="flex-column center gap padding-l-top-bottom"
                 onSubmit={handleWorkoutSubmit}
                 style={{ position: 'relative' }}
             >
+                <Link to="/gym" >
+                    <IoMdClose
+                        style={{ position: 'absolute', zIndex: '100', right: '0.4rem', top: '0.6rem' }} />
+                </Link>
                 <input className="textField"
                     name="workout"
                     type="text"

@@ -20,8 +20,8 @@ const BottomMenu = () => {
     }
     return (
         <div className="bottomMenu_wrapper flex f-space-b">
-            <div className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoArrowUndoSharp /></div>
-            <div className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp /></div>
+            <div className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoArrowUndoSharp onClick={navigateBack} /></div>
+            <div className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></div>
             <div className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></div>
         </div>
     )
