@@ -1,35 +1,34 @@
 
-import { arrayUnion, doc, updateDoc } from "firebase/firestore"
-import { useState } from "react"
-import { useAuth } from "../firebseConfig/AuthContext"
-import { db } from "../firebseConfig/fireaseConfig"
-import MainButton from "../components/ButtonMain"
-import { Link } from "react-router-dom"
 import { IoMdClose } from "react-icons/io"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { arrayUnion, doc, updateDoc } from "firebase/firestore"
+import { db } from "../firebseConfig/fireaseConfig"
+import { useAuth } from "../firebseConfig/AuthContext"
+import MainButton from "../components/ButtonMain"
 
-const WorkOutList = () => {
+const WorkOutList = (props: any) => {
     const { currentUser } = useAuth()
     const [workout, setWorkout] = useState<string>('')
     const [error, setError] = useState<any>(null)
     const [loading, setLoading] = useState<boolean>(false)
 
-
-
     const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
 
 
-        const newWorkout = { workout }
+        // const newWorkout = { workout }
         if (workout) {
 
             const userRef = doc(db, 'users', currentUser.uid);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(newWorkout)
+                weekRutines: arrayUnion(workout)
             })
                 .then(() => {
                     setWorkout('')
                     setError(null)
                     setLoading(false)
+                    console.log('workout added')
                 })
                 .catch((err) => {
                     setError(error)
@@ -38,8 +37,8 @@ const WorkOutList = () => {
         } else {
             setLoading(true)
         }
-
     }
+
 
 
     return (
@@ -57,7 +56,7 @@ const WorkOutList = () => {
                     type="text"
                     placeholder="Workout Type"
                     required
-                    value={workout}
+                    value={workout.toUpperCase()}
                     onChange={(e) => setWorkout(e.target.value)} />
                 <MainButton disabled={loading} color={'lightgreen'} onClick={handleWorkoutSubmit} text={'Add Workout'} type={"submit"}></MainButton>
             </form>
@@ -66,3 +65,5 @@ const WorkOutList = () => {
 }
 
 export default WorkOutList
+
+
