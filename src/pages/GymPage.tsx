@@ -6,7 +6,7 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 import BottomMenu from "../components/BottomMenu";
 import WorkOutList from "../components/WorkoutList";
 //Firebase Firestore and config
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
@@ -16,11 +16,11 @@ import {
 import React from "react";
 
 
+
 const GymPage = () => {
     let navigate = useNavigate();
-    // const currentUser = useAuth()
     const [inputDiv, setInputDiv] = useState<any>()
-    const [workOutData, setWorkOutData] = useState<any>()
+    const [workOutData, setWorkOutData] = useState<any>([])
 
     const input = () => {
         return <WorkOutList />
@@ -30,28 +30,27 @@ const GymPage = () => {
         return setInputDiv(input)
     }
 
-    // const currentUserData = (user: any) => {
-    //     onSnapshot(doc(db, "users", user.uid), (doc) => {
-    //         console.log("Current data: ", doc.data())
+    const fetchWorkoutData = async (user: User) => {
+        const Ref = doc(db, "users", `${user.uid}`);
+        onSnapshot(Ref, async (_doc) => {
+            const Snap = await getDoc(Ref);
+            const data: any = Snap.data()
+            setWorkOutData(data.weekRutines)
 
-    //     });
-    // }
+            console.log(data.weekRutines);
+        })
+
+        return { workOutData }
+
+    }
+
+
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigate('/gym')
-                // currentUserData(user)
-                const fetchData = async () => {
-                    const Ref = doc(db, "users", `${user.uid}`);
-                    const Snap = await getDoc(Ref);
-                    const data: any = Snap.data()
-                    setWorkOutData(() => [data])
-                    console.log(data.weekRutines);
-                    return { workOutData, user }
-                }
-                fetchData()
-
+                fetchWorkoutData(user)
             } else {
                 navigate('/')
             }
@@ -59,6 +58,7 @@ const GymPage = () => {
         unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
 
     return (
         <>
@@ -69,6 +69,22 @@ const GymPage = () => {
                 </div>
                 <div className="outputDiv flex-column f-space-b">
                     {inputDiv}
+                </div>
+                <div>
+                    <ul>
+                        {React.Children.toArray(
+                            workOutData && workOutData.map((workOut: (any), index: number) => (
+                                <li key={index}>
+                                    {(workOut)}
+                                </li>
+                            ))
+                        )
+
+                        }
+                    </ul>
+
+
+
                 </div>
             </section>
 

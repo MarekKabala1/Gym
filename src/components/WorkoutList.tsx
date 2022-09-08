@@ -22,7 +22,7 @@ const WorkOutList = (props: any) => {
 
             const userRef = doc(db, 'users', currentUser.uid);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(workout)
+                weekRutines: arrayUnion(workout.toUpperCase())
             })
                 .then(() => {
                     setWorkout('')
@@ -56,7 +56,7 @@ const WorkOutList = (props: any) => {
                     type="text"
                     placeholder="Workout Type"
                     required
-                    value={workout.toUpperCase()}
+                    value={workout}
                     onChange={(e) => setWorkout(e.target.value)} />
                 <MainButton disabled={loading} color={'lightgreen'} onClick={handleWorkoutSubmit} text={'Add Workout'} type={"submit"}></MainButton>
             </form>
