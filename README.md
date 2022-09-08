@@ -28,6 +28,6 @@ https://github.com/MarekKabala1/Gym
 
 ## Link for a live version:
 
-https://gym-hazel.vercel.app/userpage/BShp4ndPLYZgEX0VBcoUSBcW7R82
+https://mkabala.co.uk
 
 #### Work Aplication in progres not working proply sorry
