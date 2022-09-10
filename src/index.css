@@ -318,7 +318,7 @@ span{
   gap: 1.5rem;
   padding:.3rem 2rem .3rem 2rem;
   border:1px solid var(--clr_text_ligt);
-  border-radius: 10px;
+  border-radius: 5px;
   width:fit-content;
   cursor: pointer;
 }
@@ -336,4 +336,8 @@ span{
   height: 2rem;
   border:1px solid var(--clr_text_ligt);
   border-radius: 10px;
+}
+.gymPageCardShadow{
+  box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(246,238,238,0);
+  border: none;
 }
