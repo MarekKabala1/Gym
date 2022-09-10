@@ -12,12 +12,11 @@ const WorkOutList = (props: any) => {
     const [workout, setWorkout] = useState<string>('')
     const [error, setError] = useState<any>(null)
     const [loading, setLoading] = useState<boolean>(false)
+    const [visible, setVisbile] = useState<boolean>()
 
     const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
 
-
-        // const newWorkout = { workout }
         if (workout) {
 
             const userRef = doc(db, 'users', currentUser.uid);
@@ -28,6 +27,7 @@ const WorkOutList = (props: any) => {
                     setWorkout('')
                     setError(null)
                     setLoading(false)
+                    setVisbile(false)
                     console.log('workout added')
                 })
                 .catch((err) => {
@@ -53,6 +53,7 @@ const WorkOutList = (props: any) => {
                 </Link>
                 <input className="textField"
                     name="workout"
+                    autoComplete="off"
                     type="text"
                     placeholder="Workout Type"
                     required

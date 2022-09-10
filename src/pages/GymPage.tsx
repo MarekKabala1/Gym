@@ -5,6 +5,7 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 //Components
 import BottomMenu from "../components/BottomMenu";
 import WorkOutList from "../components/WorkoutList";
+import biceps1 from "../img/Biceps.png"
 //Firebase Firestore and config
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
@@ -21,13 +22,16 @@ const GymPage = () => {
     let navigate = useNavigate();
     const [inputDiv, setInputDiv] = useState<any>()
     const [workOutData, setWorkOutData] = useState<any>([])
+    const [visible, setVisbile] = useState<boolean>()
 
-    const input = () => {
-        return <WorkOutList />
-    }
+    // const input = () => {
+    //     return <WorkOutList />
+    // }
 
-    const addWorkout = () => {
-        return setInputDiv(input)
+    const addWorkout = (e: { target: any; }) => {
+        setVisbile(true)
+        visible ? setInputDiv(<WorkOutList />) : setInputDiv(false)
+
     }
 
     const fetchWorkoutData = async (user: User) => {
@@ -82,9 +86,9 @@ const GymPage = () => {
 
                         }
                     </ul>
-
-
-
+                    <div >
+                        <img src={biceps1} alt="BICEPS" style={{ height: '70px', width: '70px' }} />
+                    </div>
                 </div>
             </section>
 
