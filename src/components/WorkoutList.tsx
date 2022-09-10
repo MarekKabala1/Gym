@@ -1,7 +1,5 @@
 
-import { IoMdClose } from "react-icons/io"
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import { arrayUnion, doc, updateDoc } from "firebase/firestore"
 import { db } from "../firebseConfig/fireaseConfig"
 import { useAuth } from "../firebseConfig/AuthContext"
@@ -45,10 +43,6 @@ const WorkOutList = (props: any) => {
                 onSubmit={handleWorkoutSubmit}
                 style={{ position: 'relative' }}
             >
-                <Link to="/gym" >
-                    <IoMdClose
-                        style={{ position: 'absolute', zIndex: '100', right: '0.4rem', top: '0.6rem' }} />
-                </Link>
                 <input className="textField"
                     name="workout"
                     autoComplete="off"
