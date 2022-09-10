@@ -74,7 +74,7 @@ const SignUp = () => {
 
         <Loading /> && <div className="signUp flex-column center">
             <div className="form_wrapper flex-column f-space-a">
-                <form className="flex-column f-space-a" onSubmit={handleSubmit}>
+                <form className="form flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Create Your Account</h2>
                     {

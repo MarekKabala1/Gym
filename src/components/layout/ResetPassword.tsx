@@ -36,7 +36,7 @@ const ResetPassword = () => {
         <div className="resetPassword flex-column center">
             <div className="form_wrapper">
                 <Link to="/"><IoMdClose className="close" /></Link>
-                <form className="flex-column f-space-a">
+                <form className="form flex-column f-space-a">
                     {success && <Alert severity="success">Reset Email Send Go to yor Inbox</Alert>}
                     {error && <Alert severity="error">{error}</Alert>}
                     <h2>Reset Password</h2>
