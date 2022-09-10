@@ -86,9 +86,11 @@ const GymPage = () => {
 
                         }
                     </ul>
-                    <div >
-                        <img src={biceps1} alt="BICEPS" style={{ height: '70px', width: '70px' }} />
-                    </div>
+                </div>
+                <div className="gymPage_add gymPageCardShadow">
+                    <p>BICEPS</p>
+                    <img src={biceps1} alt="BICEPS"
+                        style={{ height: '170px', width: '170px' }} />
                 </div>
             </section>
 
