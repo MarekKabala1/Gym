@@ -12,7 +12,6 @@ const WorkOutList = (props: any) => {
     const [workout, setWorkout] = useState<string>('')
     const [error, setError] = useState<any>(null)
     const [loading, setLoading] = useState<boolean>(false)
-    const [visible, setVisbile] = useState<boolean>()
 
     const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
@@ -27,7 +26,6 @@ const WorkOutList = (props: any) => {
                     setWorkout('')
                     setError(null)
                     setLoading(false)
-                    setVisbile(false)
                     console.log('workout added')
                 })
                 .catch((err) => {

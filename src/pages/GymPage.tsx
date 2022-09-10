@@ -5,7 +5,6 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 //Components
 import BottomMenu from "../components/BottomMenu";
 import WorkOutList from "../components/WorkoutList";
-import biceps1 from "../img/Biceps.png"
 //Firebase Firestore and config
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
@@ -30,8 +29,7 @@ const GymPage = () => {
 
     const addWorkout = (e: { target: any; }) => {
         setVisbile(true)
-        visible ? setInputDiv(<WorkOutList />) : setInputDiv(false)
-
+        visible ? setInputDiv(<WorkOutList />) : setInputDiv(null)
     }
 
     const fetchWorkoutData = async (user: User) => {
@@ -43,6 +41,7 @@ const GymPage = () => {
 
             console.log(data.weekRutines);
         })
+        setVisbile(false)
 
         return { workOutData }
 
@@ -74,26 +73,20 @@ const GymPage = () => {
                 <div className="outputDiv flex-column f-space-b">
                     {inputDiv}
                 </div>
-                <div>
-                    <ul>
-                        {React.Children.toArray(
-                            workOutData && workOutData.map((workOut: (any), index: number) => (
-                                <li key={index}>
-                                    {(workOut)}
-                                </li>
-                            ))
-                        )
+                <div className="grid gap-l">
+                    {React.Children.toArray(
+                        workOutData && workOutData.map((workOut: (any), index: number) => (
+                            <div className="gymPageCardShadow padding-normal" key={index}>
+                                <p>{workOut}</p>
+                                <img src={`img-svg/img/${workOut}.png`} alt={`${workOut}`}
+                                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                            </div>
+                        ))
+                    )
 
-                        }
-                    </ul>
-                </div>
-                <div className="gymPage_add gymPageCardShadow">
-                    <p>BICEPS</p>
-                    <img src={biceps1} alt="BICEPS"
-                        style={{ height: '170px', width: '170px' }} />
+                    }
                 </div>
             </section>
-
             <BottomMenu />
         </>
     )

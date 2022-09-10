@@ -61,9 +61,22 @@ a{
 .gap-xl{
   gap: 2rem;
 }
+.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+}
 /* margins-paddings */
 .margin-top-bottom{
   margin: 1rem 0 1rem 0;
+}
+.padding-small{
+  padding: .5rem;
+}
+.padding-normal{
+  padding: 1rem;
+}
+.pading-large{
+  padding: 1.5rem;
 }
 .padding-top-bottom{
   padding: 1rem 0 1rem 0;
@@ -338,6 +351,6 @@ span{
   border-radius: 10px;
 }
 .gymPageCardShadow{
-  box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(246,238,238,0);
-  border: none;
+  box-shadow: -10px 0px 13px -7px var(--clr_secendary), 10px 0px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(246,238,238,0);
+ /* box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); box-shadow: 0px 10px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(0,0,0,0); */
 }
