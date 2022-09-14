@@ -18,6 +18,7 @@ import {
     deleteField,
 } from "firebase/firestore";
 import { useAuth } from "../firebseConfig/AuthContext";
+import { Alert } from "@mui/material";
 
 
 
@@ -27,7 +28,7 @@ const GymPage = () => {
     const [workout, setWorkout] = useState<string>('')
     const [error, setError] = useState<any>(null)
     const [loading, setLoading] = useState<boolean>(false)
-    const [muscle, setMuscle] = useState([''])
+    const [muscle, setMuscle] = useState([])
 
     const { currentUser } = useAuth()
     const ref = useRef(null)
@@ -44,7 +45,7 @@ const GymPage = () => {
 
             const userRef = doc(db, 'users', currentUser.uid);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(workout.toUpperCase(),)
+                weekRutines: arrayUnion(workout.toUpperCase())
             })
                 .then(() => {
                     setWorkout('')
@@ -53,7 +54,7 @@ const GymPage = () => {
                     console.log('workout added')
                 })
                 .catch((err) => {
-                    setError(error)
+                    setError('ERROR! Please refresh the page and try again.')
                     console.log(err);
                 })
         } else {
@@ -68,7 +69,7 @@ const GymPage = () => {
             const data: any = Snap.data()
             setWorkOutData(data.weekRutines)
 
-            console.log(data.weekRutines);
+            // console.log(data.weekRutines, workOutData);
         })
         return { workOutData }
     }
@@ -96,14 +97,15 @@ const GymPage = () => {
         { id: 7, value: 'SHOULDERS' },
         { id: 8, value: 'ASB' },
         { id: 9, value: 'PULL' },
-        { id: 10, value: 'PUSCH' },
+        { id: 10, value: 'PUSH' },
         { id: 11, value: 'LEGS' },
         { id: 12, value: 'LEGS-GLUTEUS' },
         { id: 13, value: 'CARDIO' }
     ]
+    // muscleGrup.forEach(muscle => { console.log(muscle.id); })
     const deleteMuscleGrup = async (e: any) => {
 
-        console.log(ref.current, e.target, e.id, e.key)
+        console.log(ref.current, e)
         const cityRef = doc(db, 'users', `${currentUser.uid}`);
 
         await updateDoc(cityRef, {
@@ -144,6 +146,9 @@ const GymPage = () => {
                         text={'Add'}
                         type={"submit"}></MainButton>
                 </form>
+                {
+                    error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
+                }
                 <div className="grid gap-l">
                     {React.Children.toArray(
                         workOutData && workOutData.map((workout: (any), id: number) => (
@@ -154,7 +159,7 @@ const GymPage = () => {
                                 <div className="flex f-space-b">
                                     <p>{workout}</p>
                                     <BsTrash
-                                        id={workout}
+                                        id={workout.id}
                                         key={id}
                                         color="red"
                                         onClick={deleteMuscleGrup} />
