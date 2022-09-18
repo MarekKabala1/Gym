@@ -7,7 +7,7 @@ const useAuth = () => {
     return useContext(AuthContext)
 }
 
-export function AuthProvider({ children }: PropChildren) {
+export function AuthContextProvider({ children }: PropChildren) {
 
     const [currentUser, setCurrentUser] = useState<boolean | any>(false)
 
@@ -23,7 +23,7 @@ export function AuthProvider({ children }: PropChildren) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             return setCurrentUser(user)
         })
-        return unsubscribe()
+        unsubscribe()
     }, [])
 
     const value = {

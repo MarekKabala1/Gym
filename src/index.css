@@ -358,3 +358,13 @@ span{
   background: var(--clr_primary);
   color: var(--clr_text_ligt);
 }
+.tarsh{
+  width: 1rem;
+  height: inherit;
+  cursor: pointer;
+}
+.trash::after{
+  content: 'X';
+  color: red;
+  cursor: pointer;
+}

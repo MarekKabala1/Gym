@@ -1,12 +1,12 @@
-import { AuthProvider } from './firebseConfig/AuthContext';
+import { AuthContextProvider } from './firebseConfig/AuthContext';
 import './index.css';
 import Routs from './routing/Routs';
 
 function App() {
   return (
-    <AuthProvider>
+    <AuthContextProvider>
       <Routs />
-    </AuthProvider>
+    </AuthContextProvider>
 
   );
 }
