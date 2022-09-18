@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+# Making WebApp for a gym progres and nutrition
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is my first project made in React JS and Typescript
 
-## Available Scripts
+To install React i use npx create-react-app my-app --template typescript
 
-In the project directory, you can run:
+## Used technologies and libraries to create this App
 
-### `npm start`
+## React Js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Typescript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Firebase/Firestore
 
-### `npm test`
+## MUI
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## React-router
 
-### `npm run build`
+## Styled-components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Emotion
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Learn More
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Link to my Github Repositorie:
 
-### `npm run eject`
+https://github.com/MarekKabala1/Gym
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Link for a live version:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+https://mkabala.co.uk
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Work Aplication in progres not working proply sorry

@@ -31,8 +31,16 @@ const LogIn = () => {
             const user = userCred.user;
             navigate(`/userpage/${user.uid}`)
             // return user
-        }).catch((error: { message: SetStateAction<string>; }) => {
-            return setError(error.message)
+        }).catch((error: {
+            message: SetStateAction<string>, code: any;
+        }) => {
+            if (error.code === 'auth/user-not-found') {
+                return setError('Wrong Email Address')
+            } else if (error.code === 'auth/wrong-password') {
+                return setError('Wrong Password')
+            } else {
+                return setError(error.message)
+            }
         });
         setEmail('')
         setPassword('')
@@ -42,7 +50,7 @@ const LogIn = () => {
     return (
         <div className='signUp flex-column center'>
             <div className="form_wrapper">
-                <form className='flex-column f-space-a' onSubmit={handelLogIn}>
+                <form className='form flex-column f-space-a' onSubmit={handelLogIn}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Log In</h2>
                     {error && <Alert severity="error">{error}</Alert>}

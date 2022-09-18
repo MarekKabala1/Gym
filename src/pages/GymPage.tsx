@@ -1,57 +1,84 @@
 //React react router react hooks
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoIosAddCircleOutline } from "react-icons/io"
+import { BsTrash } from "react-icons/bs"
 //Components
-import BottomMenu from "../components/BottomMenu";
-import WorkOutList from "../components/WorkoutList";
+import BottomMenu from "../components/BottomMenu"
+import MainButton from "../components/ButtonMain";
 //Firebase Firestore and config
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
     onSnapshot,
     getDoc,
+    arrayUnion,
+    updateDoc,
+    deleteField,
 } from "firebase/firestore";
-import React from "react";
+import { useAuth } from "../firebseConfig/AuthContext";
+import { Alert } from "@mui/material";
+
 
 
 const GymPage = () => {
     let navigate = useNavigate();
-    // const currentUser = useAuth()
-    const [inputDiv, setInputDiv] = useState<any>()
-    const [workOutData, setWorkOutData] = useState<any>()
+    const [workOutData, setWorkOutData] = useState<any>([])
+    const [workout, setWorkout] = useState<string>('')
+    const [error, setError] = useState<any>(null)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [muscle, setMuscle] = useState([])
 
-    const input = () => {
-        return <WorkOutList />
+    const { currentUser } = useAuth()
+    const ref = useRef(null)
+
+
+    // const input = () => {
+    //     return <WorkOutList />
+    // }
+
+    const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
+        e.preventDefault()
+
+        if (workout) {
+
+            const userRef = doc(db, 'users', currentUser.uid);
+            await updateDoc(userRef, {
+                weekRutines: arrayUnion(workout.toUpperCase())
+            })
+                .then(() => {
+                    setWorkout('')
+                    setError(null)
+                    setLoading(false)
+                    console.log('workout added')
+                })
+                .catch((err) => {
+                    setError('ERROR! Please refresh the page and try again.')
+                    console.log(err);
+                })
+        } else {
+            setLoading(true)
+        }
     }
 
-    const addWorkout = () => {
-        return setInputDiv(input)
-    }
+    const fetchWorkoutData = async (user: User) => {
+        const Ref = doc(db, "users", `${user.uid}`);
+        onSnapshot(Ref, async (_doc) => {
+            const Snap = await getDoc(Ref);
+            const data: any = Snap.data()
+            setWorkOutData(data.weekRutines)
 
-    const currentUserData = (user: any) => {
-        onSnapshot(doc(db, "users", user.uid), (doc) => {
-            console.log("Current data: ", doc.data())
-
-        });
+            // console.log(data.weekRutines, workOutData);
+        })
+        return { workOutData }
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigate('/gym')
-                currentUserData(user)
-                const fetchData = async () => {
-                    const Ref = doc(db, "users", `${user.uid}`);
-                    const Snap = await getDoc(Ref);
-                    const data: any = Snap.data()
-                    setWorkOutData(() => [data])
-                    console.log(data, data.weekRutines);
-                    return { workOutData, user }
-                }
-                fetchData()
-
+                fetchWorkoutData(user)
             } else {
                 navigate('/')
             }
@@ -59,19 +86,94 @@ const GymPage = () => {
         unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    const muscleGrup = [
+        { id: 0, value: 'SELECT MUSCLE GROUP' },
+        { id: 1, value: 'CHEST-TRICEPS' },
+        { id: 2, value: 'BACK-BICEPS' },
+        { id: 3, value: 'BICEPS' },
+        { id: 4, value: 'TRICEPS' },
+        { id: 5, value: 'CHEST' },
+        { id: 6, value: 'BACK' },
+        { id: 7, value: 'SHOULDERS' },
+        { id: 8, value: 'ASB' },
+        { id: 9, value: 'PULL' },
+        { id: 10, value: 'PUSH' },
+        { id: 11, value: 'LEGS' },
+        { id: 12, value: 'LEGS-GLUTEUS' },
+        { id: 13, value: 'CARDIO' }
+    ]
+    // muscleGrup.forEach(muscle => { console.log(muscle.id); })
+    const deleteMuscleGrup = async (e: any) => {
+
+        console.log(ref.current, e)
+        const cityRef = doc(db, 'users', `${currentUser.uid}`);
+
+        await updateDoc(cityRef, {
+            // weekRutines: deleteField()
+        });
+
+
+    }
+
 
     return (
         <>
-            <section className="gymPage-section flex-column center">
-                <h1 className="gymPage_heading">GYM</h1>
-                <div className="gymPage-sectionWrapper flex-column center">
-                    <div className="gymPage_add flex center " onClick={addWorkout}><IoIosAddCircleOutline /><span>Add Workout</span></div>
-                </div>
-                <div className="outputDiv flex-column f-space-b">
-                    {inputDiv}
+            <section className="gymPage-section flex-column ">
+                <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
+                    <select
+                        className="gymPage_form "
+                        placeholder="Select Muscle Grup"
+                        name="workout"
+                        required
+                        value={workout}
+                        id={workout}
+                        ref={ref}
+                        onChange={(e) => setWorkout(e.target.value)}>
+
+                        {muscleGrup.map((workout, id) => {
+                            return <option
+                                key={id}
+                                value={workout.value}
+                            >
+                                {workout.value}
+                            </option>
+                        })};
+                    </select>
+                    <MainButton
+                        disabled={loading}
+                        color={'lightgreen'}
+                        onClick={handleWorkoutSubmit}
+                        text={'Add'}
+                        type={"submit"}></MainButton>
+                </form>
+                {
+                    error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
+                }
+                <div className="grid gap-l">
+                    {React.Children.toArray(
+                        workOutData && workOutData.map((workout: (any), id: number) => (
+                            <div
+                                className="gymPageCardShadow padding-normal"
+                                ref={ref}
+                                key={id}>
+                                <div className="flex f-space-b">
+                                    <p>{workout}</p>
+                                    <BsTrash
+                                        id={workout.id}
+                                        key={id}
+                                        color="red"
+                                        onClick={deleteMuscleGrup} />
+                                </div>
+                                <img src={`img-svg/img/${workout}.png`}
+                                    alt={`${workout}`}
+                                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                            </div>
+                        ))
+                    )
+
+                    }
                 </div>
             </section>
-
             <BottomMenu />
         </>
     )

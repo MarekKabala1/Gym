@@ -23,13 +23,13 @@ const Routs = () => {
                     {/* public routs */}
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="/" element={<HomePage />} />
-                    <Route path="loading" element={<Loading />} />
-                    <Route path="register" element={<SignUp />} />
-                    <Route path="login" element={<LogIn />} />
-                    <Route path="resetpassword" element={<ResetPassword />} />
+                    <Route path="/loading" element={<Loading />} />
+                    <Route path="/register" element={<SignUp />} />
+                    <Route path="/login" element={<LogIn />} />
+                    <Route path="/resetpassword" element={<ResetPassword />} />
                     {/* protected routs */}
-                    <Route path="userpage/:uid" element={<UsersPage />} />
-                    <Route path="gym" element={<GymPage />} />
+                    <Route path="/userpage/:uid" element={<UsersPage />} />
+                    <Route path="/gym" element={<GymPage />} />
                 </Routes>
             </Router>
         </>

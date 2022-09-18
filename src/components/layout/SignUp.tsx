@@ -39,8 +39,6 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             const userCred = await signUp(email, password)
-            localStorage.setItem('email', JSON.stringify(email))
-            localStorage.setItem('password', JSON.stringify(password))
 
             const user = (userCred).user;
             updateProfile(user, {
@@ -57,7 +55,7 @@ const SignUp = () => {
                 weekRutines: []
             })
             navigate(`/userpage/${user.uid}`)
-            return user
+            return newUser
         } catch {
             setError(error)
         }
@@ -69,14 +67,14 @@ const SignUp = () => {
         setRepetPassword('')
         setTimeout(() => {
             setError('')
-        }, 6000)
+        }, 3000)
     }
 
     return (
 
         <Loading /> && <div className="signUp flex-column center">
             <div className="form_wrapper flex-column f-space-a">
-                <form className="flex-column f-space-a" onSubmit={handleSubmit}>
+                <form className="form flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
                     <h2>Create Your Account</h2>
                     {

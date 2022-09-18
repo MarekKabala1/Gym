@@ -81,7 +81,7 @@ const UsersPage = () => {
         <section className='conteiner flex-column'>
             <header className='headerWrapper flex f-space-b'>
                 {
-                    React.Children.toArray(
+                    <div className='avatar flex center'>kk</div> && React.Children.toArray(
                         newUser.map((data) => (
                             <div className='avatar flex center' key={data.id}>
                                 {data.name.charAt(0)}
