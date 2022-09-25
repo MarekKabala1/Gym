@@ -36,12 +36,12 @@ const GymPage = () => {
                 }
             case 'CREATE_WORKOUT':
                 return {
-                    workouts: [action.payload, ...state.workouts]
+                    workouts: [...state.workouts, action.payload]
                 }
             case 'DELETE_WORKOUT':
                 return {
                     workouts:
-                        state.workouts.filter((workout) => workout !== action.payload.id)
+                        state.workouts.filter((x) => x !== action.payload.id)
                 }
             default:
                 return state
@@ -59,13 +59,12 @@ const GymPage = () => {
             const userRef = doc(db, 'users', `${currentUser.uid}`);
             await updateDoc(userRef, {
                 weekRutines: arrayUnion(workout.toUpperCase()),
-
             })
                 .then(() => {
                     setWorkout('')
                     setError(null)
                     setLoading(false)
-                    console.log(state.workouts);
+                    console.log(...state.workouts, workout);
                 })
                 .catch((err) => {
                     setError('ERROR! Please refresh the page and try again.')
@@ -76,7 +75,7 @@ const GymPage = () => {
         }
     }
 
-    const fetchWorkoutData = async (currentUser: { uid: string; }) => {
+    const fetchWorkoutData = async (user: User) => {
         // const Ref = doc(db, "users", `${user.uid}`);
         // onSnapshot(Ref, async (_doc) => {
         //     const Snap = await getDoc(Ref);
@@ -85,22 +84,33 @@ const GymPage = () => {
         //     console.log("data fetched", state.workouts)
         // return { dispatch }
         // })
-        const Ref = doc(db, "users", `${currentUser.uid}`);
+        const Ref = doc(db, "users", `${user.uid}`);
         const Snap = await getDoc(Ref);
-        const data: any = Snap.data()
-        dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
-        console.log("data fetched", state.workouts)
+        const data = Snap.data()
+        if (data) {
+            dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
+            console.log("data fetched", state.workouts)
 
-        return { state }
+            return { state }
+        } else {
+            navigate(`/userpage/${user.uid}`)
+        }
     }
+    const deleteMuscleGrup = async (e: any) => {
+        dispatch({ type: 'DELETE_WORKOUT', payload: e.target })
 
+        const cityRef = doc(db, 'users', `${currentUser.uid}`);
+        await updateDoc(cityRef, {
+            weekRutines: state.workouts
+        })
+
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigate('/gym')
-                fetchWorkoutData(currentUser)
-
+                fetchWorkoutData(user)
             } else {
                 navigate('/')
             }
@@ -108,6 +118,7 @@ const GymPage = () => {
         unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
     const muscleGrup = [
         { id: 0, value: 'SELECT MUSCLE GROUP' },
         { id: 1, value: 'CHEST-TRICEPS' },
@@ -125,17 +136,6 @@ const GymPage = () => {
         { id: 13, value: 'CARDIO' }
     ]
     // muscleGrup.forEach(muscle => { console.log(muscle.id); })
-    const deleteMuscleGrup = async (e: any) => {
-
-        console.log(e.target.id)
-        dispatch({ type: 'DELETE_WORKOUT', payload: e.target })
-        console.log(state.workouts)
-        const cityRef = doc(db, 'users', `${currentUser.uid}`);
-
-        await updateDoc(cityRef, {
-            weekRutines: state.workouts
-        })
-    }
 
 
     return (
@@ -171,26 +171,26 @@ const GymPage = () => {
                     error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
                 }
                 <div className="grid gap-l">
-                    {React.Children.toArray(
-                        state.workouts && state.workouts.map((workout: (any), id: number) => (
-                            <div
-                                className="gymPageCardShadow padding-normal"
-                                key={id}>
-                                <div className="flex f-space-b">
-                                    <p>{workout}</p>
-                                    <div className="trash"
-                                        id={workout}
-                                        key={id}
-                                        color="red"
-                                        onClick={deleteMuscleGrup} />
+                    {
+                        React.Children.toArray(
+                            state.workouts! && state.workouts.map((workout: (any), id: number) => (
+                                <div
+                                    className="gymPageCardShadow padding-normal"
+                                    key={id}>
+                                    <div className="flex f-space-b">
+                                        <p>{workout}</p>
+                                        <div className="trash"
+                                            id={workout}
+                                            key={id}
+                                            color="red"
+                                            onClick={deleteMuscleGrup} />
+                                    </div>
+                                    <img src={`img-svg/img/${workout}.png`}
+                                        alt={`${workout}`}
+                                        style={{ maxWidth: '100%', maxHeight: '100%' }} />
                                 </div>
-                                <img src={`img-svg/img/${workout}.png`}
-                                    alt={`${workout}`}
-                                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                            </div>
-                        ))
-                    )
-
+                            ))
+                        )
                     }
                 </div>
             </section>
