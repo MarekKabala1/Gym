@@ -1,5 +1,5 @@
+import { IoIosArrowBack } from 'react-icons/io';
 import {
-    IoArrowUndoSharp,
     IoEllipseSharp,
     IoEllipsisVerticalSharp
 } from 'react-icons/io5';
@@ -20,9 +20,9 @@ const BottomMenu = () => {
     }
     return (
         <div className="bottomMenu_wrapper flex f-space-b">
-            <div className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoArrowUndoSharp onClick={navigateBack} /></div>
-            <div className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></div>
-            <div className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></div>
+            <span className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoIosArrowBack onClick={navigateBack} /></span>
+            <span className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></span>
+            <span className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></span>
         </div>
     )
 }
