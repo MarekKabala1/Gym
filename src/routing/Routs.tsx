@@ -29,7 +29,9 @@ const Routs = () => {
                     <Route path="/resetpassword" element={<ResetPassword />} />
                     {/* protected routs */}
                     <Route path="/userpage/:uid" element={<UsersPage />} />
-                    <Route path="/gym" element={<GymPage />} />
+                    <Route path="/gym" element={<GymPage />}>
+                        <Route path=":workouts" />
+                    </Route>
                 </Routes>
             </Router>
         </>

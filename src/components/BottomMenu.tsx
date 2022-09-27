@@ -1,4 +1,6 @@
 import { IoIosArrowBack } from 'react-icons/io';
+import { GrLineChart } from 'react-icons/gr';
+import { ImCalendar } from 'react-icons/im';
 import {
     IoEllipseSharp,
     IoEllipsisVerticalSharp
@@ -21,7 +23,9 @@ const BottomMenu = () => {
     return (
         <div className="bottomMenu_wrapper flex f-space-b">
             <span className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoIosArrowBack onClick={navigateBack} /></span>
+            <span className="bottomMenu bottomMenu_cal bottomMenu_small"><ImCalendar /></span>
             <span className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></span>
+            <span className="bottomMenu bottomMenu_chart bottomMenu_small" ><GrLineChart /></span>
             <span className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></span>
         </div>
     )
