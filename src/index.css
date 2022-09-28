@@ -306,15 +306,15 @@ span{
   border:none;
   cursor: pointer;
 }
-.bottomMenu_wrapper svg{
+.bottomMenu svg{
    height:2.2rem;
    width:2.2rem;
-   fill:var(--clr_button_secendary)
+   fill:var(--clr_button_secendary);
 }
 .bottomMenu_small svg{
   height:1.5rem;
   width:1.5rem;
-  fill:var(--clr_button_secendary)
+  stroke:var(--clr_primary);
 }
 .bottomMenu_wrapper{
  pointer-events: auto;
