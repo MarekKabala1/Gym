@@ -1,7 +1,7 @@
 //React react router react hooks
 import React from "react";
 import { useEffect, useState, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
@@ -22,6 +22,7 @@ import { Alert } from "@mui/material";
 
 const GymPage = () => {
     let navigate = useNavigate();
+    let { workoutId } = useParams();
     const [workout, setWorkout] = useState<string>('')
     const [error, setError] = useState<any>(null)
     const [loading, setLoading] = useState<boolean>(false)
@@ -174,11 +175,11 @@ const GymPage = () => {
                     {
                         React.Children.toArray(
                             state.workouts! && state.workouts.map((workout: (any), id: number) => (
-                                <div
+                                <Link to={workout}> <div
                                     className="gymPageCardShadow padding-normal"
                                     key={id}>
                                     <div className="flex f-space-b">
-                                        <p>{workout}</p>
+                                        <p style={{ color: '#f6eeee' }}>{workout}</p>
                                         <div className="trash"
                                             id={workout}
                                             key={id}
@@ -188,7 +189,7 @@ const GymPage = () => {
                                     <img src={`img-svg/img/${workout}.png`}
                                         alt={`${workout}`}
                                         style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                                </div>
+                                </div></Link>
                             ))
                         )
                     }
