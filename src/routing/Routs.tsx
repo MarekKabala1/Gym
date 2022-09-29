@@ -30,9 +30,9 @@ const Routs = () => {
                     <Route path="/resetpassword" element={<ResetPassword />} />
                     {/* protected routs */}
                     <Route path="/userpage/:uid" element={<UsersPage />} />
-                    <Route path="/gym" element={<GymPage />}>
-                        <Route path=":workout" element={<WorkoutPage />} />
-                    </Route>
+                    <Route path="/gym" element={<GymPage />} />
+                    <Route path="/gym/:workout" element={<WorkoutPage />} />
+                    {/* </Route> */}
                 </Routes>
             </Router>
         </>

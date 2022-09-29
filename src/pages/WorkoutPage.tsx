@@ -1,9 +1,9 @@
-
+import WorkoutForm from "../components/layout/WorkoutForm"
 
 const WorkoutPage = () => {
     return (
         <div>
-            hi
+            <WorkoutForm />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 //React react router react hooks
 import React from "react";
 import { useEffect, useState, useReducer } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
@@ -10,11 +10,9 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
-    onSnapshot,
     getDoc,
     arrayUnion,
     updateDoc,
-    deleteField,
 } from "firebase/firestore";
 import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
@@ -22,10 +20,9 @@ import { Alert } from "@mui/material";
 
 const GymPage = () => {
     let navigate = useNavigate();
-    let { workoutId } = useParams();
-    const [workout, setWorkout] = useState<string>('')
-    const [error, setError] = useState<any>(null)
+    const [workOut, setWorkOut] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<any>(null)
 
     const { currentUser } = useAuth()
 
@@ -55,17 +52,17 @@ const GymPage = () => {
 
     const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
-        dispatch({ type: 'CREATE_WORKOUT', payload: workout })
-        if (workout) {
+        dispatch({ type: 'CREATE_WORKOUT', payload: workOut })
+        if (workOut) {
             const userRef = doc(db, 'users', `${currentUser.uid}`);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(workout.toUpperCase()),
+                weekRutines: arrayUnion(workOut.toUpperCase()),
             })
                 .then(() => {
-                    setWorkout('')
+                    setWorkOut('')
                     setError(null)
                     setLoading(false)
-                    console.log(...state.workouts, workout);
+                    console.log(...state.workouts, workOut);
                 })
                 .catch((err) => {
                     setError('ERROR! Please refresh the page and try again.')
@@ -141,16 +138,16 @@ const GymPage = () => {
 
     return (
         <>
-            <section className="gymPage-section flex-column ">
+            <Outlet /><section className="gymPage-section flex-column ">
                 <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
                     <select
                         className="gymPage_form "
                         placeholder="Select Muscle Grup"
                         name="workout"
-                        id={workout}
+                        id={workOut}
                         required
-                        value={workout}
-                        onChange={(e) => setWorkout(e.target.value)}>
+                        value={workOut}
+                        onChange={(e) => setWorkOut(e.target.value)}>
 
                         {muscleGrup.map((workout, id) => {
                             return <option

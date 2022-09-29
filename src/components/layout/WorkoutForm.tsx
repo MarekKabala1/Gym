@@ -15,7 +15,7 @@ const WorkoutForm = () => {
 
 
   return (
-    <form className="create" onSubmit={handleSubmit}>
+    <form className="form flex-column center gap-s" onSubmit={handleSubmit}>
       <h3>Add a New Workout</h3>
 
       <label>Excersize Title:</label>
