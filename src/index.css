@@ -377,3 +377,23 @@ span{
   color: red;
   cursor: pointer;
 }
+/* workoutPage */
+.workoutPage-wrapper{
+  height: 95vh;
+}
+.workoutPage-header{
+  padding: .5rem;
+}
+.workoutForm-Input{
+  height: 1.2rem;
+  padding: .9em;
+  outline: var(--clr_text_ligt);
+  border: .5px solid var(--clr_text_ligt);
+}
+.workoutForm-label{
+  color: var(--clr_text_ligt);
+  font-size: .8rem;
+}
+.workoutForm-header{
+  color: var(--clr_text_ligt);
+}

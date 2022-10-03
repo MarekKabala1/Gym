@@ -1,4 +1,4 @@
-
+import { Alert } from '@mui/material'
 import { useState } from 'react'
 
 const WorkoutForm = () => {
@@ -6,6 +6,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState('')
   const [reps, setReps] = useState('')
   const [error, setError] = useState(null)
+
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -15,32 +16,34 @@ const WorkoutForm = () => {
 
 
   return (
-    <form className="form flex-column center gap-s" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+    <form className="workoutForm flex-column center gap-s" onSubmit={handleSubmit}>
+      <h3 className='workoutForm-header'>New Workout</h3>
 
-      <label>Excersize Title:</label>
+      <label className='workoutForm-label'>Excersize Title:</label>
       <input
+        className='workoutForm-Input'
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
 
-      <label>Load (in kg):</label>
+      <label className='workoutForm-label'>Load (in kg):</label>
       <input
+        className='workoutForm-Input'
         type="number"
         onChange={(e) => setLoad(e.target.value)}
         value={load}
       />
 
-      <label>Number of Reps:</label>
+      <label className='workoutForm-label'>Number of Reps:</label>
       <input
+        className='workoutForm-Input'
         type="number"
         onChange={(e) => setReps(e.target.value)}
         value={reps}
       />
-
-      <button>Add Workout</button>
-      {error && <div className="error">{error}</div>}
+      <button>Add</button>
+      {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
     </form>
   )
 }

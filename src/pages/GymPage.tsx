@@ -1,7 +1,7 @@
 //React react router react hooks
 import React from "react";
 import { useEffect, useState, useReducer } from "react";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
@@ -18,13 +18,14 @@ import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
 
 
-const GymPage = () => {
+const GymPage = (props: any) => {
     let navigate = useNavigate();
+    const { currentUser } = useAuth()
+
     const [workOut, setWorkOut] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
 
-    const { currentUser } = useAuth()
 
     const workoutReducer = (state: { workouts: []; }, action: { type: any; payload: any; }) => {
         switch (action.type) {
@@ -133,12 +134,10 @@ const GymPage = () => {
         { id: 12, value: 'LEGS-GLUTEUS' },
         { id: 13, value: 'CARDIO' }
     ]
-    // muscleGrup.forEach(muscle => { console.log(muscle.id); })
-
 
     return (
         <>
-            <Outlet /><section className="gymPage-section flex-column ">
+            <main className="gymPage-section flex-column ">
                 <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
                     <select
                         className="gymPage_form "
@@ -168,11 +167,11 @@ const GymPage = () => {
                 {
                     error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
                 }
-                <div className="grid gap-l">
+                <section className="grid gap-l">
                     {
                         React.Children.toArray(
                             state.workouts! && state.workouts.map((workout: (any), id: number) => (
-                                <Link to={workout}> <div
+                                <Link to={workout} state={workout}> <div
                                     className="gymPageCardShadow padding-normal"
                                     key={id}>
                                     <div className="flex f-space-b">
@@ -190,8 +189,8 @@ const GymPage = () => {
                             ))
                         )
                     }
-                </div>
-            </section>
+                </section>
+            </main>
             <BottomMenu />
         </>
     )
