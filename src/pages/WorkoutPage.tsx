@@ -2,9 +2,7 @@ import WorkoutForm from "../components/layout/WorkoutForm"
 import BottomMenu from "../components/BottomMenu"
 import { useLocation } from "react-router-dom"
 
-
 const WorkoutPage = () => {
-    // debugger
     const location = useLocation()
     const element = location.state
 
@@ -20,6 +18,20 @@ const WorkoutPage = () => {
                         </div>
                         <WorkoutForm />
                     </div>
+                    {/* <>
+                        {
+                            React.Children.toArray(
+                                newWorkout! && newWorkout.map((workout: (any), id: number) => (
+                                    <div
+                                        className="gymPageCardShadow padding-normal"
+                                        key={id}>
+                                        {workout.title1}
+                                    </div>
+                                ))
+                            )
+                        }
+                    </> */}
+
                 </section>
             </main>
             <BottomMenu />
