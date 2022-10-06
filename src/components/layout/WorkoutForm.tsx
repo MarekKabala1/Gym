@@ -1,18 +1,55 @@
 import { Alert } from '@mui/material'
+import { getDatabase, ref, set } from 'firebase/database'
+import { Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useAuth } from '../../firebseConfig/AuthContext'
+
+type workoutType = {
+  title: string
+  load?: number
+  reps?: number
+}
 
 const WorkoutForm = () => {
+  const { currentUser } = useAuth()
   const [title, setTitle] = useState('')
-  const [load, setLoad] = useState('')
-  const [reps, setReps] = useState('')
-  const [error, setError] = useState(null)
+  const [load, setLoad] = useState<any>('')
+  const [reps, setReps] = useState<any>('')
+  const [error, setError] = useState('')
 
+  const location = useLocation()
+  const element = location.state
+
+  const workout: workoutType = {
+    title, load, reps,
+  }
+  const writeUserWorkoutData = async () => {
+    const db = getDatabase();
+    await set(ref(db, `${element}/` + currentUser.uid), {
+      title,
+      reps,
+      load,
+      Timestamp
+    })
+      .then(() => {
+        setTitle('')
+        setLoad('')
+        setReps('')
+      })
+      .catch((error) => {
+        setError(error.massage)
+      })
+  }
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
+    writeUserWorkoutData()
+    console.log(workout);
 
-    const workout = { title, load, reps }
   }
+
+
 
 
   return (
