@@ -41,6 +41,7 @@ a{
   justify-content: space-between;
   align-items: center;
 }
+
 .f-space-a{
   justify-content: space-around;
   align-items: center;
@@ -69,6 +70,12 @@ a{
 .margin-top-bottom{
   margin: 1rem 0 1rem 0;
 }
+.margin-large{
+  margin: 1rem
+}
+.margin-small{
+  margin: .5rem;
+}
 .padding-small{
   padding: .5rem;
 }
@@ -83,6 +90,12 @@ a{
 }
 .padding-l-top-bottom{
   padding: 1.5rem 0 1.5rem 0;
+}
+.width-l{
+  width: 100%;
+}
+.height-l{
+  height: 100%;
 }
 
 /* loggo spin */
@@ -377,7 +390,7 @@ span{
   color: red;
   cursor: pointer;
 }
-/* workoutPage */
+/* workoutPage workoutForm */
 .workoutPage-wrapper{
   height: 95vh;
 }
@@ -396,4 +409,12 @@ span{
 }
 .workoutForm-header{
   color: var(--clr_text_ligt);
+}
+.setButton{
+  border: none;
+  border-radius: 100%;
+  padding: 3px;
+  font-weight: bolder;
+  font-size: 1rem;
+  cursor: pointer;
 }

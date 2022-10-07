@@ -1,9 +1,10 @@
 import { Alert } from '@mui/material'
 import { getDatabase, ref, set } from 'firebase/database'
-import { Timestamp } from 'firebase/firestore'
+import { serverTimestamp, Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
+import MainButton from '../ButtonMain'
 
 type workoutType = {
   title: string
@@ -14,9 +15,11 @@ type workoutType = {
 const WorkoutForm = () => {
   const { currentUser } = useAuth()
   const [title, setTitle] = useState('')
+  const [sets, setSets] = useState('')
   const [load, setLoad] = useState<any>('')
   const [reps, setReps] = useState<any>('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const location = useLocation()
   const element = location.state
@@ -27,10 +30,10 @@ const WorkoutForm = () => {
   const writeUserWorkoutData = async () => {
     const db = getDatabase();
     await set(ref(db, `${element}/` + currentUser.uid), {
-      title,
-      reps,
-      load,
-      Timestamp
+      title: title,
+      reps: reps,
+      load: load,
+      createdAt: new Date()
     })
       .then(() => {
         setTitle('')
@@ -48,40 +51,70 @@ const WorkoutForm = () => {
     console.log(workout);
 
   }
+  const addNewSet = (event: any) => {
+    console.log("click", event);
+  }
 
 
 
 
   return (
-    <form className="workoutForm flex-column center gap-s" onSubmit={handleSubmit}>
-      <h3 className='workoutForm-header'>New Workout</h3>
+    <section className='flex-column gap-l center'>
+      <form className="workoutForm flex-column center gap-l" onSubmit={handleSubmit}>
+        <h3 className='workoutForm-header'>New Workout</h3>
+        <div className='flex-column center width-l gap-s'>
+          <label className='workoutForm-label '>Excersize Title:</label>
+          <input
+            className='workoutForm-Input'
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+        </div>
 
-      <label className='workoutForm-label'>Excersize Title:</label>
-      <input
-        className='workoutForm-Input'
-        type="text"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-
-      <label className='workoutForm-label'>Load (in kg):</label>
-      <input
-        className='workoutForm-Input'
-        type="number"
-        onChange={(e) => setLoad(e.target.value)}
-        value={load}
-      />
-
-      <label className='workoutForm-label'>Number of Reps:</label>
-      <input
-        className='workoutForm-Input'
-        type="number"
-        onChange={(e) => setReps(e.target.value)}
-        value={reps}
-      />
-      <button>Add</button>
-      {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
-    </form>
+        <div className='flex addSet'>
+          <div className="flex-column gap-s center">
+            <label className='workoutForm-label'>Set:</label>
+            <input
+              className='workoutForm-Input'
+              type="number"
+              onChange={(e) => setSets(e.target.value)}
+              value={sets}
+            />
+          </div>
+          <div className="flex-column gap-s center">
+            <label className='workoutForm-label'>Load (in kg):</label>
+            <input
+              className='workoutForm-Input'
+              type="number"
+              onChange={(e) => setLoad(e.target.value)}
+              value={load}
+            />
+          </div>
+          <div className="flex-column gap-s center">
+            <label className='workoutForm-label'>Number of Reps:</label>
+            <input
+              className='workoutForm-Input'
+              type="number"
+              onChange={(e) => setReps(e.target.value)}
+              value={reps}
+            />
+          </div>
+        </div>
+        {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
+      </form>
+      <div className='flex f-space-b width-l '>
+        <button className='setButton margin-small addSet' onClick={addNewSet}> + </button>
+        <button className='setButton margin-small delSet' onClick={addNewSet}> - </button>
+      </div>
+      {/* <button type='submit' onClick={handleSubmit}>Add</button> */}
+      <MainButton
+        disabled={loading}
+        color={'lightgreen'}
+        onClick={handleSubmit}
+        text={'Add'}
+        type={"submit"}></MainButton>
+    </section>
   )
 }
 

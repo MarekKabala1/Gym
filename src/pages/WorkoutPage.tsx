@@ -10,7 +10,7 @@ const WorkoutPage = () => {
         <>
             <main className="workoutPage-wrapper">
                 <section>
-                    <div className="workoutPage-header flex center">
+                    <div className="workoutPage-header flex-column center">
                         <div className="workoutPage-imgWrapper" style={{ height: '200px' }}>
                             <img src={`/img-svg/img/${element}.png`}
                                 alt={`Muscle part for exersise: ${element}`}
