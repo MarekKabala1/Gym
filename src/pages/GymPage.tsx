@@ -102,7 +102,6 @@ const GymPage = (props: any) => {
         await updateDoc(cityRef, {
             weekRutines: state.workouts
         })
-
     }
 
     useEffect(() => {
@@ -171,21 +170,23 @@ const GymPage = (props: any) => {
                     {
                         React.Children.toArray(
                             state.workouts! && state.workouts.map((workout: (any), id: number) => (
-                                <Link to={workout} state={workout}> <div
-                                    className="gymPageCardShadow padding-normal"
+                                <div className="gymPageCardShadow padding-normal"
                                     key={id}>
                                     <div className="flex f-space-b">
                                         <p style={{ color: '#f6eeee' }}>{workout}</p>
-                                        <div className="trash"
+                                        <span className="trash"
                                             id={workout}
                                             key={id}
                                             color="red"
-                                            onClick={deleteMuscleGrup} />
+                                            onClick={deleteMuscleGrup}>
+                                            X
+                                        </span>
                                     </div>
-                                    <img src={`img-svg/img/${workout}.png`}
-                                        alt={`${workout}`}
-                                        style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                                </div></Link>
+                                    <Link to={workout} state={workout}>
+                                        <img src={`img-svg/img/${workout}.png`}
+                                            alt={`${workout}`}
+                                            style={{ maxWidth: '100%', maxHeight: '100%' }} /></Link>
+                                </div>
                             ))
                         )
                     }

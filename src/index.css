@@ -315,6 +315,12 @@ span{
   font-weight:bold;
 }
 /* bottom menu */
+.bottomMenu_wrapper{
+ pointer-events: auto;
+ position: absolute;
+ bottom: 2rem;
+
+}
 .bottomMenu{
   border:none;
   cursor: pointer;
@@ -329,11 +335,8 @@ span{
   width:1.5rem;
   stroke:var(--clr_primary);
 }
-.bottomMenu_wrapper{
- pointer-events: auto;
-}
 .bottomMenu_middle-button svg{
-  height:3rem;
+  height:5rem;
   width: inherit;
 }
 /* gym page */
@@ -380,15 +383,14 @@ span{
   background: var(--clr_primary);
   color: var(--clr_text_ligt);
 }
-.tarsh{
+.trash{
   width: 1rem;
   height: inherit;
   cursor: pointer;
-}
-.trash::after{
-  content: 'X';
+  z-index: 100;
+  /* cursor: pointer; */
   color: red;
-  cursor: pointer;
+  border-bottom: none;
 }
 /* workoutPage workoutForm */
 .workoutPage-wrapper{
@@ -399,18 +401,28 @@ span{
 }
 .workoutForm-Input{
   height: 1.2rem;
-  padding: .9em;
+  padding: .9rem;
   outline: var(--clr_text_ligt);
   border: .5px solid var(--clr_text_ligt);
+  color: var(--clr_text_ligt);
+}
+.workoutForm-Input:focus{
+  /* background-color: var(--clr_text_dark_alpha); */
+  color: var(--clr_primary);
 }
 .workoutForm-label{
   color: var(--clr_text_ligt);
   font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1rem;
 }
 .workoutForm-header{
   color: var(--clr_text_ligt);
+  letter-spacing: .1rem;
 }
 .setButton{
+  height: 1rem;
+  width: 1rem;
   border: none;
   border-radius: 100%;
   padding: 3px;

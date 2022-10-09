@@ -21,7 +21,7 @@ const BottomMenu = () => {
         navigate(`/userpage/${user.uid}`)
     }
     return (
-        <div className="bottomMenu_wrapper flex f-space-b">
+        <div className="bottomMenu_wrapper flex f-space-b width-l padding-small">
             <span className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoIosArrowBack onClick={navigateBack} /></span>
             <span className="bottomMenu bottomMenu_cal bottomMenu_small"><ImCalendar /></span>
             <span className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></span>

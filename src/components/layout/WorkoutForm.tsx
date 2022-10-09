@@ -1,6 +1,7 @@
 import { Alert } from '@mui/material'
 import { getDatabase, ref, set } from 'firebase/database'
 import { serverTimestamp, Timestamp } from 'firebase/firestore'
+import React from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
@@ -19,6 +20,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState<any>('')
   const [reps, setReps] = useState<any>('')
   const [error, setError] = useState('')
+  const [inputFields, setInputFields] = useState([{}])
   const [loading, setLoading] = useState(false)
 
   const location = useLocation()
@@ -51,8 +53,43 @@ const WorkoutForm = () => {
     console.log(workout);
 
   }
-  const addNewSet = (event: any) => {
-    console.log("click", event);
+  const setInput = () => {
+    return (<div className='flex addSet'>
+      <div className="flex-column gap-s center">
+        <label className='workoutForm-label'>Set:</label>
+        <input
+          className='workoutForm-Input'
+          type="number"
+          onChange={(e) => setSets(e.target.value)}
+          value={sets}
+        />
+      </div>
+      <div className="flex-column gap-s center">
+        <label className='workoutForm-label'>Load (in kg):</label>
+        <input
+          className='workoutForm-Input'
+          type="number"
+          onChange={(e) => setLoad(e.target.value)}
+          value={load}
+        />
+      </div>
+      <div className="flex-column gap-s center">
+        <label className='workoutForm-label'>Number of Reps:</label>
+        <input
+          className='workoutForm-Input'
+          type="number"
+          onChange={(e) => setReps(e.target.value)}
+          value={reps}
+        />
+      </div>
+    </div>)
+  }
+  const addSet = (event: any) => {
+    console.log("click add", setInput);
+    setInputFields([{ setInput }])
+  }
+  const delSet = (event: any) => {
+    console.log("click del", event);
   }
 
 
@@ -104,8 +141,8 @@ const WorkoutForm = () => {
         {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
       </form>
       <div className='flex f-space-b width-l '>
-        <button className='setButton margin-small addSet' onClick={addNewSet}> + </button>
-        <button className='setButton margin-small delSet' onClick={addNewSet}> - </button>
+        <button className='setButton margin-small flex center addSet' onClick={addSet}> + </button>
+        <button className='setButton margin-small flex center delSet' onClick={delSet}> - </button>
       </div>
       {/* <button type='submit' onClick={handleSubmit}>Add</button> */}
       <MainButton
