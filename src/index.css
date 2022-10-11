@@ -319,7 +319,7 @@ span{
  pointer-events: auto;
  position: absolute;
  bottom: 2rem;
-
+overflow: visible;
 }
 .bottomMenu{
   border:none;

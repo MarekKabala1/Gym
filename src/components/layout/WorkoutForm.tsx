@@ -1,4 +1,5 @@
 import { Alert } from '@mui/material'
+import { render } from '@testing-library/react'
 import { getDatabase, ref, set } from 'firebase/database'
 import { serverTimestamp, Timestamp } from 'firebase/firestore'
 import React from 'react'
@@ -20,8 +21,9 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState<any>('')
   const [reps, setReps] = useState<any>('')
   const [error, setError] = useState('')
-  const [inputFields, setInputFields] = useState([{}])
   const [loading, setLoading] = useState(false)
+  const inputField: any = []
+  const [inputLists, setInputLists] = useState<any>([])
 
   const location = useLocation()
   const element = location.state
@@ -29,6 +31,7 @@ const WorkoutForm = () => {
   const workout: workoutType = {
     title, load, reps,
   }
+
   const writeUserWorkoutData = async () => {
     const db = getDatabase();
     await set(ref(db, `${element}/` + currentUser.uid), {
@@ -53,40 +56,9 @@ const WorkoutForm = () => {
     console.log(workout);
 
   }
-  const setInput = () => {
-    return (<div className='flex addSet'>
-      <div className="flex-column gap-s center">
-        <label className='workoutForm-label'>Set:</label>
-        <input
-          className='workoutForm-Input'
-          type="number"
-          onChange={(e) => setSets(e.target.value)}
-          value={sets}
-        />
-      </div>
-      <div className="flex-column gap-s center">
-        <label className='workoutForm-label'>Load (in kg):</label>
-        <input
-          className='workoutForm-Input'
-          type="number"
-          onChange={(e) => setLoad(e.target.value)}
-          value={load}
-        />
-      </div>
-      <div className="flex-column gap-s center">
-        <label className='workoutForm-label'>Number of Reps:</label>
-        <input
-          className='workoutForm-Input'
-          type="number"
-          onChange={(e) => setReps(e.target.value)}
-          value={reps}
-        />
-      </div>
-    </div>)
-  }
   const addSet = (event: any) => {
-    console.log("click add", setInput);
-    setInputFields([{ setInput }])
+    setInputLists([...inputField, workout])
+    console.log("click add");
   }
   const delSet = (event: any) => {
     console.log("click del", event);
@@ -97,46 +69,83 @@ const WorkoutForm = () => {
 
   return (
     <section className='flex-column gap-l center'>
-      <form className="workoutForm flex-column center gap-l" onSubmit={handleSubmit}>
-        <h3 className='workoutForm-header'>New Workout</h3>
-        <div className='flex-column center width-l gap-s'>
-          <label className='workoutForm-label '>Excersize Title:</label>
-          <input
-            className='workoutForm-Input'
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
-        </div>
+      <form className="flex center gap-l" onSubmit={handleSubmit}>
+        <div className="workoutForm flex-column center gap-l">
+          <h3 className='workoutForm-header'>New Workout</h3>
+          <div className='flex-column center width-l gap-s'>
+            <label className='workoutForm-label '>Excersize Title:</label>
+            <input
+              className='workoutForm-Input'
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+            />
+          </div>
 
-        <div className='flex addSet'>
-          <div className="flex-column gap-s center">
-            <label className='workoutForm-label'>Set:</label>
-            <input
-              className='workoutForm-Input'
-              type="number"
-              onChange={(e) => setSets(e.target.value)}
-              value={sets}
-            />
+          <div className='flex addSet'>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Set:</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                onChange={(e) => setSets(e.target.value)}
+                value={sets}
+              />
+            </div>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Load (in kg):</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                onChange={(e) => setLoad(e.target.value)}
+                value={load}
+              />
+            </div>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Number of Reps:</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                onChange={(e) => setReps(e.target.value)}
+                value={reps}
+              />
+            </div>
           </div>
-          <div className="flex-column gap-s center">
-            <label className='workoutForm-label'>Load (in kg):</label>
-            <input
-              className='workoutForm-Input'
-              type="number"
-              onChange={(e) => setLoad(e.target.value)}
-              value={load}
-            />
-          </div>
-          <div className="flex-column gap-s center">
-            <label className='workoutForm-label'>Number of Reps:</label>
-            <input
-              className='workoutForm-Input'
-              type="number"
-              onChange={(e) => setReps(e.target.value)}
-              value={reps}
-            />
-          </div>
+          {
+            React.Children.toArray(
+              inputLists.map((inputList: (any), index: React.Key | null | undefined) => (
+                <div className='flex center' key={index}>
+                  <div className="flex-column gap-s center">
+                    <label className='workoutForm-label'>Set:</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="text"
+                      onChange={(e) => setSets(e.target.value)}
+                      value={sets}
+                    />
+                  </div>
+                  <div className="flex-column gap-s center">
+                    <label className='workoutForm-label'>Load (in kg):</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="number"
+                      onChange={(e) => setLoad(e.target.value)}
+                      value={load}
+                    />
+                  </div>
+                  <div className="flex-column gap-s center">
+                    <label className='workoutForm-label'>Number of Reps:</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="number"
+                      onChange={(e) => setReps(e.target.value)}
+                      value={reps}
+                    />
+                  </div>
+                </div>
+              ))
+            )
+          }
         </div>
         {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
       </form>
