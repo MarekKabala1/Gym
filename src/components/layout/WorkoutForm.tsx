@@ -1,7 +1,5 @@
 import { Alert } from '@mui/material'
-import { render } from '@testing-library/react'
 import { getDatabase, ref, set } from 'firebase/database'
-import { serverTimestamp, Timestamp } from 'firebase/firestore'
 import React from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -10,6 +8,7 @@ import MainButton from '../ButtonMain'
 
 type workoutType = {
   title: string
+  sets: number
   load?: number
   reps?: number
 }
@@ -17,7 +16,7 @@ type workoutType = {
 const WorkoutForm = () => {
   const { currentUser } = useAuth()
   const [title, setTitle] = useState('')
-  const [sets, setSets] = useState('')
+  const [sets, setSets] = useState<any>(1)
   const [load, setLoad] = useState<any>('')
   const [reps, setReps] = useState<any>('')
   const [error, setError] = useState('')
@@ -29,13 +28,14 @@ const WorkoutForm = () => {
   const element = location.state
 
   const workout: workoutType = {
-    title, load, reps,
+    title, sets, load, reps,
   }
 
   const writeUserWorkoutData = async () => {
     const db = getDatabase();
     await set(ref(db, `${element}/` + currentUser.uid), {
       title: title,
+      set: sets,
       reps: reps,
       load: load,
       createdAt: new Date()
@@ -57,15 +57,13 @@ const WorkoutForm = () => {
 
   }
   const addSet = (event: any) => {
-    setInputLists([...inputField, workout])
+    let newField = { sets: '', load: '', reps: '' }
+    setInputLists([...inputField, newField])
     console.log("click add");
   }
   const delSet = (event: any) => {
     console.log("click del", event);
   }
-
-
-
 
   return (
     <section className='flex-column gap-l center'>
@@ -82,7 +80,7 @@ const WorkoutForm = () => {
             />
           </div>
 
-          <div className='flex addSet'>
+          {/* <div className='flex addSet'>
             <div className="flex-column gap-s center">
               <label className='workoutForm-label'>Set:</label>
               <input
@@ -110,7 +108,7 @@ const WorkoutForm = () => {
                 value={reps}
               />
             </div>
-          </div>
+          </div> */}
           {
             React.Children.toArray(
               inputLists.map((inputList: (any), index: React.Key | null | undefined) => (

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
+import Loading from "./Loading";
 //Firebase Firestore and config
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
@@ -55,6 +56,7 @@ const GymPage = (props: any) => {
         e.preventDefault()
         dispatch({ type: 'CREATE_WORKOUT', payload: workOut })
         if (workOut) {
+            setLoading(true)
             const userRef = doc(db, 'users', `${currentUser.uid}`);
             await updateDoc(userRef, {
                 weekRutines: arrayUnion(workOut.toUpperCase()),
@@ -69,8 +71,6 @@ const GymPage = (props: any) => {
                     setError('ERROR! Please refresh the page and try again.')
                     console.log(err);
                 })
-        } else {
-            setLoading(true)
         }
     }
 
