@@ -1,4 +1,4 @@
-const MainButton = ({ color, text, onClick, type, disabled }: ButtonProp) => {
+const MainButton = ({ color, text, onClick, type, disabled, className }: ButtonProp) => {
 
     return (
         <button type={'button'} className="btn center" onClick={onClick} style={{ backgroundColor: color }}>{text}</button>
@@ -6,13 +6,16 @@ const MainButton = ({ color, text, onClick, type, disabled }: ButtonProp) => {
 }
 MainButton.defaultProps = {
     text: 'Sign Up',
-    color: '#0DF5E3'
+    color: '#0DF5E3',
+    className: "btn center"
+
 }
 type ButtonProp = {
     text: string,
     color: string,
     type: string,
     disabled: boolean,
+    className: string,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

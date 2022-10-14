@@ -6,6 +6,7 @@
   --clr_text_ligt: rgb(246, 238, 238);
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
+  --clr_danger:rgb(168, 6, 6);
 }
 *{
   margin: 0;
@@ -414,7 +415,7 @@ text-align: center;
   cursor: pointer;
   z-index: 100;
   /* cursor: pointer; */
-  color: red;
+  color: var(--clr_danger);
   border-bottom: none;
 }
 /* workoutPage workoutForm */
@@ -454,5 +455,14 @@ text-align: center;
   padding: 3px;
   font-weight: bolder;
   font-size: 1rem;
+  cursor: pointer;
+}
+.btn-trash{
+  height: 1rem;
+  aspect-ratio: 1;
+  background-color: var(--clr_danger);
+  border: none;
+  border-radius: 50%;
+  margin-top: 1.5rem;
   cursor: pointer;
 }
