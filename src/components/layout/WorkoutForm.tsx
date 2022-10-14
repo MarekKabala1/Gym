@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
 import MainButton from '../ButtonMain'
+import { BsTrash } from 'react-icons/bs'
 
 type workoutType = {
   title: string
@@ -21,8 +22,8 @@ const WorkoutForm = () => {
   const [reps, setReps] = useState<any>('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const inputField: any = []
   const [inputLists, setInputLists] = useState<any>([])
+  const [formValues, setFormValues] = useState([{ sets: '', load: '', reps: '' }])
 
   const location = useLocation()
   const element = location.state
@@ -32,22 +33,42 @@ const WorkoutForm = () => {
   }
 
   const writeUserWorkoutData = async () => {
-    const db = getDatabase();
-    await set(ref(db, `${element}/` + currentUser.uid), {
-      title: title,
-      set: sets,
-      reps: reps,
-      load: load,
-      createdAt: new Date()
-    })
-      .then(() => {
-        setTitle('')
-        setLoad('')
-        setReps('')
-      })
-      .catch((error) => {
-        setError(error.massage)
-      })
+    // console.log(formValues)
+    // const db = getDatabase();
+    // await set(ref(db, `${element}/` + currentUser.uid), {
+    //   title: title,
+    //   set: sets,
+    //   reps: reps,
+    //   load: load,
+    //   createdAt: new Date()
+    // })
+    //   .then(() => {
+    //     setTitle('')
+    //     setLoad('')
+    //     setReps('')
+    //   })
+    //   .catch((error) => {
+    //     setError(error.massage)
+    //   })
+  }
+
+  //To do: new form value not working
+  let handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    let newFormValues = [...formValues];
+    // newFormValues[index + 1][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
+    console.log(newFormValues);
+  }
+
+  let addFormFields = () => {
+    setFormValues([...formValues, { sets, load, reps }])
+    console.log()
+  }
+
+  let removeFormFields = (i: number) => {
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues)
   }
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -56,110 +77,78 @@ const WorkoutForm = () => {
     console.log(workout);
 
   }
-  const addSet = (event: any) => {
-    let newField = { sets: '', load: '', reps: '' }
-    setInputLists([...inputField, newField])
-    console.log("click add");
-  }
-  const delSet = (event: any) => {
-    console.log("click del", event);
-  }
 
   return (
     <section className='flex-column gap-l center'>
-      <form className="flex center gap-l" onSubmit={handleSubmit}>
-        <div className="workoutForm flex-column center gap-l">
-          <h3 className='workoutForm-header'>New Workout</h3>
-          <div className='flex-column center width-l gap-s'>
-            <label className='workoutForm-label '>Excersize Title:</label>
-            <input
-              className='workoutForm-Input'
-              type="text"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-          </div>
-
-          {/* <div className='flex addSet'>
-            <div className="flex-column gap-s center">
-              <label className='workoutForm-label'>Set:</label>
-              <input
-                className='workoutForm-Input'
-                type="number"
-                onChange={(e) => setSets(e.target.value)}
-                value={sets}
-              />
-            </div>
-            <div className="flex-column gap-s center">
-              <label className='workoutForm-label'>Load (in kg):</label>
-              <input
-                className='workoutForm-Input'
-                type="number"
-                onChange={(e) => setLoad(e.target.value)}
-                value={load}
-              />
-            </div>
-            <div className="flex-column gap-s center">
-              <label className='workoutForm-label'>Number of Reps:</label>
-              <input
-                className='workoutForm-Input'
-                type="number"
-                onChange={(e) => setReps(e.target.value)}
-                value={reps}
-              />
-            </div>
-          </div> */}
-          {
-            React.Children.toArray(
-              inputLists.map((inputList: (any), index: React.Key | null | undefined) => (
-                <div className='flex center' key={index}>
-                  <div className="flex-column gap-s center">
-                    <label className='workoutForm-label'>Set:</label>
-                    <input
-                      className='workoutForm-Input'
-                      type="text"
-                      onChange={(e) => setSets(e.target.value)}
-                      value={sets}
-                    />
-                  </div>
-                  <div className="flex-column gap-s center">
-                    <label className='workoutForm-label'>Load (in kg):</label>
-                    <input
-                      className='workoutForm-Input'
-                      type="number"
-                      onChange={(e) => setLoad(e.target.value)}
-                      value={load}
-                    />
-                  </div>
-                  <div className="flex-column gap-s center">
-                    <label className='workoutForm-label'>Number of Reps:</label>
-                    <input
-                      className='workoutForm-Input'
-                      type="number"
-                      onChange={(e) => setReps(e.target.value)}
-                      value={reps}
-                    />
-                  </div>
-                </div>
-              ))
-            )
-          }
+      <form className="flex-column center gap-l" onSubmit={handleSubmit}>
+        <div className='flex-column center width-l gap-s'>
+          <label className='workoutForm-label '>Excersize Title:</label>
+          <input
+            className='workoutForm-Input'
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
         </div>
-        {error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>}
+        {formValues.map((element, index) => (
+          <div className="flex center" key={index}>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Sets</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                name="sets"
+                value={index + 1}
+                onChange={e => handleChange(index, e)} />
+            </div>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Reps</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                name="reps"
+                value={element.reps}
+                onChange={e => handleChange(index, e)} />
+            </div>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Load(kg)</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                name="Load"
+                value={element.load}
+                onChange={e => handleChange(index, e)} />
+            </div>
+            {
+              index ?
+                <button
+                  className="btn-trash"
+                  type="button"
+                  disabled={false}
+                  onClick={() => removeFormFields(index)}>x</button>
+                : null
+            }
+          </div>
+        ))}
       </form>
-      <div className='flex f-space-b width-l '>
-        <button className='setButton margin-small flex center addSet' onClick={addSet}> + </button>
-        <button className='setButton margin-small flex center delSet' onClick={delSet}> - </button>
+      <div className="workoutForm-btn-wrapper flex gap-l">
+        <MainButton
+          color={'lightgreen'}
+          disabled={false}
+          text={'Add Set'}
+          type="button"
+          onClick={() => addFormFields()}></MainButton>
+        <MainButton
+          disabled={loading}
+          color={'lightgreen'}
+          onClick={handleSubmit}
+          text={'Submit'}
+          type={"submit"}></MainButton>
       </div>
-      {/* <button type='submit' onClick={handleSubmit}>Add</button> */}
-      <MainButton
-        disabled={loading}
-        color={'lightgreen'}
-        onClick={handleSubmit}
-        text={'Add'}
-        type={"submit"}></MainButton>
+      {/* <button className="button submit" type="submit">Submit</button> */}
     </section>
   )
+
 }
 
 export default WorkoutForm
