@@ -1,85 +1,114 @@
 import { Alert } from '@mui/material'
+import { rejects } from 'assert'
 import { getDatabase, ref, set } from 'firebase/database'
+import { serverTimestamp } from 'firebase/firestore'
 import React from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
 import MainButton from '../ButtonMain'
-import { BsTrash } from 'react-icons/bs'
-
-type workoutType = {
-  title: string
-  sets: number
-  load?: number
-  reps?: number
-}
+// type workoutType = {
+//   title: string
+//   sets: number
+//   load?: number
+//   reps?: number
+// }
 
 const WorkoutForm = () => {
   const { currentUser } = useAuth()
-  const [title, setTitle] = useState('')
-  const [sets, setSets] = useState<any>(1)
-  const [load, setLoad] = useState<any>('')
-  const [reps, setReps] = useState<any>('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [inputLists, setInputLists] = useState<any>([])
-  const [formValues, setFormValues] = useState([{ sets: '', load: '', reps: '' }])
+  const [title, setTitle] = useState<string>('')
+  const [messege, setMessege] = useState<string>('')
+  const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [formValues, setFormValues] = useState(
+    [{
+      title,
+      sets: '',
+      load: '',
+      reps: '',
+      createdAt: serverTimestamp()
+    }])
 
   const location = useLocation()
-  const element = location.state
+  const musclePartUrl = location.state
 
-  const workout: workoutType = {
-    title, sets, load, reps,
+  const eee = (e: { sets: any; load: any; reps: any }) => {
+    const newFormWithWorkoutDataSend = {
+      title: title,
+      sets: e.sets,
+      load: e.load,
+      reps: e.reps,
+      createdAt: new Date()
+    }
+    console.log(newFormWithWorkoutDataSend);
   }
 
-  const writeUserWorkoutData = async () => {
-    // console.log(formValues)
+
+  const writeUserWorkoutData = (e: { sets: any; load: any; reps: any }) => {
+
     // const db = getDatabase();
-    // await set(ref(db, `${element}/` + currentUser.uid), {
-    //   title: title,
-    //   set: sets,
-    //   reps: reps,
-    //   load: load,
-    //   createdAt: new Date()
+    // // eslint-disable-next-line no-useless-concat
+    // await set(ref(db, `${musclePartUrl}/` + `${currentUser.uid}`), {
+
     // })
-    //   .then(() => {
-    //     setTitle('')
-    //     setLoad('')
-    //     setReps('')
-    //   })
-    //   .catch((error) => {
-    //     setError(error.massage)
-    //   })
+    const promise = new Promise((resolve) => {
+      resolve(eee)
+      console.log("ide dalej");
+    })
+      .then(() => {
+        setMessege('Exercise Added')
+        setFormValues([{
+          title,
+          sets: '',
+          load: '',
+          reps: '',
+          createdAt: serverTimestamp()
+
+        }])
+        setTimeout(() => {
+          setMessege('')
+        }, 2000)
+        setTitle('')
+      })
+      .catch((_error) => {
+        setError('Unable o send data. Please try later')
+      })
+    console.log(promise, formValues, eee(e))
+
   }
 
-  //To do: new form value not working
-  let handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    let newFormValues = [...formValues];
-    // newFormValues[index + 1][e.target.name] = e.target.value;
+  // To do: new form value not working
+  let handleChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    let newFormValues = [...formValues] as any
+    newFormValues[i][e.target.name] = e.target.value
     setFormValues(newFormValues);
-    console.log(newFormValues);
   }
 
   let addFormFields = () => {
-    setFormValues([...formValues, { sets, load, reps }])
-    console.log()
+    setFormValues([...formValues, { title, sets: '', load: '', reps: '', createdAt: serverTimestamp() }])
+    console.log(formValues)
   }
 
   let removeFormFields = (i: number) => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
-    setFormValues(newFormValues)
   }
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
-    writeUserWorkoutData()
-    console.log(workout);
+    writeUserWorkoutData(e as any);
+    // console.log(formValues);
 
   }
 
   return (
     <section className='flex-column gap-l center'>
+      {
+        messege && <Alert severity="success">{messege}</Alert>
+      }
+      {
+        error && <Alert severity="error">{error}</Alert>
+      }
       <form className="flex-column center gap-l" onSubmit={handleSubmit}>
         <div className='flex-column center width-l gap-s'>
           <label className='workoutForm-label '>Excersize Title:</label>
@@ -90,7 +119,7 @@ const WorkoutForm = () => {
             value={title}
           />
         </div>
-        {formValues.map((element, index) => (
+        {formValues.map((e, index) => (
           <div className="flex center" key={index}>
             <div className="flex-column gap-s center">
               <label className='workoutForm-label'>Sets</label>
@@ -98,7 +127,16 @@ const WorkoutForm = () => {
                 className='workoutForm-Input'
                 type="number"
                 name="sets"
-                value={index + 1}
+                value={e.sets || ''}
+                onChange={(e) => handleChange(index, e)} />
+            </div>
+            <div className="flex-column gap-s center">
+              <label className='workoutForm-label'>Load(kg)</label>
+              <input
+                className='workoutForm-Input'
+                type="number"
+                name="load"
+                value={e.load || ''}
                 onChange={e => handleChange(index, e)} />
             </div>
             <div className="flex-column gap-s center">
@@ -107,17 +145,8 @@ const WorkoutForm = () => {
                 className='workoutForm-Input'
                 type="number"
                 name="reps"
-                value={element.reps}
-                onChange={e => handleChange(index, e)} />
-            </div>
-            <div className="flex-column gap-s center">
-              <label className='workoutForm-label'>Load(kg)</label>
-              <input
-                className='workoutForm-Input'
-                type="number"
-                name="Load"
-                value={element.load}
-                onChange={e => handleChange(index, e)} />
+                value={e.reps || ''}
+                onChange={(e) => handleChange(index, e)} />
             </div>
             {
               index ?
