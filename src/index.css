@@ -162,7 +162,7 @@ a{
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  margin: auto;
+  margin:0, auto;
 }
 
 .btn{
@@ -179,6 +179,9 @@ a{
 
 /* Main Page Section */
 
+.homePage-wrapper{
+  min-height: 100vh;
+}
 .heroConteiner{
     min-width:90%;
     color:var(--clr_text_ligt);

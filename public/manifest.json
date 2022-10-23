@@ -1,6 +1,6 @@
 {
-  "short_name": "Gym Buddy",
-  "name": "GymBuddy",
+  "short_name": "Gym Buddy 4U",
+  "name": "GymBuddy4U",
   "icons": [
     {
       "src": "/img-svg/img/pwaLogo/logo512.png",
@@ -41,12 +41,6 @@
     {
       "src": "/img-svg/img/pwaLogo/logo72.png",
       "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/img-svg/img/pwaLogo/logo48.png",
-      "sizes": "48x48",
       "type": "image/png",
       "purpose": "any"
     }
