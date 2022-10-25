@@ -1,4 +1,4 @@
-import LogoSvg from "../components/LogoSvg"
+import Logo from "../components/Logo"
 import MainButton from "../components/ButtonMain"
 import { useNavigate } from "react-router-dom"
 
@@ -14,7 +14,7 @@ const HomePage = () => {
     return (
         <main className="homePage-wrapper flex-column gap-xl ">
             <header className='nav flex'>
-                <LogoSvg />
+                <Logo />
                 <div className='buttonWraper flex gap-l'>
                     <MainButton disabled={false} color={'lightgreen'} onClick={onClick2} type={""}></MainButton>
                     <MainButton disabled={false} onClick={onClick} text={"Log In"} type={""}></MainButton>

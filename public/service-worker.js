@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-var CACHE_NAME = "pwa-task-manager";
+var CACHE_NAME = "gymBuddy4U";
 var urlsToCache = ["/", "/completed"];
 
 // Install a service worker
