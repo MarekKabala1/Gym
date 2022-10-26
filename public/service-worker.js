@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 var CACHE_NAME = "gymBuddy4U";
-var urlsToCache = ["/", "/completed"];
+var urlsToCache = ["/", ".", "index.html"];
 
 // Install a service worker
 // eslint-disable-next-line no-restricted-globals

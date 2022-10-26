@@ -45,7 +45,8 @@
       "purpose": "any"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": ".",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#211b32",
