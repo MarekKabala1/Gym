@@ -54,9 +54,10 @@ const SignUp = () => {
                 created: new Date(),
                 weekRutines: []
             })
+
             navigate(`/userpage/${user.uid}`)
-            return newUser
-        } catch {
+        }
+        catch {
             setError(error)
         }
         setLoading(false)

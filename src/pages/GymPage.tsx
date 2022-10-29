@@ -1,77 +1,107 @@
 //React react router react hooks
-import React, { useRef } from "react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BsTrash } from "react-icons/bs"
+import React from "react";
+import { useEffect, useState, useReducer } from "react";
+import { Link, useNavigate } from "react-router-dom";
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
+import Loading from "./Loading";
 //Firebase Firestore and config
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebseConfig/fireaseConfig";
 import {
     doc,
-    onSnapshot,
     getDoc,
     arrayUnion,
     updateDoc,
-    deleteField,
 } from "firebase/firestore";
 import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
 
 
-
-const GymPage = () => {
+const GymPage = (props: any) => {
     let navigate = useNavigate();
-    const [workOutData, setWorkOutData] = useState<any>([])
-    const [workout, setWorkout] = useState<string>('')
-    const [error, setError] = useState<any>(null)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [muscle, setMuscle] = useState([])
-
     const { currentUser } = useAuth()
-    const ref = useRef(null)
+
+    const [workOut, setWorkOut] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<any>(null)
 
 
-    // const input = () => {
-    //     return <WorkOutList />
-    // }
+    const workoutReducer = (state: { workouts: []; }, action: { type: any; payload: any; }) => {
+        switch (action.type) {
+            case 'SET_WORKOUT':
+                return {
+                    workouts: action.payload
+                }
+            case 'CREATE_WORKOUT':
+                return {
+                    workouts: [...state.workouts, action.payload]
+                }
+            case 'DELETE_WORKOUT':
+                return {
+                    workouts:
+                        state.workouts.filter((x) => x !== action.payload.id)
+                }
+            default:
+                return state
+        }
+    }
+
+    const [state, dispatch] = useReducer(workoutReducer, {
+        workouts: null
+    })
 
     const handleWorkoutSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
-
-        if (workout) {
-
-            const userRef = doc(db, 'users', currentUser.uid);
+        dispatch({ type: 'CREATE_WORKOUT', payload: workOut })
+        if (workOut) {
+            setLoading(true)
+            const userRef = doc(db, 'users', `${currentUser.uid}`);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(workout.toUpperCase())
+                weekRutines: arrayUnion(workOut.toUpperCase()),
             })
                 .then(() => {
-                    setWorkout('')
+                    setWorkOut('')
                     setError(null)
                     setLoading(false)
-                    console.log('workout added')
+                    console.log(...state.workouts, workOut);
                 })
                 .catch((err) => {
                     setError('ERROR! Please refresh the page and try again.')
                     console.log(err);
                 })
-        } else {
-            setLoading(true)
         }
     }
 
     const fetchWorkoutData = async (user: User) => {
+        // const Ref = doc(db, "users", `${user.uid}`);
+        // onSnapshot(Ref, async (_doc) => {
+        //     const Snap = await getDoc(Ref);
+        //     const data: any = Snap.data()
+        //     dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
+        //     console.log("data fetched", state.workouts)
+        // return { dispatch }
+        // })
         const Ref = doc(db, "users", `${user.uid}`);
-        onSnapshot(Ref, async (_doc) => {
-            const Snap = await getDoc(Ref);
-            const data: any = Snap.data()
-            setWorkOutData(data.weekRutines)
+        const Snap = await getDoc(Ref);
+        const data = Snap.data()
+        if (data) {
+            dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
+            console.log("data fetched", state.workouts)
 
-            // console.log(data.weekRutines, workOutData);
+            return { state }
+        } else {
+            navigate(`/userpage/${user.uid}`)
+        }
+    }
+    const deleteMuscleGrup = async (e: any) => {
+        dispatch({ type: 'DELETE_WORKOUT', payload: e.target })
+
+        const cityRef = doc(db, 'users', `${currentUser.uid}`);
+        await updateDoc(cityRef, {
+            weekRutines: state.workouts
         })
-        return { workOutData }
     }
 
     useEffect(() => {
@@ -86,6 +116,7 @@ const GymPage = () => {
         unsubscribe()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
     const muscleGrup = [
         { id: 0, value: 'SELECT MUSCLE GROUP' },
         { id: 1, value: 'CHEST-TRICEPS' },
@@ -95,40 +126,26 @@ const GymPage = () => {
         { id: 5, value: 'CHEST' },
         { id: 6, value: 'BACK' },
         { id: 7, value: 'SHOULDERS' },
-        { id: 8, value: 'ASB' },
+        { id: 8, value: 'ABS' },
         { id: 9, value: 'PULL' },
         { id: 10, value: 'PUSH' },
         { id: 11, value: 'LEGS' },
         { id: 12, value: 'LEGS-GLUTEUS' },
         { id: 13, value: 'CARDIO' }
     ]
-    // muscleGrup.forEach(muscle => { console.log(muscle.id); })
-    const deleteMuscleGrup = async (e: any) => {
-
-        console.log(ref.current, e)
-        const cityRef = doc(db, 'users', `${currentUser.uid}`);
-
-        await updateDoc(cityRef, {
-            // weekRutines: deleteField()
-        });
-
-
-    }
-
 
     return (
         <>
-            <section className="gymPage-section flex-column ">
+            <main className="gymPage-section flex-column ">
                 <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
                     <select
                         className="gymPage_form "
                         placeholder="Select Muscle Grup"
                         name="workout"
+                        id={workOut}
                         required
-                        value={workout}
-                        id={workout}
-                        ref={ref}
-                        onChange={(e) => setWorkout(e.target.value)}>
+                        value={workOut}
+                        onChange={(e) => setWorkOut(e.target.value)}>
 
                         {muscleGrup.map((workout, id) => {
                             return <option
@@ -149,31 +166,32 @@ const GymPage = () => {
                 {
                     error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
                 }
-                <div className="grid gap-l">
-                    {React.Children.toArray(
-                        workOutData && workOutData.map((workout: (any), id: number) => (
-                            <div
-                                className="gymPageCardShadow padding-normal"
-                                ref={ref}
-                                key={id}>
-                                <div className="flex f-space-b">
-                                    <p>{workout}</p>
-                                    <BsTrash
-                                        id={workout.id}
-                                        key={id}
-                                        color="red"
-                                        onClick={deleteMuscleGrup} />
+                <section className="grid gap-l">
+                    {
+                        React.Children.toArray(
+                            state.workouts! && state.workouts.map((workout: (any), id: number) => (
+                                <div className="gymPageCardShadow padding-normal"
+                                    key={id}>
+                                    <div className="flex f-space-b">
+                                        <p style={{ color: '#f6eeee' }}>{workout}</p>
+                                        <span className="trash"
+                                            id={workout}
+                                            key={id}
+                                            color="red"
+                                            onClick={deleteMuscleGrup}>
+                                            X
+                                        </span>
+                                    </div>
+                                    <Link to={workout} state={workout}>
+                                        <img src={`img-svg/img/${workout}.png`}
+                                            alt={`${workout}`}
+                                            style={{ maxWidth: '100%', maxHeight: '100%' }} /></Link>
                                 </div>
-                                <img src={`img-svg/img/${workout}.png`}
-                                    alt={`${workout}`}
-                                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                            </div>
-                        ))
-                    )
-
+                            ))
+                        )
                     }
-                </div>
-            </section>
+                </section>
+            </main>
             <BottomMenu />
         </>
     )

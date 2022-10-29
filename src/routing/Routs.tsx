@@ -13,6 +13,7 @@ import ResetPassword from "../components/layout/ResetPassword";
 import PageNotFound from "../pages/PageNotFound";
 import GymPage from "../pages/GymPage";
 import Loading from "../pages/Loading";
+import WorkoutPage from "../pages/WorkoutPage";
 
 const Routs = () => {
 
@@ -30,6 +31,8 @@ const Routs = () => {
                     {/* protected routs */}
                     <Route path="/userpage/:uid" element={<UsersPage />} />
                     <Route path="/gym" element={<GymPage />} />
+                    <Route path="/gym/:workout" element={<WorkoutPage />} />
+                    {/* </Route> */}
                 </Routes>
             </Router>
         </>

@@ -1,5 +1,7 @@
+import { IoIosArrowBack } from 'react-icons/io';
+import { AiOutlineLineChart } from 'react-icons/ai';
+import { ImCalendar } from 'react-icons/im';
 import {
-    IoArrowUndoSharp,
     IoEllipseSharp,
     IoEllipsisVerticalSharp
 } from 'react-icons/io5';
@@ -19,10 +21,12 @@ const BottomMenu = () => {
         navigate(`/userpage/${user.uid}`)
     }
     return (
-        <div className="bottomMenu_wrapper flex f-space-b">
-            <div className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoArrowUndoSharp onClick={navigateBack} /></div>
-            <div className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></div>
-            <div className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></div>
+        <div className="bottomMenu_wrapper flex f-space-b width-l padding-small">
+            <span className="bottomMenu bottomMenu_arrow" onClick={navigateBack}><IoIosArrowBack onClick={navigateBack} /></span>
+            <span className="bottomMenu bottomMenu_cal bottomMenu_small"><ImCalendar /></span>
+            <span className="bottomMenu bottomMenu_middle-button" onClick={navigateUserPage}><IoEllipseSharp onClick={navigateUserPage} /></span>
+            <span className="bottomMenu bottomMenu_chart bottomMenu_small" ><AiOutlineLineChart /></span>
+            <span className="bottomMenu bottomMenu_menu"><IoEllipsisVerticalSharp /></span>
         </div>
     )
 }

@@ -9,12 +9,15 @@ import MainButton from '../components/ButtonMain'
 import { auth, db } from '../firebseConfig/fireaseConfig'
 import { signOut, onAuthStateChanged, deleteUser, getAuth } from "firebase/auth";
 import { doc, getDoc, deleteDoc } from "firebase/firestore"
+import { useAuth } from '../firebseConfig/AuthContext';
 
 const UsersPage = () => {
     let navigate = useNavigate();
     const [authed, setAuthed] = useState<boolean>(false);
     const [newUser, setNewUser] = useState<any[]>([]);
     const [error, setError] = useState<any>('')
+
+    const { currentUser } = useAuth()
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -41,6 +44,7 @@ const UsersPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
     const logOut = () => {
         signOut(auth)
             .then((authed) => {
@@ -64,6 +68,7 @@ const UsersPage = () => {
                 .then(() => {
                     // auth User deleted.
                     navigate('/')
+                    console.log("user deleted");
                 }).catch((error: any) => {
                     return setError(error.message)
                 });
