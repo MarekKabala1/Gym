@@ -18,7 +18,6 @@ const assets = [
   "/img-svg/img/pwaLogo/logo128.png",
   "/img-svg/img/pwaLogo/logo96.png",
   "/img-svg/img/pwaLogo/logo72.png",
-  "https://fonts.googleapis.com",
   "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",
 ];
 
