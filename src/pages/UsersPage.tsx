@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 //components
-import SvgLogo2 from '../components/LogoSvg'
+import Logo from '../components/Logo'
 import MainButton from '../components/ButtonMain'
 //firestore irebase
 import { auth, db } from '../firebseConfig/fireaseConfig'
@@ -101,7 +101,7 @@ const UsersPage = () => {
                 </div>
             </header>
             <div className='svgWrapper'>
-                <SvgLogo2 />
+                <Logo />
             </div>
 
             {

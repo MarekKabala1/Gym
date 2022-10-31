@@ -1,8 +1,8 @@
-import SvgLogo2 from "../components/LogoSvg"
+import Logo from "../components/Logo"
 const Loading = () => {
     return (
         <section className=" loading-wrapper flex-column center">
-            <SvgLogo2 />
+            <Logo />
             <div className="loading-wrapper_text">Loading<span>...</span></div>
         </section>
     )

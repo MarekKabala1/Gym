@@ -2,9 +2,24 @@
 console.log("My coustom service wrker");
 
 // Any other custom service worker logic can go here.
-const staticCacheName = "site-static-v2";
+const staticCacheName = "site-static-v3";
 const dynamicCacheName = "site-dynamic-v1";
-const assets = ["/", "/index.html"];
+const assets = [
+  "/",
+  "/index.html",
+  "/src/index.ccs",
+  "/manifest.json",
+  "/service-worker-custom.js",
+  "/img-svg/img/pwaLogo/logo512.png",
+  "/img-svg/img/pwaLogo/logo384.png",
+  "/img-svg/img/pwaLogo/logo192.png",
+  "/img-svg/img/pwaLogo/logo152.png",
+  "/img-svg/img/pwaLogo/logo144.png",
+  "/img-svg/img/pwaLogo/logo128.png",
+  "/img-svg/img/pwaLogo/logo96.png",
+  "/img-svg/img/pwaLogo/logo72.png",
+  "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",
+];
 
 // install event
 self.addEventListener("install", (evt) => {
