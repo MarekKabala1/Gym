@@ -53,7 +53,7 @@ self.addEventListener("activate", (evt) => {
 
 // fetch event
 self.addEventListener("fetch", (evt) => {
-  console.log("fetch event from custom", evt);
+  // console.log("fetch event from custom", evt);
   if (!(evt.request.url.indexOf("http") === 0)) return;
   evt.respondWith(
     caches.match(evt.request).then((cacheRes) => {
