@@ -10,6 +10,7 @@ const assets = [
   "/src/index.ccs",
   "/manifest.json",
   "/service-worker-custom.js",
+  " /static/css/main.82d9f8ae.css",
   "/img-svg/img/pwaLogo/logo512.png",
   "/img-svg/img/pwaLogo/logo384.png",
   "/img-svg/img/pwaLogo/logo192.png",
