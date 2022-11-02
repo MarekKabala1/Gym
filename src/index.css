@@ -1,9 +1,9 @@
 :root {
   --clr_primary: rgb(33, 27, 50);
   --clr_button: rgba(13, 245, 227);
-  --clr_button_secendary: rgb(144, 238, 144);
+  --clr_button_secendary: #d0bed4;
   --clr_secendary: rgba(55, 49, 66);
-  --clr_text_ligt: rgb(246, 238, 238);
+  --clr_text_ligt: #d0bed4;
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
   --clr_danger: rgb(168, 6, 6);
@@ -254,9 +254,9 @@ a {
 
 .btn {
   height: 2rem;
-  width: 5rem;
-  font-size: .6rem;
-  padding: .3rem 1rem;
+  width: 4rem;
+  font-size: .5rem;
+  padding: .3rem .2rem;
   font-weight: 700;
   border: none;
   border-radius: 10px;
@@ -398,7 +398,7 @@ span {
 .avatar {
   background-color: var(--clr_text_ligt);
   font-weight: 900;
-  font-size: 1.1rem;
+  font-size: 1rem;
   height: 2.1rem;
   width: 2.1rem;
   border-radius: 50%;
@@ -408,6 +408,7 @@ span {
   max-width: 100%;
   max-height: 100%;
   gap: 5rem;
+  margin-top: 3rem;
 }
 
 .userPageName {
@@ -416,10 +417,11 @@ span {
 }
 
 .imgWrapper {
-  min-width: 90%;
+  width: 95%;
   height: 150px;
   cursor: pointer;
   border-radius: 5px;
+  box-shadow: -10px 0px 13px -7px var(--clr_secendary), 10px 0px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
 }
 
 .imgGym {
@@ -429,6 +431,7 @@ span {
   background-blend-mode: lighten;
   mix-blend-mode: lighten;
   text-align: center;
+   margin: auto;
 }
 
 .imgNutri {
@@ -441,7 +444,7 @@ span {
 }
 
 .imgWrapper>p {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color: var(--clr_primary);
   font-weight: bold;
 }
@@ -457,6 +460,7 @@ span {
   bottom: 0;
   background: var(--clr_secendary);
   color: #fff;
+  height: 54px;
   width: 100%;
   padding: 5px;
   border-top: solid 0.5px rgba(255, 255, 255, .2);
@@ -470,10 +474,11 @@ span {
   cursor: pointer;
 }
 
-.bottomMenu svg {
-  height: 2.2rem;
-  width: 2.2rem;
+.bottomMenu > svg {
+  height:24px;
+  width: 24px;
   fill: var(--clr_button_secendary);
+  margin: 10px;
 }
 
 .bottomMenu_small svg {
@@ -483,8 +488,8 @@ span {
 }
 
 .bottomMenu_middle-button svg {
-  height: 5rem;
-  width: inherit;
+  height: 40px;
+  width: 40px;
 }
 
 /* gym page */
@@ -493,6 +498,17 @@ span {
   padding: 1rem;
   gap: 1rem;
   height: 100vh;
+}
+.gymPage-btn{
+  width: 3rem;
+  height: 1.5rem;
+  font-size: .5rem;
+  padding: .3rem .2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 .gymPage_heading {

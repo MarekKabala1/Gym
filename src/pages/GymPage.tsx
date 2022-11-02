@@ -157,6 +157,7 @@ const GymPage = (props: any) => {
                         })};
                     </select>
                     <MainButton
+                        className="gymPage-btn"
                         disabled={loading}
                         color={'lightgreen'}
                         onClick={handleWorkoutSubmit}
@@ -173,7 +174,7 @@ const GymPage = (props: any) => {
                                 <div className="gymPageCardShadow padding-normal"
                                     key={id}>
                                     <div className="flex f-space-b">
-                                        <p style={{ color: '#f6eeee' }}>{workout}</p>
+                                        <p>{workout}</p>
                                         <span className="trash"
                                             id={workout}
                                             key={id}
