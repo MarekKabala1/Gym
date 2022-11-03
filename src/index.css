@@ -1,9 +1,9 @@
 :root {
   --clr_primary: rgb(33, 27, 50);
   --clr_button: rgba(13, 245, 227);
-  --clr_button_secendary: #d0bed4;
+  --clr_button_secendary: rgb(208, 190, 212);
   --clr_secendary: rgba(55, 49, 66);
-  --clr_text_ligt: #d0bed4;
+  --clr_text_ligt: rgb(208, 190, 212);
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
   --clr_danger: rgb(168, 6, 6);
@@ -68,6 +68,7 @@ font-face {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Lato', sans-serif;
+  /* color: #211b32; */
 }
 
 body {
@@ -253,15 +254,16 @@ a {
 }
 
 .btn {
-  height: 2rem;
-  width: 4rem;
+  height: 1.5rem;
+  width: 3.5rem;
   font-size: .5rem;
-  padding: .3rem .2rem;
+  padding: .2rem .2rem;
   font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   text-transform: uppercase;
+  color: #211b32;
 }
 
 /* Main Page Section */

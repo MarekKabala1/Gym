@@ -5,7 +5,6 @@ console.log("My coustom service wrker");
 const staticCacheName = "site-static-v3";
 const dynamicCacheName = "site-dynamic-v1";
 const assets = [
-  "/",
   "/index.html",
   "/src/index.ccs",
   "/manifest.json",
@@ -24,6 +23,17 @@ const assets = [
   "https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVSwiPGQ.woff2",
   "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",
 ];
+
+//cache size limit
+const CacheSize = (name, size) => {
+  caches.open(name).then((cache) => {
+    cache.keys().then((keys) => {
+      if (keys.length > size) {
+        cache.delete(keys[0]).then(CacheSize(name, size));
+      }
+    });
+  });
+};
 
 // install event
 self.addEventListener("install", (evt) => {
@@ -62,6 +72,7 @@ self.addEventListener("fetch", (evt) => {
         fetch(evt.request).then((fetchRes) => {
           return caches.open(dynamicCacheName).then((cache) => {
             cache.put(evt.request.url, fetchRes.clone());
+            CacheSize(dynamicCacheName, 15);
             return fetchRes;
           });
         })
