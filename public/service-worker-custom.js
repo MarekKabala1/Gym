@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-console.log("My coustom service wrker");
+console.log("My custom service worker");
 
 // Any other custom service worker logic can go here.
 const staticCacheName = "site-static-v3";
@@ -61,22 +61,22 @@ self.addEventListener("activate", (evt) => {
   );
 });
 
-// fetch event
-self.addEventListener("fetch", (evt) => {
-  // console.log("fetch event from custom", evt);
-  if (!(evt.request.url.indexOf("http") === 0)) return;
-  evt.respondWith(
-    caches.match(evt.request).then((cacheRes) => {
-      return (
-        cacheRes ||
-        fetch(evt.request).then((fetchRes) => {
-          return caches.open(dynamicCacheName).then((cache) => {
-            cache.put(evt.request.url, fetchRes.clone());
-            CacheSize(dynamicCacheName, 15);
-            return fetchRes;
-          });
-        })
-      );
-    })
-  );
-});
+// // fetch event
+// self.addEventListener("fetch", (evt) => {
+//   // console.log("fetch event from custom", evt);
+//   if (!(evt.request.url.indexOf("http") === 0)) return;
+//   evt.respondWith(
+//     caches.match(evt.request).then((cacheRes) => {
+//       return (
+//         cacheRes ||
+//         fetch(evt.request).then((fetchRes) => {
+//           return caches.open(dynamicCacheName).then((cache) => {
+//             cache.put(evt.request.url, fetchRes.clone());
+//             CacheSize(dynamicCacheName, 15);
+//             return fetchRes;
+//           });
+//         })
+//       );
+//     })
+//   );
+// });
