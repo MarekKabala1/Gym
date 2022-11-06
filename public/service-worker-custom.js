@@ -2,8 +2,8 @@
 console.log("My custom service worker");
 
 // Any other custom service worker logic can go here.
-const staticCacheName = "site-static-v3";
-const dynamicCacheName = "site-dynamic-v1";
+const staticCacheName = "cache-static-v1";
+const dynamicCacheName = "cache-dynamic-v1";
 const assets = [
   "/index.html",
   "/src/index.ccs",
@@ -38,6 +38,7 @@ const CacheSize = (name, size) => {
 // install event
 self.addEventListener("install", (evt) => {
   console.log("service worker installed from custom");
+
   evt.waitUntil(
     caches.open(staticCacheName).then((cache) => {
       console.log("caching shell assets");
@@ -62,21 +63,22 @@ self.addEventListener("activate", (evt) => {
 });
 
 // // fetch event
-// self.addEventListener("fetch", (evt) => {
-//   // console.log("fetch event from custom", evt);
-//   if (!(evt.request.url.indexOf("http") === 0)) return;
-//   evt.respondWith(
-//     caches.match(evt.request).then((cacheRes) => {
-//       return (
-//         cacheRes ||
-//         fetch(evt.request).then((fetchRes) => {
-//           return caches.open(dynamicCacheName).then((cache) => {
-//             cache.put(evt.request.url, fetchRes.clone());
-//             CacheSize(dynamicCacheName, 15);
-//             return fetchRes;
-//           });
-//         })
-//       );
-//     })
-//   );
-// });
+self.addEventListener("fetch", (evt) => {
+  // console.log("fetch event from custom", evt);
+  if (!evt.request.url.indexOf("firestore.googleapis.com") === -1) {
+    evt.respondWith(
+      caches.match(evt.request).then((cacheRes) => {
+        return (
+          cacheRes ||
+          fetch(evt.request).then((fetchRes) => {
+            return caches.open(dynamicCacheName).then((cache) => {
+              cache.put(evt.request.url, fetchRes.clone());
+              CacheSize(dynamicCacheName, 15);
+              return fetchRes;
+            });
+          })
+        );
+      })
+    );
+  }
+});
