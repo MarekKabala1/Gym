@@ -55,7 +55,7 @@ const UsersPage = () => {
 
             })
             .catch(() => {
-                console.log('somthing wrong')
+                console.log('something wrong')
                 return setError(error.message)
             });
     }
@@ -77,7 +77,7 @@ const UsersPage = () => {
             console.log('user deleted')
 
         } else {
-            console.log(error.message, 'somthing wrong')
+            console.log(error.message, 'something wrong')
             return setError(error.message)
         }
     };
