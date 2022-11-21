@@ -1,9 +1,9 @@
 :root {
-  --clr_primary: #211b32;
+  --clr_primary: rgb(33, 27, 50);
   --clr_button: rgba(13, 245, 227);
   --clr_button_secendary: rgb(208, 190, 212);
   --clr_secendary: rgba(55, 49, 66);
-  --clr_text_ligt: #d0bed4;
+  --clr_text_ligt: rgb(208, 190, 212);
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
   --clr_danger: rgb(168, 6, 6);
@@ -568,6 +568,7 @@ span {
 }
 
 /* workoutPage workoutForm */
+
 .workoutPage-wrapper {
   height: 95vh;
 }
@@ -583,6 +584,7 @@ span {
   border: .5px solid var(--clr_text_ligt);
   color: var(--clr_text_ligt);
   margin: 0 auto;
+  text-align: center;
 }
 
 .workoutForm-Input:focus {

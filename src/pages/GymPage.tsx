@@ -14,6 +14,7 @@ import {
     getDoc,
     arrayUnion,
     updateDoc,
+    collection,
 } from "firebase/firestore";
 import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
@@ -71,6 +72,8 @@ const GymPage = (props: any) => {
                     setError('ERROR! Please refresh the page and try again.')
                     console.log(err);
                 })
+        } else {
+            return setError(error.message)
         }
     }
 
@@ -95,7 +98,7 @@ const GymPage = (props: any) => {
             navigate(`/userpage/${user.uid}`)
         }
     }
-    const deleteMuscleGrup = async (e: any) => {
+    const deleteMuscleGroup = async (e: any) => {
         dispatch({ type: 'DELETE_WORKOUT', payload: e.target })
 
         const cityRef = doc(db, 'users', `${currentUser.uid}`);
@@ -103,7 +106,6 @@ const GymPage = (props: any) => {
             weekRutines: state.workouts
         })
     }
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -117,7 +119,7 @@ const GymPage = (props: any) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const muscleGrup = [
+    const muscleGroup = [
         { id: 0, value: 'SELECT MUSCLE GROUP' },
         { id: 1, value: 'CHEST-TRICEPS' },
         { id: 2, value: 'BACK-BICEPS' },
@@ -131,23 +133,27 @@ const GymPage = (props: any) => {
         { id: 10, value: 'PUSH' },
         { id: 11, value: 'LEGS' },
         { id: 12, value: 'LEGS-GLUTEUS' },
-        { id: 13, value: 'CARDIO' }
+        { id: 13, value: 'TRAINING1' },
+        { id: 14, value: 'TRAINING2' },
+        { id: 15, value: 'TRAINING3' },
+        { id: 16, value: 'TRAINING4' },
+        { id: 17, value: 'TRAINING5' }
     ]
 
     return (
-        <>
+        <> {error}
             <main className="gymPage-section flex-column ">
                 <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
                     <select
                         className="gymPage_form "
-                        placeholder="Select Muscle Grup"
+                        placeholder="Select Muscle Group"
                         name="workout"
                         id={workOut}
                         required
                         value={workOut}
                         onChange={(e) => setWorkOut(e.target.value)}>
 
-                        {muscleGrup.map((workout, id) => {
+                        {muscleGroup.map((workout, id) => {
                             return <option
                                 key={id}
                                 value={workout.value}
@@ -179,7 +185,7 @@ const GymPage = (props: any) => {
                                             id={workout}
                                             key={id}
                                             color="red"
-                                            onClick={deleteMuscleGrup}>
+                                            onClick={deleteMuscleGroup}>
                                             X
                                         </span>
                                     </div>

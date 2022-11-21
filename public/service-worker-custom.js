@@ -37,7 +37,7 @@ const CacheSize = (name, size) => {
 
 // install event
 self.addEventListener("install", (evt) => {
-  console.log("service worker installed from custom");
+  // console.log("service worker installed from custom");
 
   evt.waitUntil(
     caches.open(staticCacheName).then((cache) => {
@@ -49,7 +49,7 @@ self.addEventListener("install", (evt) => {
 
 // activate event
 self.addEventListener("activate", (evt) => {
-  console.log("service worker activated from custom");
+  // console.log("service worker activated from custom");
   evt.waitUntil(
     caches.keys().then((keys) => {
       console.log(keys);
@@ -63,22 +63,22 @@ self.addEventListener("activate", (evt) => {
 });
 
 // // fetch event
-self.addEventListener("fetch", (evt) => {
-  // console.log("fetch event from custom", evt);
-  if (!evt.request.url.indexOf("firestore.googleapis.com") === -1) {
-    evt.respondWith(
-      caches.match(evt.request).then((cacheRes) => {
-        return (
-          cacheRes ||
-          fetch(evt.request).then((fetchRes) => {
-            return caches.open(dynamicCacheName).then((cache) => {
-              cache.put(evt.request.url, fetchRes.clone());
-              CacheSize(dynamicCacheName, 15);
-              return fetchRes;
-            });
-          })
-        );
-      })
-    );
-  }
-});
+// self.addEventListener("fetch", (evt) => {
+//   // console.log("fetch event from custom", evt);
+//   if (!evt.request.url.indexOf("firestore.googleapis.com") === -1) {
+//     evt.respondWith(
+//       caches.match(evt.request).then((cacheRes) => {
+//         return (
+//           cacheRes ||
+//           fetch(evt.request).then((fetchRes) => {
+//             return caches.open(dynamicCacheName).then((cache) => {
+//               cache.put(evt.request.url, fetchRes.clone());
+//               CacheSize(dynamicCacheName, 15);
+//               return fetchRes;
+//             });
+//           })
+//         );
+//       })
+//     );
+//   }
+// });

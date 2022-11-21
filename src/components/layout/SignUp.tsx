@@ -32,7 +32,7 @@ const SignUp = () => {
                 console.log('unable to sign up')
                 return setError('Passwords do not match')
             } if (password.length < 6) {
-                console.log('Pasword not long')
+                console.log('Password not long')
                 return setError('Password not long enough')
             }
         } try {
@@ -54,7 +54,6 @@ const SignUp = () => {
                 created: new Date(),
                 weekRutines: []
             })
-
             navigate(`/userpage/${user.uid}`)
         }
         catch {

@@ -13,7 +13,7 @@ const WorkoutPage = () => {
                     <div className="workoutPage-header flex-column center">
                         <div className="workoutPage-imgWrapper" style={{ height: '200px' }}>
                             <img src={`/img-svg/img/${element}.png`}
-                                alt={`Muscle part for exersise: ${element}`}
+                                alt={`Muscle part for exercise: ${element}`}
                                 style={{ maxWidth: '100%', maxHeight: '100%' }} />
                         </div>
                         <WorkoutForm />

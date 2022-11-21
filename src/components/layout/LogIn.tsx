@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 //firebase firestore
 import { auth } from '../../firebseConfig/fireaseConfig'
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 // import { collection } from 'firebase/firestore';
 //styled
 import Alert from '@mui/material/Alert';
@@ -20,6 +20,8 @@ const LogIn = () => {
     // const { uid } = useParams();
 
 
+
+
     const handelLogIn = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         setLoading(true)
@@ -30,6 +32,7 @@ const LogIn = () => {
         ).then((userCred) => {
             const user = userCred.user;
             navigate(`/userpage/${user.uid}`)
+
             // return user
         }).catch((error: {
             message: SetStateAction<string>, code: any;
