@@ -59,7 +59,7 @@ const WorkoutForm = () => {
       title
     }
     console.log(eee);
-    const userRef = doc(db, 'users', `${currentUser.uid}`);
+    const userRef = doc(db, 'exercise', `${currentUser.uid}`);
     await updateDoc(userRef, {
 
     })
@@ -67,7 +67,7 @@ const WorkoutForm = () => {
 
       })
       .catch((err) => {
-        setError('ERROR! Please refresh the page and try again.')
+        setError('ERROR!!! Please refresh the page and try again.')
         console.log(err);
       })
 
