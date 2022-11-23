@@ -54,6 +54,10 @@ const SignUp = () => {
                 created: new Date(),
                 weekRutines: []
             })
+            const newExercise = doc(collection(db, "exercise"), id)
+            await setDoc(newExercise, {
+                exercise: []
+            })
             navigate(`/userpage/${user.uid}`)
         }
         catch {

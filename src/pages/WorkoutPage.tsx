@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom"
 
 const WorkoutPage = () => {
     const location = useLocation()
-    const element = location.state
+    const workout = location.state
 
     return (
         <>
@@ -12,8 +12,8 @@ const WorkoutPage = () => {
                 <section>
                     <div className="workoutPage-header flex-column center">
                         <div className="workoutPage-imgWrapper" style={{ height: '200px' }}>
-                            <img src={`/img-svg/img/${element}.png`}
-                                alt={`Muscle part for exercise: ${element}`}
+                            <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
+                                alt={`Muscle part for exercise: ${workout}`}
                                 style={{ maxWidth: '100%', maxHeight: '100%' }} />
                         </div>
                         <WorkoutForm />

@@ -202,7 +202,9 @@ a {
 .loading-wrapper_text {
   color: var(--clr_text_ligt);
   font-weight: 700;
+  letter-spacing: .3rem;
   font-size: 2rem;
+  padding:4rem 0 0 4rem;
 }
 
 .loading-wrapper_text>span {
@@ -445,7 +447,7 @@ span {
   margin: auto;
 }
 
-.imgWrapper>p {
+.userPage_imgText {
   font-size: 1.7rem;
   color: var(--clr_primary);
   font-weight: bold;

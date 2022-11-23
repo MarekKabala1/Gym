@@ -14,7 +14,6 @@ import {
     getDoc,
     arrayUnion,
     updateDoc,
-    collection,
 } from "firebase/firestore";
 import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
@@ -58,9 +57,13 @@ const GymPage = (props: any) => {
         dispatch({ type: 'CREATE_WORKOUT', payload: workOut })
         if (workOut) {
             setLoading(true)
-            const userRef = doc(db, 'users', `${currentUser.uid}`);
+            // const newExercise = doc(collection(db, "exercise"), `${currentUser.uid}`)
+            // await setDoc(newExercise, {
+            //     exercise: `${workOut}`
+            // })
+            const userRef = doc(db, 'exercise', `${currentUser.uid}`);
             await updateDoc(userRef, {
-                weekRutines: arrayUnion(workOut.toUpperCase()),
+                exercise: arrayUnion(workOut.toUpperCase()),
             })
                 .then(() => {
                     setWorkOut('')
@@ -86,24 +89,22 @@ const GymPage = (props: any) => {
         //     console.log("data fetched", state.workouts)
         // return { dispatch }
         // })
-        const Ref = doc(db, "users", `${user.uid}`);
+        const Ref = doc(db, "exercise", `${user.uid}`);
         const Snap = await getDoc(Ref);
         const data = Snap.data()
         if (data) {
-            dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
+            dispatch({ type: 'SET_WORKOUT', payload: data.exercise })
             console.log("data fetched", state.workouts)
 
             return { state }
-        } else {
-            navigate(`/userpage/${user.uid}`)
         }
     }
     const deleteMuscleGroup = async (e: any) => {
         dispatch({ type: 'DELETE_WORKOUT', payload: e.target })
 
-        const cityRef = doc(db, 'users', `${currentUser.uid}`);
+        const cityRef = doc(db, 'exercise', `${currentUser.uid}`);
         await updateDoc(cityRef, {
-            weekRutines: state.workouts
+            exercise: state.workouts
         })
     }
     useEffect(() => {
@@ -141,7 +142,7 @@ const GymPage = (props: any) => {
     ]
 
     return (
-        <> {error}
+        <>
             <main className="gymPage-section flex-column ">
                 <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
                     <select
@@ -190,7 +191,7 @@ const GymPage = (props: any) => {
                                         </span>
                                     </div>
                                     <Link to={workout} state={workout}>
-                                        <img src={`img-svg/img/${workout}.png`}
+                                        <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
                                             alt={`${workout}`}
                                             style={{ maxWidth: '100%', maxHeight: '100%' }} /></Link>
                                 </div>

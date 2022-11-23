@@ -68,12 +68,13 @@ const UsersPage = () => {
                 .then(() => {
                     // auth User deleted.
                     navigate('/')
-                    console.log("user deleted");
+                    console.log("user deleted from auth");
                 }).catch((error: any) => {
                     return setError(error.message)
                 });
             //cloud firestore user deleted
             deleteDoc(doc(db, "users", `${user.uid}`));
+            deleteDoc(doc(db, "exercise", `${user.uid}`));
             console.log('user deleted')
 
         } else {
@@ -115,11 +116,14 @@ const UsersPage = () => {
             }
             <article className='mainContent flex-column '>
                 <Link to="/gym"><div className="imgWrapper imgGym flex center">
-                    <p>Gym</p>
+                    <p className='userPage_imgText'>Gym</p>
                 </div>
                 </Link>
                 <div className="imgWrapper imgNutri flex center">
-                    <p>Nutrition</p>
+                    {/* <img className="imgWrapper imgNutri flex center"
+                        src={`${process.env.PUBLIC_URL}/img-svg/img/nutrition.jpg`}
+                        alt="Nutrition button" /> */}
+                    <p className='userPage_imgText'>Nutrition</p>
                 </div>
             </article>
         </section>
