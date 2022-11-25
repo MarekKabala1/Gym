@@ -174,6 +174,7 @@ const GymPage = (props: any) => {
                 {
                     error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
                 }
+
                 <section className="grid gap-l">
                     {
                         React.Children.toArray(

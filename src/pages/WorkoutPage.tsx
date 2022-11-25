@@ -1,6 +1,7 @@
 import WorkoutForm from "../components/layout/WorkoutForm"
 import BottomMenu from "../components/BottomMenu"
 import { useLocation } from "react-router-dom"
+import Loading from "./Loading"
 
 const WorkoutPage = () => {
     const location = useLocation()
@@ -8,17 +9,19 @@ const WorkoutPage = () => {
 
     return (
         <>
-            <main className="workoutPage-wrapper">
-                <section>
-                    <div className="workoutPage-header flex-column center">
-                        <div className="workoutPage-imgWrapper" style={{ height: '200px' }}>
-                            <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
-                                alt={`Muscle part for exercise: ${workout}`}
-                                style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            {
+                // <Loading /> ||
+                <main className="workoutPage-wrapper">
+                    <section>
+                        <div className="workoutPage-header flex-column center">
+                            <div className="workoutPage-imgWrapper" style={{ height: '200px' }}>
+                                <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
+                                    alt={`Muscle part for exercise: ${workout}`}
+                                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                            </div>
+                            <WorkoutForm />
                         </div>
-                        <WorkoutForm />
-                    </div>
-                    {/* <>
+                        {/* <>
                         {
                             React.Children.toArray(
                                 newWorkout! && newWorkout.map((workout: (any), id: number) => (
@@ -32,8 +35,9 @@ const WorkoutPage = () => {
                         }
                     </> */}
 
-                </section>
-            </main>
+                    </section>
+                </main>
+            }
             <BottomMenu />
         </>
     )
