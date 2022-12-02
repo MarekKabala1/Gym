@@ -157,8 +157,14 @@ a {
   padding: 1rem;
 }
 
-.pading-large {
+.padding-large  {
   padding: 1.5rem;
+}
+.padding-top{
+  padding-top: 1rem;
+}
+.padding-bottom{
+  padding-bottom: 1rem;
 }
 
 .padding-top-bottom {
@@ -625,4 +631,17 @@ span {
   border-radius: 50%;
   margin-top: 1.5rem;
   cursor: pointer;
+}
+.workoutPage-body-header{
+  color: var(--clr_text_ligt);
+  letter-spacing: .4rem;
+  font-size: 1.6rem;
+  text-decoration: underline;
+}
+.workoutPage-body-link{
+  color: var(--clr_text_ligt);
+  text-transform: capitalize;
+}
+.workoutPage-body-link:first-child{
+  padding-top: 1rem ;
 }

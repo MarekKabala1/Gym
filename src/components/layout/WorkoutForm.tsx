@@ -1,5 +1,5 @@
 import { Alert } from '@mui/material'
-import { getDatabase, ref, set } from 'firebase/database'
+import { getDatabase, push, ref, set } from 'firebase/database'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -51,13 +51,13 @@ const WorkoutForm = () => {
     console.log(newFormValues)
   }
 
+  //To do: check if push is working on new users
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     setLoading(true)
     const db = getDatabase();
-    set(ref(db, `${currentUser.uid}/${Date.now()}`), {
-      title,
-      id: currentUser.uid,
+    push(ref(db, `${currentUser.uid}/${musclePartUrl}/${title}`), {
+      timestamp: Date.now(),
       formValues
     })
       .then(() => {
@@ -75,6 +75,7 @@ const WorkoutForm = () => {
       .catch((err) => {
         setError('ERROR!!! Please refresh the page and try again.')
         console.log(err);
+        setLoading(false)
       })
 
 

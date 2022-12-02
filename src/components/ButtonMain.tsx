@@ -12,11 +12,11 @@ MainButton.defaultProps = {
 }
 type ButtonProp = {
     text: string,
-    color: string,
-    type: string,
-    disabled: boolean,
-    className: string,
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    color?: string,
+    type?: string,
+    disabled?: boolean,
+    className?: string,
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 

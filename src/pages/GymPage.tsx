@@ -15,8 +15,8 @@ import {
     arrayUnion,
     updateDoc,
 } from "firebase/firestore";
-import { useAuth } from "../firebseConfig/AuthContext";
 import { Alert } from "@mui/material";
+import { useAuth } from "../firebseConfig/AuthContext";
 
 
 const GymPage = (props: any) => {
@@ -26,7 +26,6 @@ const GymPage = (props: any) => {
     const [workOut, setWorkOut] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
-
 
     const workoutReducer = (state: { workouts: []; }, action: { type: any; payload: any; }) => {
         switch (action.type) {
@@ -107,6 +106,7 @@ const GymPage = (props: any) => {
             exercise: state.workouts
         })
     }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {

@@ -33,7 +33,7 @@ const UsersPage = () => {
                     const Snap = await getDoc(Ref);
                     const data: any = Snap.data()
                     setNewUser(() => [data])
-                    console.log(data);
+                    // console.log(data);
                     return { newUser, user }
                 }
                 fetchData()
