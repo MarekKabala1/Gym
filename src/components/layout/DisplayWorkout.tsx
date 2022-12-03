@@ -12,52 +12,59 @@ const DisplayWorkout = () => {
     const { currentUser } = useAuth()
     let exercisesArray: any[] = []
 
-
-
-
-
     useEffect(() => {
         const db = getDatabase();
         const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
-        // onValue(getWorkout, (snapshot) => {
-        //     if (snapshot.exists()) {
-        //         Object.keys(snapshot.val()).forEach((val) => {
-        //             exercisesArray.push(val)
-        //             setNewData(exercisesArray)
-        //             // console.log(newData);
-        //             return newData
-        //         })
-        //     } else {
-        //         setError(error.massage)
-        //         return error
-        //     }
-        // })
         onValue(getWorkout, (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                const childKey = childSnapshot.key;
-                const childData = childSnapshot.val();
-                console.log(childKey, childData)
-                exercisesArray.push(childKey)
-                setNewData(exercisesArray)
-            });
-        }, {
-            onlyOnce: true
+            if (snapshot.exists()) {
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    exercisesArray.push(childKey)
+                    setNewData(exercisesArray)
+                    console.log(childKey, childData, exercisesArray)
+                });
+            } else {
+                return exercisesArray
+            }
         });
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
+    // useEffect(() => {
+    //     const db = getDatabase();
+    //     const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
+    //     onValue(getWorkout, (snapshot) => {
+    //         if (snapshot.exists()) {
+    //             Object.keys(snapshot.val()).forEach((val) => {
+    //                 exercisesArray.push(val)
+    //                 setNewData(exercisesArray)
+    //                 // console.log(newData);
+    //                 return newData
+    //             })
+    //         } else {
+    //             setError(error.massage)
+    //             return error
+    //         }
+    //     })
+
+
+
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
+
+
     return (
-        <div className="workoutPage-body flex-column center">
-            <h2 className="workoutPage-body-header padding-large">
+        <div className="workoutPage-body flex-column center gymPageCardShadow padding-normal">
+            <h2 className="workoutPage-body-header padding-bottom">
                 {workout}
             </h2>
             <div className="flex-column gap" >
                 {
                     newData.map((exercise: (any), id: number) => (
                         <Link
-                            to={exercise}
+                            to={`${id + 1}`}
                             key={id}
                             className='workoutPage-body-link'>{exercise}</Link>
                     ))
