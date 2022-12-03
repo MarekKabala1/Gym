@@ -8,37 +8,14 @@ import { useEffect, useState } from "react"
 import Loading from "./Loading"
 import React from "react"
 import { Alert } from "@mui/material"
+import DisplayWorkout from "../components/layout/DisplayWorkout"
 
 const WorkoutPage = () => {
     const [loading, setLoading] = useState<boolean>(false)
-    const [newData, setNewData] = useState<Array<any>[]>([])
     const [error, setError] = useState<any>('')
     const location = useLocation()
     const workout = location.state
-    const { currentUser } = useAuth()
-    let exercisesArray: any[] = []
 
-    const DisplayWorkout = async () => {
-        const db = getDatabase();
-        const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
-        onValue(getWorkout, (snapshot) => {
-            if (snapshot.exists()) {
-                Object.keys(snapshot.val()).forEach((val) => {
-                    exercisesArray.push([val])
-                    setNewData(exercisesArray)
-                    // console.log(newData);
-                    return newData
-                })
-            } else {
-                setError(error.massage)
-                return error
-            }
-        })
-    }
-    useEffect(() => {
-        DisplayWorkout()
-
-    }, [])
 
 
 
@@ -58,25 +35,8 @@ const WorkoutPage = () => {
                                         style={{ maxWidth: '100%', maxHeight: '100%' }} />
                                 </div>
                                 <WorkoutForm />
+                                <DisplayWorkout />
                             </div>
-                            <div className="workoutPage-body flex-column center">
-                                <h2 className="workoutPage-body-header padding-large">
-                                    {workout}
-                                </h2>
-                                <div className="flex-column gap" >
-                                    {
-                                        React.Children.toArray(
-                                            newData! && newData.map((exercise: (any), id: number) => (
-                                                <Link
-                                                    to={exercise}
-                                                    key={id}
-                                                    className='workoutPage-body-link'>{String(exercise)}</Link>
-                                            ))
-                                        )
-                                    }
-                                </div>
-                            </div>
-
                         </section>
                     </main>
             }

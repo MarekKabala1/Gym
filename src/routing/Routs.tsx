@@ -14,6 +14,7 @@ import PageNotFound from "../pages/PageNotFound";
 import GymPage from "../pages/GymPage";
 import Loading from "../pages/Loading";
 import WorkoutPage from "../pages/WorkoutPage";
+import DisplayWorkout from "../components/layout/DisplayWorkout";
 
 const Routs = () => {
 
@@ -32,6 +33,7 @@ const Routs = () => {
                     <Route path="/userpage/:uid" element={<UsersPage />} />
                     <Route path="/gym" element={<GymPage />} />
                     <Route path="/gym/:workout" element={<WorkoutPage />} />
+                    <Route path="/display" element={<DisplayWorkout />} />
                     {/* </Route> */}
                 </Routes>
             </Router>

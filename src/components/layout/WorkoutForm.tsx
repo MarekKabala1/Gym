@@ -1,6 +1,5 @@
 import { Alert } from '@mui/material'
-import { getDatabase, push, ref, set } from 'firebase/database'
-import React, { useEffect } from 'react'
+import { getDatabase, push, ref } from 'firebase/database'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
@@ -29,9 +28,6 @@ const WorkoutForm = () => {
 
   const location = useLocation()
   const musclePartUrl = location.state
-  const { db } = useAuth()
-
-
 
   const handleChange = (i: number, e: any) => {
     const newFormValues = [...formValues] as any
@@ -41,18 +37,17 @@ const WorkoutForm = () => {
 
   const addFormFields = () => {
     setFormValues([...formValues, { sets: 1, load: 0, reps: 0 }])
-    console.log(formValues)
   }
 
   const removeFormFields = (i: number) => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     setFormValues(newFormValues)
-    console.log(newFormValues)
   }
 
   //To do: check if push is working on new users
   const handleSubmit = async (e: { preventDefault: () => void }) => {
+    setMessage('Exercise Added!!!')
     e.preventDefault()
     setLoading(true)
     const db = getDatabase();
@@ -71,112 +66,100 @@ const WorkoutForm = () => {
           }]
         )
         setLoading(false)
+        setTimeout(() => {
+          setMessage('')
+        }, 4000)
       })
       .catch((err) => {
         setError('ERROR!!! Please refresh the page and try again.')
         console.log(err);
         setLoading(false)
       })
-
-
-    console.log(formValues);
-
   }
-  if (loading) {
-    return <Loading />
-  } else {
 
-    return (
-      <section className='flex-column gap-l center'>
-        {
-          message && <Alert severity="success">{message}</Alert>
-        }
-        {
-          error && <Alert severity="error">{error}</Alert>
-        }
-        {/* <form className="flex-column center gap-l" onSubmit={handleSubmit}>
-        <div className='flex-column center width-l gap-s'>
-          <label className='workoutForm-label '>Exercise Title:</label>
-          <input
-            className='workoutForm-Input'
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
-        </div> */}
-
-        <form className="flex-column center gap-l" onSubmit={handleSubmit}>
-          <div className='flex-column center width-l gap-s' >
-            <label className='workoutForm-label' htmlFor='title'>Exercise Title:</label>
-            <input
-              className='workoutForm-Input'
-              type="text"
-              id='title'
-              name='title'
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-            />
-          </div>
-          {formValues.map((e, index) => (
-            <div className="flex center" key={index}>
-              <div className="flex-column gap-s center ">
-                <label className='workoutForm-label'>Sets</label>
+  return (
+    <>
+      {
+        loading ? <Loading /> :
+          <section className='flex-column gap-l center'>
+            {
+              message && <Alert severity="success">{message}</Alert>
+            }
+            {
+              error && <Alert severity="error">{error}</Alert>
+            }
+            <form className="flex-column center gap-l" onSubmit={handleSubmit}>
+              <div className='flex-column center width-l gap-s' >
+                <label className='workoutForm-label' htmlFor='title'>Exercise Title:</label>
                 <input
                   className='workoutForm-Input'
-                  type="number"
-                  name="sets"
-                  value={e.sets = 1 + index}
-                  onChange={(e) => handleChange(index, e)} />
+                  type="text"
+                  id='title'
+                  name='title'
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title}
+                />
               </div>
-              <div className="flex-column gap-s center">
-                <label className='workoutForm-label'>Load(kg)</label>
-                <input
-                  className='workoutForm-Input'
-                  type="number"
-                  name="load"
-                  value={e.load || ''}
-                  onChange={e => handleChange(index, e)} />
-              </div>
-              <div className="flex-column gap-s center">
-                <label className='workoutForm-label'>Reps</label>
-                <input
-                  className='workoutForm-Input'
-                  type="number"
-                  name="reps"
-                  value={e.reps || ''}
-                  onChange={(e) => handleChange(index, e)} />
-              </div>
-              {
-                index ?
-                  <button
-                    className="btn-trash"
-                    type="button"
-                    disabled={false}
-                    onClick={() => removeFormFields(index)}>x</button>
-                  : null
-              }
+              {formValues.map((e, index) => (
+                <div className="flex center" key={index}>
+                  <div className="flex-column gap-s center ">
+                    <label className='workoutForm-label'>Sets</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="number"
+                      name="sets"
+                      value={e.sets = 1 + index}
+                      onChange={(e) => handleChange(index, e)} />
+                  </div>
+                  <div className="flex-column gap-s center">
+                    <label className='workoutForm-label'>Load(kg)</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="number"
+                      name="load"
+                      value={e.load || ''}
+                      onChange={e => handleChange(index, e)} />
+                  </div>
+                  <div className="flex-column gap-s center">
+                    <label className='workoutForm-label'>Reps</label>
+                    <input
+                      className='workoutForm-Input'
+                      type="number"
+                      name="reps"
+                      value={e.reps || ''}
+                      onChange={(e) => handleChange(index, e)} />
+                  </div>
+                  {
+                    index ?
+                      <button
+                        className="btn-trash"
+                        type="button"
+                        disabled={false}
+                        onClick={() => removeFormFields(index)}>x</button>
+                      : null
+                  }
+                </div>
+              ))}
+            </form>
+            <div className="workoutForm-btn-wrapper flex gap-l">
+              <MainButton
+                color={'lightgreen'}
+                disabled={false}
+                text={'Add Set'}
+                type="button"
+                onClick={() => addFormFields()}></MainButton>
+              <MainButton
+                disabled={loading}
+                color={'lightgreen'}
+                onClick={handleSubmit}
+                text={'Submit'}
+                type={"submit"}></MainButton>
             </div>
-          ))}
-        </form>
-        <div className="workoutForm-btn-wrapper flex gap-l">
-          <MainButton
-            color={'lightgreen'}
-            disabled={false}
-            text={'Add Set'}
-            type="button"
-            onClick={() => addFormFields()}></MainButton>
-          <MainButton
-            disabled={loading}
-            color={'lightgreen'}
-            onClick={handleSubmit}
-            text={'Submit'}
-            type={"submit"}></MainButton>
-        </div>
-        {/* <button className="button submit" type="submit">Submit</button> */}
-      </section>
-    )
-  }
-
+            {/* <button className="button submit" type="submit">Submit</button> */}
+          </section>
+      }
+    </>
+  )
 }
 
 export default WorkoutForm

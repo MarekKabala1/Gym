@@ -156,7 +156,7 @@ const GymPage = (props: any) => {
 
                         {muscleGroup.map((workout, id) => {
                             return <option
-                                key={id}
+                                key={workout.id}
                                 value={workout.value}
                             >
                                 {workout.value}
@@ -180,12 +180,12 @@ const GymPage = (props: any) => {
                         React.Children.toArray(
                             state.workouts! && state.workouts.map((workout: (any), id: number) => (
                                 <div className="gymPageCardShadow padding-normal"
-                                    key={id}>
+                                    key={workout.id}>
                                     <div className="flex f-space-b">
                                         <p>{workout}</p>
                                         <span className="trash"
                                             id={workout}
-                                            key={id}
+                                            key={workout.id}
                                             color="red"
                                             onClick={deleteMuscleGroup}>
                                             X
