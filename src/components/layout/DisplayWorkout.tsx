@@ -1,4 +1,5 @@
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { snapshotEqual } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../firebseConfig/AuthContext';
@@ -6,7 +7,7 @@ import { useAuth } from '../../firebseConfig/AuthContext';
 const DisplayWorkout = () => {
     const location = useLocation()
     const workout = location.state
-    const [newData, setNewData] = useState<Array<any>[]>([])
+    const [newData, setNewData] = useState<any>([])
     const [error, setError] = useState<any>('')
 
     const { currentUser } = useAuth()
@@ -15,6 +16,7 @@ const DisplayWorkout = () => {
     useEffect(() => {
         const db = getDatabase();
         const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
+
         onValue(getWorkout, (snapshot) => {
             if (snapshot.exists()) {
                 snapshot.forEach((childSnapshot) => {
@@ -22,7 +24,8 @@ const DisplayWorkout = () => {
                     const childData = childSnapshot.val();
                     exercisesArray.push(childKey)
                     setNewData(exercisesArray)
-                    console.log(childKey, childData, exercisesArray)
+                    // console.log(childKey, childData.id, exercisesArray)
+
                 });
             } else {
                 return exercisesArray
@@ -56,7 +59,7 @@ const DisplayWorkout = () => {
 
 
     return (
-        <div className="workoutPage-body flex-column center gymPageCardShadow padding-normal">
+        <div className="workoutPage-body flex-column center padding-normal">
             <h2 className="workoutPage-body-header padding-bottom">
                 {workout}
             </h2>

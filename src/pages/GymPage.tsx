@@ -93,7 +93,7 @@ const GymPage = (props: any) => {
         const data = Snap.data()
         if (data) {
             dispatch({ type: 'SET_WORKOUT', payload: data.exercise })
-            console.log("data fetched", state.workouts)
+            // console.log("data fetched", state.workouts)
 
             return { state }
         }

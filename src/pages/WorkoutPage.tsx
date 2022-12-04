@@ -15,9 +15,7 @@ const WorkoutPage = () => {
     const [error, setError] = useState<any>('')
     const location = useLocation()
     const workout = location.state
-
-
-
+    const { currentUser } = useAuth()
 
     return (
         <>

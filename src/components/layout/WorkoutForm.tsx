@@ -48,12 +48,13 @@ const WorkoutForm = () => {
   //To do: check if push is working on new users
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     setMessage('Exercise Added!!!')
+    const exercises = formValues
     e.preventDefault()
     setLoading(true)
     const db = getDatabase();
-    push(ref(db, `${currentUser.uid}/${musclePartUrl}/${title}`), {
+    push(ref(db, `${currentUser.uid}/${musclePartUrl}/${(title.toUpperCase())}`), {
       timestamp: Date.now(),
-      formValues
+      exercises
     })
       .then(() => {
         setTitle('')
