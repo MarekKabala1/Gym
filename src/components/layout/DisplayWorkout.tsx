@@ -1,77 +1,75 @@
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { snapshotEqual } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../firebseConfig/AuthContext';
 
 const DisplayWorkout = () => {
     const location = useLocation()
-    const workout = location.state
+    const musclePartUrl = location.state
     const [newData, setNewData] = useState<any>([])
     const [error, setError] = useState<any>('')
 
     const { currentUser } = useAuth()
     let exercisesArray: any[] = []
 
-    useEffect(() => {
-        const db = getDatabase();
-        const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
-
-        onValue(getWorkout, (snapshot) => {
-            if (snapshot.exists()) {
-                snapshot.forEach((childSnapshot) => {
-                    const childKey = childSnapshot.key;
-                    const childData = childSnapshot.val();
-                    exercisesArray.push(childKey)
-                    setNewData(exercisesArray)
-                    // console.log(childKey, childData.id, exercisesArray)
-
-                });
-            } else {
-                return exercisesArray
-            }
-        });
-
-    }, [])
-
-
     // useEffect(() => {
     //     const db = getDatabase();
-    //     const getWorkout = ref(db, `${currentUser.uid}/${workout}`);
+    //     const getWorkout = ref(db, `${currentUser.uid}`);
+
     //     onValue(getWorkout, (snapshot) => {
     //         if (snapshot.exists()) {
-    //             Object.keys(snapshot.val()).forEach((val) => {
-    //                 exercisesArray.push(val)
+    //             snapshot.forEach((childSnapshot) => {
+    //                 const childKey = childSnapshot.key;
+    //                 const childData = childSnapshot.val();
+    //                 exercisesArray.push(childData)
     //                 setNewData(exercisesArray)
-    //                 // console.log(newData);
-    //                 return newData
-    //             })
+    //                 console.log(childData)
+
+    //             });
     //         } else {
-    //             setError(error.massage)
-    //             return error
+    //             return exercisesArray
     //         }
-    //     })
+    //     });
+
+    // }, [currentUser])
 
 
+    useEffect(() => {
+        const db = getDatabase();
+        const getWorkout = ref(db, `${currentUser.uid}/${musclePartUrl}`);
+        onValue(getWorkout, (snapshot) => {
+            setNewData([])
+            const data = snapshot.val()
+            if (data !== null) {
+                Object.values(data).map((val) => {
+                    exercisesArray.push(val)
+                    setNewData((oldArray: any) => [...oldArray, val])
+                    console.log(newData);
+                    return newData
+                })
+            } else {
+                setError(error.massage)
+                return error
+            }
+        })
 
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
-
+    }, [currentUser])
 
     return (
         <div className="workoutPage-body flex-column center padding-normal">
             <h2 className="workoutPage-body-header padding-bottom">
-                {workout}
+                {musclePartUrl}
             </h2>
             <div className="flex-column gap" >
                 {
-                    newData.map((exercise: (any), id: number) => (
-                        <Link
-                            to={`${id + 1}`}
-                            key={id}
-                            className='workoutPage-body-link'>{exercise}</Link>
-                    ))
-
+                    React.Children.toArray(
+                        newData! && newData.map((exercise: (any), _uuid: number) => (
+                            <Link
+                                to={exercise.uuid}
+                                key={exercise.uuid}
+                                className='workoutPage-body-link'>{exercise.title}</Link>
+                        ))
+                    )
                 }
             </div>
         </div>

@@ -1,8 +1,9 @@
 import { Alert } from '@mui/material'
-import { getDatabase, push, ref } from 'firebase/database'
+import { getDatabase, push, ref, set } from 'firebase/database'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
+import { uid } from 'uid'
 import Loading from '../../pages/Loading'
 import MainButton from '../ButtonMain'
 
@@ -28,6 +29,7 @@ const WorkoutForm = () => {
 
   const location = useLocation()
   const musclePartUrl = location.state
+  const uuid = uid()
 
   const handleChange = (i: number, e: any) => {
     const newFormValues = [...formValues] as any
@@ -44,6 +46,14 @@ const WorkoutForm = () => {
     newFormValues.splice(i, 1);
     setFormValues(newFormValues)
   }
+  const exercises = formValues
+  const exerciseData = {
+    title: `${title.toUpperCase()}`,
+    timestamp: Date.now(),
+    exercises,
+    uuid
+  }
+
 
   //To do: check if push is working on new users
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -51,11 +61,20 @@ const WorkoutForm = () => {
     const exercises = formValues
     e.preventDefault()
     setLoading(true)
+
     const db = getDatabase();
-    push(ref(db, `${currentUser.uid}/${musclePartUrl}/${(title.toUpperCase())}`), {
+    push(ref(db, `${currentUser.uid}/${musclePartUrl}`), {
+      title: `${title.toUpperCase()}`,
       timestamp: Date.now(),
-      exercises
+      exercises,
+      uuid
     })
+      // push(ref(db, `${currentUser.uid}/${musclePartUrl}/${title.toUpperCase()}`), {
+      //   timestamp: Date.now(),
+      //   title: `${title.toUpperCase()}`,
+      //   exercises,
+      //   uuid
+      // })
       .then(() => {
         setTitle('')
         setFormValues(
