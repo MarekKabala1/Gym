@@ -51,39 +51,38 @@ const LogIn = () => {
     }
 
     return (
-        <div className='signUp flex-column center'>
-            <div className="form_wrapper">
-                <form className='form flex-column f-space-a' onSubmit={handelLogIn}>
-                    <Link to="/"> <IoMdClose className='close' /></Link>
-                    <h2>Log In</h2>
-                    {error && <Alert severity="error">{error}</Alert>}
-                    <input className="textField"
-                        name="email"
-                        placeholder='Email'
-                        type="text"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input className="textField"
-                        name="password"
-                        type="password"
-                        placeholder='Password'
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button disabled={loading} className='register' type="submit">Log In</button>
-                    <p>or</p>
-                    <div className="divGoogleButton">
-                        <FcGoogle />
-                        <button className='buttonGoogle'> Continue with Google</button>
-                    </div>
-                    <p>If you don`t have a account <Link to='/register'><span>Sign Up</span></Link></p>
-                </form>
-                <p><Link to='/resetpassword'><span>Forgot Password</span></Link></p>
-            </div>
+        <div className="form_wrapper">
+            <form className='form flex-column center' onSubmit={handelLogIn}>
+                <Link to="/"> <IoMdClose className='close' /></Link>
+                <h2 className='loginHeader'>Login</h2>
+                {error && <Alert severity="error">{error}</Alert>}
+                <input className="textField"
+                    name="email"
+                    placeholder='Email'
+                    type="text"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input className="textField"
+                    name="password"
+                    type="password"
+                    placeholder='Password'
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <p className='resetPassword-link'><Link to='/resetpassword'><span>Forgot Password</span></Link></p>
+                <button disabled={loading} className='register' type="submit">Log In</button>
+                <p style={{ color: '#d0bed4' }}>-or-</p>
+                <div className="divGoogleButton flex gap">
+                    <FcGoogle />
+                    <p> <Link to='/register'>Sign Up</Link></p>
+                </div>
+            </form>
+
         </div>
+
     )
 }
 

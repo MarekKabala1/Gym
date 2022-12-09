@@ -80,7 +80,7 @@ const SignUp = () => {
             <div className="form_wrapper flex-column f-space-a">
                 <form className="form flex-column f-space-a" onSubmit={handleSubmit}>
                     <Link to="/"> <IoMdClose className='close' /></Link>
-                    <h2>Create Your Account</h2>
+                    <h2 className='loginHeader'>Create Your Account</h2>
                     {
                         error && <Alert sx={{ maxWidth: '70%' }} severity="error">{error}</Alert>
                     }
@@ -125,13 +125,12 @@ const SignUp = () => {
                         onChange={(e) => setRepetPassword(e.target.value)}
                     />
                     <button disabled={loading} className='register' type="submit">Create Account</button>
-                    <p>or</p>
+                    <p style={{ color: '#d0bed4' }}>-or-</p>
                 </form>
-                <div className="divGoogleButton">
+                <div className="divGoogleButton flex gap">
                     <FcGoogle />
-                    <button className='buttonGoogle'> Continue with Google</button>
+                    <p><Link to='/login'>Log In</Link> </p>
                 </div>
-                <p>If you have a account <Link to='/login'><span>Log In</span></Link> </p>
             </div>
         </div>
 

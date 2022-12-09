@@ -1,9 +1,9 @@
 :root {
-  --clr_primary: rgb(33, 27, 50);
+  --clr_primary: rgb(29,45,70);
   --clr_button: rgba(13, 245, 227);
-  --clr_button_secendary: rgb(208, 190, 212);
-  --clr_secendary: rgba(55, 49, 66);
-  --clr_text_ligt: rgb(208, 190, 212);
+  --clr_button_secondary: rgb(208, 190, 212);
+  --clr_secondary: rgba(55, 49, 66);
+  --clr_text_light: #d0bed4;
   --clr_text_dark: rgb(121, 117, 117);
   --clr_text_dark_alpha: rgb(121, 117, 117, 0.9);
   --clr_danger: rgb(168, 6, 6);
@@ -209,7 +209,7 @@ a {
 }
 
 .loading-wrapper_text {
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   font-weight: 700;
   letter-spacing: .3rem;
   font-size: 2rem;
@@ -220,6 +220,14 @@ a {
   border: none;
   letter-spacing: .8rem;
   padding: 0 .8rem 0 .8rem;
+}
+
+/* Error */
+.errorBoundary{
+  font-size: 2rem;
+  font-weight: 900;
+  margin: auto;
+  color: var(--clr_text_light);
 }
 
 /* wrapper for whole page */
@@ -236,7 +244,7 @@ a {
 }
 
 .pageNotFound {
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   padding-bottom: 2rem;
 }
 
@@ -248,7 +256,7 @@ a {
 
 .pageNotFound_link {
   text-decoration: none;
-  color: var(--clr_button_secendary);
+  color: var(--clr_button_secondary);
 }
 
 /* Header */
@@ -285,7 +293,7 @@ a {
 
 .heroConteiner {
   min-width: 90%;
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   letter-spacing: .2rem;
   line-height: 2.5rem;
 }
@@ -303,21 +311,26 @@ a {
 /* Sign up log in form reset password */
 .signUp,
 .resetPassword {
-  background-color: var(--clr_primary);
+  background-color: inherit;
   padding: 2rem 0;
   max-height: 100vh;
   min-width: 100vw;
+}
+.loginHeader{
+  color: var(--clr_text_light);
 }
 
 .resetPassword>.form_wrapper {
   padding: 1rem 1rem;
 }
+.resetPassword-link span{
+  color: var(--clr_text_light);
+}
 
 .form,
 .form_wrapper {
-  background-color: var(--clr_text_ligt);
+  background-color: inherit;
   position: relative;
-  border-radius: 5px;
   padding: .5rem 1rem;
   max-width: 400px;
   min-width: 300px;
@@ -338,24 +351,26 @@ a {
   top: 1rem;
   cursor: pointer;
   z-index: 100;
+  color: var(--clr_text_light);
 }
 
 input {
   width: 80%;
-  color: black;
+  color:var(--clr_text_light);
   height: 2.5rem;
-  border-radius: 5px;
-  border: solid 1px black;
+  border: none;
+  border-bottom: solid 1px var(--clr_text_light);
   background-color: transparent;
   padding: 1rem;
 }
 
 input::placeholder {
-  color: black;
+  color: var(--clr_button);
 }
 
 input:focus {
-  background-color: lightgrey;
+  background-color:var(--clr_primary);
+  border: none;
 }
 
 .register {
@@ -371,11 +386,6 @@ p {
   font-size: .6rem;
 }
 
-span {
-  border-bottom: 1px solid black;
-  cursor: pointer;
-}
-
 .buttonGoogle {
   background-color: transparent;
   border: none;
@@ -387,10 +397,18 @@ span {
   margin-bottom: .5rem;
 }
 
-.svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0 5px 5px 0;
+.divGoogleButton svg {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.divGoogleButton p {
+  cursor: pointer;
+  color: var(--clr_text_light);
+  margin: auto;
+  padding: .5rem 0;
+}
+.divGoogleButton p a{
+  color: var(--clr_text_light);
 }
 
 /* user page */
@@ -409,7 +427,7 @@ span {
 }
 
 .avatar {
-  background-color: var(--clr_text_ligt);
+  background-color: var(--clr_text_light);
   font-weight: 900;
   font-size: 1rem;
   height: 2.1rem;
@@ -426,7 +444,7 @@ span {
 
 .userPageName {
   border: none;
-  color: var(--clr_button_secendary);
+  color: var(--clr_button_secondary);
 }
 
 .imgWrapper {
@@ -434,7 +452,7 @@ span {
   height: 150px;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: -10px 0px 13px -7px var(--clr_secendary), 10px 0px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
+  box-shadow: -10px 0px 13px -7px var(--clr_secondary), 10px 0px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
 }
 
 .imgGym {
@@ -471,7 +489,7 @@ span {
   font-weight: 400;
   position: fixed;
   bottom: 0;
-  background: var(--clr_secendary);
+  background: var(--clr_secondary);
   color: #fff;
   height: 54px;
   width: 100%;
@@ -490,7 +508,7 @@ span {
 .bottomMenu > svg {
   height:24px;
   width: 24px;
-  fill: var(--clr_button_secendary);
+  fill: var(--clr_button_secondary);
   margin: 10px;
 }
 
@@ -507,7 +525,7 @@ span {
 
 /* gym page */
 .gymPage-section {
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   padding: 1rem;
   gap: 1rem;
   height: 100vh;
@@ -531,7 +549,7 @@ span {
 .gymPage_add {
   gap: 1rem;
   padding: .3rem 1rem .3rem 1rem;
-  border: 1px solid var(--clr_text_ligt);
+  border: 1px solid var(--clr_text_light);
   border-radius: 5px;
   width: fit-content;
   cursor: pointer;
@@ -542,7 +560,7 @@ span {
 }
 
 .gymPage_add svg {
-  fill: var(--clr_text_ligt);
+  fill: var(--clr_text_light);
   height: 2rem;
   width: 2rem;
   cursor: pointer;
@@ -551,21 +569,21 @@ span {
 .gymPage_workout {
   width: 13rem;
   height: 2rem;
-  border: 1px solid var(--clr_text_ligt);
+  border: 1px solid var(--clr_text_light);
   border-radius: 10px;
 }
 
 .gymPageCardShadow {
-  box-shadow: -10px 0px 13px -7px var(--clr_secendary), 10px 0px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
-  /* box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); box-shadow: 0px 10px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(0,0,0,0); */
+  box-shadow: -10px 0px 13px -7px var(--clr_secondary), 10px 0px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
+  /* box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); box-shadow: 0px 10px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(0,0,0,0); */
 }
 
 .gymPage_form {
-  box-shadow: -10px 0px 13px -7px var(--clr_secendary), 10px 0px 13px -7px var(--clr_secendary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
+  box-shadow: -10px 0px 13px -7px var(--clr_secondary), 10px 0px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
   border-radius: 5px;
   border: 1px var(--clr_primary);
   background: var(--clr_primary);
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
 }
 
 .trash {
@@ -591,9 +609,9 @@ span {
 .workoutForm-Input {
   height: 1.2rem;
   padding: .9rem;
-  outline: var(--clr_text_ligt);
-  border: .5px solid var(--clr_text_ligt);
-  color: var(--clr_text_ligt);
+  outline: var(--clr_text_light);
+  border: .5px solid var(--clr_text_light);
+  color: var(--clr_text_light);
   margin: 0 auto;
   text-align: center;
 }
@@ -604,14 +622,14 @@ span {
 }
 
 .workoutForm-label {
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   font-size: .8rem;
   font-weight: 700;
   letter-spacing: .1rem;
 }
 
 .workoutForm-header {
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   letter-spacing: .1rem;
 }
 
@@ -636,13 +654,13 @@ span {
   cursor: pointer;
 }
 .workoutPage-body-header{
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   letter-spacing: .4rem;
   font-size: 1.6rem;
   text-decoration: underline;
 }
 .workoutPage-body-link{
-  color: var(--clr_text_ligt);
+  color: var(--clr_text_light);
   text-transform: capitalize;
 }
 .workoutPage-body-link:first-child{
