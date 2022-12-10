@@ -6,6 +6,7 @@ import { useAuth } from '../../firebseConfig/AuthContext'
 import { uid } from 'uid'
 import Loading from '../../pages/Loading'
 import MainButton from '../ButtonMain'
+import { BsTrash } from 'react-icons/bs'
 
 
 // type workoutType = [{
@@ -151,11 +152,11 @@ const WorkoutForm = () => {
                   </div>
                   {
                     index ?
-                      <button
+                      <BsTrash
                         className="btn-trash"
                         type="button"
-                        disabled={false}
-                        onClick={() => removeFormFields(index)}>x</button>
+                        // style={{ fill: 'red' }}
+                        onClick={() => removeFormFields(index)} />
                       : null
                   }
                 </div>

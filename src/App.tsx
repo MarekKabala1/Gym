@@ -27,7 +27,12 @@ function App() {
 
     render() {
       if (this.state.hasError) {
-        return <h1>UPS.Something went wrong.</h1>;
+        return (
+          <>
+            <p className='errorBoundary'>UPS.Something went wrong.</p>
+            <p className='errorBoundary'>Refresh Page</p>
+          </>
+        )
       }
 
       return this.props.children;

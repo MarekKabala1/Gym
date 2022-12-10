@@ -332,16 +332,20 @@ a {
 
 .form_wrapper {
   background-color: inherit;
-  position: relative;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   max-width: 450px;
   min-width: 300px;
+  height: 100vh;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form_wrapper>form {
   gap: 1.5rem;
-  max-width: 450px;
+  min-width: 300px;
+  position: relative;
 }
 
 .close {
@@ -639,7 +643,8 @@ p {
 
 .workoutForm-Input:focus {
   /* background-color: var(--clr_text_dark_alpha); */
-  color: var(--clr_primary);
+  color: var(--clr_text_light);
+  border-bottom: .5px solid var(--clr_text_light);
 }
 
 .workoutForm-label {
@@ -665,14 +670,12 @@ p {
   cursor: pointer;
 }
 
-.btn-trash {
-  height: 1rem;
-  aspect-ratio: 1;
-  background-color: var(--clr_danger);
-  border: none;
-  border-radius: 50%;
+.btn-trash  {
   margin-top: 1.5rem;
   cursor: pointer;
+  fill: red;
+  height: 2rem;
+  width: 2rem;
 }
 .workoutPage-body-header{
   color: var(--clr_text_light);

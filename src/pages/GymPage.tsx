@@ -2,6 +2,7 @@
 import React from "react";
 import { useEffect, useState, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BsTrash } from "react-icons/bs"
 //Components
 import BottomMenu from "../components/BottomMenu"
 import MainButton from "../components/ButtonMain";
@@ -183,13 +184,13 @@ const GymPage = (props: any) => {
                                     key={workout.id}>
                                     <div className="flex f-space-b">
                                         <p>{workout}</p>
-                                        <span className="trash"
+                                        <BsTrash
+                                            className="trash"
                                             id={workout}
                                             key={workout.id}
                                             color="red"
-                                            onClick={deleteMuscleGroup}>
-                                            X
-                                        </span>
+                                            onClick={deleteMuscleGroup} />
+
                                     </div>
                                     <Link to={workout} state={workout}>
                                         <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
