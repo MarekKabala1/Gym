@@ -76,64 +76,61 @@ const SignUp = () => {
 
     return (
 
-        <Loading /> && <div className="signUp flex-column center">
-            <div className="form_wrapper flex-column f-space-a">
-                <form className="form flex-column f-space-a" onSubmit={handleSubmit}>
-                    <Link to="/"> <IoMdClose className='close' /></Link>
-                    <h2 className='loginHeader'>Create Your Account</h2>
-                    {
-                        error && <Alert sx={{ maxWidth: '70%' }} severity="error">{error}</Alert>
-                    }
-                    <input className="textField"
-                        name="name"
-                        placeholder=' Name'
-                        type="text"
-                        required
-                        value={firstName}
-                        onChange={(e) => setfirstName(e.target.value)}
-                    />
-                    <input className="textField"
-                        name="surname"
-                        placeholder='Surname'
-                        type="text"
-                        required
-                        value={surname}
-                        onChange={(e) => setSurname(e.target.value)}
-                    />
-                    <input className="textField"
-                        name="email"
-                        placeholder='Email'
-                        type="text"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input className="textField"
-                        name="password"
-                        type="password"
-                        placeholder='Password'
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <input className="textField"
-                        name="RepetPassword"
-                        type="password"
-                        placeholder='RepetPassword'
-                        required
-                        value={repetPassword}
-                        onChange={(e) => setRepetPassword(e.target.value)}
-                    />
-                    <button disabled={loading} className='register' type="submit">Create Account</button>
-                    <p style={{ color: '#d0bed4' }}>-or-</p>
-                </form>
-                <div className="divGoogleButton flex gap">
+        <Loading /> && <div className="form_wrapper">
+            <form className="form flex-column center" onSubmit={handleSubmit}>
+                <Link to="/"> <IoMdClose className='close' /></Link>
+                <h2 className='loginHeader'>Create Your Account</h2>
+                {
+                    error && <Alert sx={{ maxWidth: '70%' }} severity="error">{error}</Alert>
+                }
+                <input className="textField"
+                    name="name"
+                    placeholder=' Name'
+                    type="text"
+                    required
+                    value={firstName}
+                    onChange={(e) => setfirstName(e.target.value)}
+                />
+                <input className="textField"
+                    name="surname"
+                    placeholder='Surname'
+                    type="text"
+                    required
+                    value={surname}
+                    onChange={(e) => setSurname(e.target.value)}
+                />
+                <input className="textField"
+                    name="email"
+                    placeholder='Email'
+                    type="text"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input className="textField"
+                    name="password"
+                    type="password"
+                    placeholder='Password'
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <input className="textField"
+                    name="RepetPassword"
+                    type="password"
+                    placeholder='RepetPassword'
+                    required
+                    value={repetPassword}
+                    onChange={(e) => setRepetPassword(e.target.value)}
+                />
+                <button disabled={loading} className='register margin-top-large' type="submit">Create Account</button>
+                <p className='form-line' style={{ color: '#d0bed4' }}>or</p>
+                <div className="divGoogleButton flex center gap-l">
                     <FcGoogle />
                     <p><Link to='/login'>Log In</Link> </p>
                 </div>
-            </div>
+            </form>
         </div>
-
     )
 };
 export default SignUp

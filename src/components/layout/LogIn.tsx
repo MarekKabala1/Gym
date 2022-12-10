@@ -74,8 +74,8 @@ const LogIn = () => {
                 />
                 <p className='resetPassword-link'><Link to='/resetpassword'><span>Forgot Password</span></Link></p>
                 <button disabled={loading} className='register' type="submit">Log In</button>
-                <p style={{ color: '#d0bed4' }}>-or-</p>
-                <div className="divGoogleButton flex gap">
+                <p className='form-line' style={{ color: '#d0bed4' }}>or</p>
+                <div className="divGoogleButton flex center gap-l">
                     <FcGoogle />
                     <p> <Link to='/register'>Sign Up</Link></p>
                 </div>

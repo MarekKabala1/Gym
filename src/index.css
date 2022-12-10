@@ -140,6 +140,9 @@ a {
 .margin-top-bottom {
   margin: 1rem 0 1rem 0;
 }
+.margin-top-large{
+  margin: 1rem;
+}
 
 .margin-large {
   margin: 1rem
@@ -327,22 +330,18 @@ a {
   color: var(--clr_text_light);
 }
 
-.form,
 .form_wrapper {
   background-color: inherit;
   position: relative;
   padding: .5rem 1rem;
-  max-width: 400px;
+  max-width: 450px;
   min-width: 300px;
-}
-
-.form_wrapper {
-  padding: 0 0 1rem 0;
-  gap: 1rem;
+  margin: auto;
 }
 
 .form_wrapper>form {
   gap: 1.5rem;
+  max-width: 450px;
 }
 
 .close {
@@ -400,15 +399,37 @@ p {
 .divGoogleButton svg {
   width: 1.8rem;
   height: 1.8rem;
+  cursor: pointer;
 }
 .divGoogleButton p {
   cursor: pointer;
   color: var(--clr_text_light);
-  margin: auto;
-  padding: .5rem 0;
 }
 .divGoogleButton p a{
   color: var(--clr_text_light);
+}
+.form-line{
+  position: relative;
+}
+.form-line::before{
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  left: -4.1rem;
+  display: block;
+  background-color: var(--clr_text_light);
+  width: 4rem;
+  height: 1px;
+}
+.form-line::after{
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  left: 0.7rem;
+  display: block;
+  background-color: var(--clr_text_light);
+  width: 4rem;
+  height: 1px;
 }
 
 /* user page */
