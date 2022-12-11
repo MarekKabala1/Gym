@@ -89,12 +89,14 @@ const GymPage = (props: any) => {
         //     console.log("data fetched", state.workouts)
         // return { dispatch }
         // })
+        setLoading(true)
         const Ref = doc(db, "exercise", `${user.uid}`);
         const Snap = await getDoc(Ref);
         const data = Snap.data()
         if (data) {
             dispatch({ type: 'SET_WORKOUT', payload: data.exercise })
             // console.log("data fetched", state.workouts)
+            setLoading(false)
 
             return { state }
         }
@@ -144,64 +146,67 @@ const GymPage = (props: any) => {
 
     return (
         <>
-            <main className="gymPage-section flex-column ">
-                <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
-                    <select
-                        className="gymPage_form "
-                        placeholder="Select Muscle Group"
-                        name="workout"
-                        id={workOut}
-                        required
-                        value={workOut}
-                        onChange={(e) => setWorkOut(e.target.value)}>
+            {
+                loading ? <Loading /> :
+                    <main className="gymPage-section flex-column ">
+                        <form className="flex gap-xl" onSubmit={handleWorkoutSubmit}>
+                            <select
+                                className="gymPage_form "
+                                placeholder="Select Muscle Group"
+                                name="workout"
+                                id={workOut}
+                                required
+                                value={workOut}
+                                onChange={(e) => setWorkOut(e.target.value)}>
 
-                        {muscleGroup.map((workout, id) => {
-                            return <option
-                                key={workout.id}
-                                value={workout.value}
-                            >
-                                {workout.value}
-                            </option>
-                        })};
-                    </select>
-                    <MainButton
-                        className="gymPage-btn"
-                        disabled={loading}
-                        color={'lightgreen'}
-                        onClick={handleWorkoutSubmit}
-                        text={'Add'}
-                        type={"submit"}></MainButton>
-                </form>
-                {
-                    error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
-                }
+                                {muscleGroup.map((muscleGroupe, id) => {
+                                    return <option
+                                        key={muscleGroupe.id}
+                                        value={muscleGroupe.value}
+                                    >
+                                        {muscleGroupe.value}
+                                    </option>
+                                })};
+                            </select>
+                            <MainButton
+                                className="gymPage-btn"
+                                disabled={loading}
+                                color={'lightgreen'}
+                                onClick={handleWorkoutSubmit}
+                                text={'Add'}
+                                type={"submit"}></MainButton>
+                        </form>
+                        {
+                            error && <Alert sx={{ maxWidth: '100%' }} severity="error">{error}</Alert>
+                        }
 
-                <section className="grid gap-l">
-                    {
-                        React.Children.toArray(
-                            state.workouts! && state.workouts.map((workout: (any), id: number) => (
-                                <div className="gymPageCardShadow padding-normal"
-                                    key={workout.id}>
-                                    <div className="flex f-space-b">
-                                        <p>{workout}</p>
-                                        <BsTrash
-                                            className="trash"
-                                            id={workout}
-                                            key={workout.id}
-                                            color="red"
-                                            onClick={deleteMuscleGroup} />
+                        <section className="grid gap-l">
+                            {
+                                React.Children.toArray(
+                                    state.workouts! && state.workouts.map((muscleGroupe: (any), id: number) => (
+                                        <div className="gymPageCardShadow padding-normal"
+                                            key={muscleGroupe.id}>
+                                            <div className="flex f-space-b">
+                                                <p>{muscleGroupe}</p>
+                                                <BsTrash
+                                                    className="trash"
+                                                    id={muscleGroupe}
+                                                    key={muscleGroupe.id}
+                                                    color="red"
+                                                    onClick={deleteMuscleGroup} />
 
-                                    </div>
-                                    <Link to={workout} state={workout}>
-                                        <img src={`${process.env.PUBLIC_URL}/img-svg/img/${workout}.png`}
-                                            alt={`${workout}`}
-                                            style={{ maxWidth: '100%', maxHeight: '100%' }} /></Link>
-                                </div>
-                            ))
-                        )
-                    }
-                </section>
-            </main>
+                                            </div>
+                                            <Link to={muscleGroupe.toLowerCase()} state={muscleGroupe}>
+                                                <img src={`${process.env.PUBLIC_URL}/img-svg/img/${muscleGroupe}.png`}
+                                                    alt={`${muscleGroupe}`}
+                                                    style={{ maxWidth: '100%', maxHeight: '100%' }} /></Link>
+                                        </div>
+                                    ))
+                                )
+                            }
+                        </section>
+                    </main>
+            }
             <BottomMenu />
         </>
     )

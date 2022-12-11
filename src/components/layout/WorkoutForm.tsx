@@ -155,7 +155,6 @@ const WorkoutForm = () => {
                       <BsTrash
                         className="btn-trash"
                         type="button"
-                        // style={{ fill: 'red' }}
                         onClick={() => removeFormFields(index)} />
                       : null
                   }

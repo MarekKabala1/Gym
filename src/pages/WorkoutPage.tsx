@@ -1,21 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import WorkoutForm from "../components/layout/WorkoutForm"
 import BottomMenu from "../components/BottomMenu"
-import { Link, useLocation } from "react-router-dom"
-import { getDatabase, ref, onValue } from "firebase/database"
-import { useAuth } from "../firebseConfig/AuthContext"
-import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import { useState } from "react"
 import Loading from "./Loading"
 import React from "react"
 import { Alert } from "@mui/material"
-import DisplayWorkout from "../components/layout/DisplayWorkout"
+import DisplayWorkouts from "../components/layout/DisplayWorkouts"
 
 const WorkoutPage = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>('')
     const location = useLocation()
     const workout = location.state
-    const { currentUser } = useAuth()
 
     return (
         <>
@@ -33,9 +30,9 @@ const WorkoutPage = () => {
                                         style={{ maxWidth: '100%', maxHeight: '100%' }} />
                                 </div>
                                 <WorkoutForm />
-                                <DisplayWorkout />
                             </div>
                         </section>
+                        <DisplayWorkouts />
                     </main>
             }
             <BottomMenu />
@@ -44,3 +41,4 @@ const WorkoutPage = () => {
 }
 
 export default WorkoutPage
+
