@@ -33,6 +33,9 @@ const DisplayWorkouts = () => {
             setNewData([])
             setLoading(true)
             let exercisesArray: any[] = []
+            if (snapshot.val() === null) {
+                setLoading(false)
+            }
 
             const data = snapshot.val()
             if (data !== null) {
@@ -40,8 +43,8 @@ const DisplayWorkouts = () => {
                 Object.values(data).map((val: any) => {
                     exercisesArray.push(val)
                     setNewData((oldArray: any) => [...oldArray, val])
-                    // console.log(val.uuid);
-                    return val
+                    // console.table(exercisesArray[0]);
+                    return newData
                 })
             } else {
                 setError(error.massage)
@@ -71,6 +74,7 @@ const DisplayWorkouts = () => {
                                             id={exercise.uuid}
                                             key={exercise.uuid}
                                             className='workoutPage-body-link'>{exercise.title}</Link>
+
                                     ))
                                 )
                             }
