@@ -621,7 +621,7 @@ p {
   border-bottom: none;
 }
 
-/* workoutPage workoutForm */
+/* workoutPage workoutForm displayWorkout displayWorkoutDetails*/
 
 .workoutPage-wrapper {
   height: 95vh;
@@ -630,9 +630,16 @@ p {
 .workoutPage-header {
   padding: .5rem;
 }
+.workoutForm-section{
+  min-width: 100%;
+}
+.workoutForm{
+  width: 100%;
+}
 
 .workoutForm-Input {
   height: 1.2rem;
+  width: 80%;
   padding: .9rem;
   outline: var(--clr_text_light);
   border: .5px solid var(--clr_text_light);
@@ -648,10 +655,11 @@ p {
 }
 
 .workoutForm-label {
+  margin-top: 1rem;
   color: var(--clr_text_light);
   font-size: .8rem;
   font-weight: 700;
-  letter-spacing: .1rem;
+  letter-spacing: .2rem;
 }
 
 .workoutForm-header {
@@ -689,4 +697,7 @@ p {
 }
 .workoutPage-body-link:first-child{
   padding-top: 1rem ;
+}
+.displayWorkoutDetail-header{
+  color: var(--clr_text_light);
 }

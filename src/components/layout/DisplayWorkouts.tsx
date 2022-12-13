@@ -43,7 +43,7 @@ const DisplayWorkouts = () => {
                 Object.values(data).map((val: any) => {
                     exercisesArray.push(val)
                     setNewData((oldArray: any) => [...oldArray, val])
-                    // console.table(exercisesArray[0]);
+                    // console.dir(exercisesArray, newData);
                     return newData
                 })
             } else {

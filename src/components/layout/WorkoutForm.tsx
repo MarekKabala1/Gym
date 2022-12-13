@@ -1,5 +1,5 @@
 import { Alert } from '@mui/material'
-import { getDatabase, push, ref, set } from 'firebase/database'
+import { getDatabase, push, ref, set, update } from 'firebase/database'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
@@ -21,54 +21,53 @@ const WorkoutForm = () => {
   const [message, setMessage] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [formValues, setFormValues] = useState(
-    [{
-      sets: 1,
-      load: 0,
-      reps: 0,
-    }])
+  // const [formValues, setFormValues] = useState(
+  //   [{
+  //     sets: 1,
+  //     load: 0,
+  //     reps: 0,
+  //   }])
 
   const location = useLocation()
   const musclePartUrl = location.state
   const uuid = uid()
 
-  const handleChange = (i: number, e: any) => {
-    const newFormValues = [...formValues] as any
-    newFormValues[i][e.target.name] = e.target.value
-    setFormValues(newFormValues);
-  }
+  // const handleChange = (i: number, e: any) => {
+  //   const newFormValues = [...formValues] as any
+  //   newFormValues[i][e.target.name] = e.target.value
+  //   setFormValues(newFormValues);
+  // }
 
-  const addFormFields = () => {
-    setFormValues([...formValues, { sets: 1, load: 0, reps: 0 }])
-  }
+  // const addFormFields = () => {
+  //   setFormValues([...formValues, { sets: 1, load: 0, reps: 0 }])
+  // }
 
-  const removeFormFields = (i: number) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues)
-  }
-  const exercises = formValues
-  const exerciseData = {
-    title: `${title.toUpperCase()}`,
-    timestamp: Date.now(),
-    exercises,
-    uuid
-  }
+  // const removeFormFields = (i: number) => {
+  //   let newFormValues = [...formValues];
+  //   newFormValues.splice(i, 1);
+  //   setFormValues(newFormValues)
+  // }
+  // const exercises = formValues
+  // const exerciseData = {
+  //   title: `${title.toUpperCase()}`,
+  //   timestamp: Date.now(),
+  //   exercises,
+  //   uuid
+  // }
 
 
   //To do: check if push is working on new users
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     setMessage('Exercise Added!!!')
-    const exercises = formValues
     e.preventDefault()
     setLoading(true)
 
     const db = getDatabase();
     push(ref(db, `${currentUser.uid}/${musclePartUrl}`), {
       title: `${title.toUpperCase()}`,
-      timestamp: Date.now(),
-      exercises,
       uuid
+      // timestamp: Date.now(),
+      // exercises,
     })
       // push(ref(db, `${currentUser.uid}/${musclePartUrl}/${title.toUpperCase()}`), {
       //   timestamp: Date.now(),
@@ -78,14 +77,14 @@ const WorkoutForm = () => {
       // })
       .then(() => {
         setTitle('')
-        setFormValues(
-          [{
-            sets: 1,
-            load: 0,
-            reps: 0,
+        // setFormValues(
+        //   [{
+        //     sets: 1,
+        //     load: 0,
+        //     reps: 0,
 
-          }]
-        )
+        //   }]
+        // )
         setLoading(false)
         setTimeout(() => {
           setMessage('')
@@ -102,26 +101,25 @@ const WorkoutForm = () => {
     <>
       {
         loading ? <Loading /> :
-          <section className='flex-column gap-l center'>
+          <section className='workoutForm-section flex-column gap-l center'>
             {
               message && <Alert severity="success">{message}</Alert>
             }
             {
               error && <Alert severity="error">{error}</Alert>
             }
-            <form className="flex-column center gap-l" onSubmit={handleSubmit}>
-              <div className='flex-column center width-l gap-s' >
-                <label className='workoutForm-label' htmlFor='title'>Exercise Title:</label>
-                <input
-                  className='workoutForm-Input'
-                  type="text"
-                  id='title'
-                  name='title'
-                  onChange={(e) => setTitle(e.target.value)}
-                  value={title}
-                />
-              </div>
-              {formValues.map((e, index) => (
+            <form className="workoutForm flex-column center gap-l" onSubmit={handleSubmit}>
+              <label className='workoutForm-label' htmlFor='title'>Exercise Title:</label>
+              <input
+                className='workoutForm-Input'
+                type="text"
+                id='title'
+                name='title'
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </form>
+            {/* {formValues.map((e, index) => (
                 <div className="flex center" key={index}>
                   <div className="flex-column gap-s center ">
                     <label className='workoutForm-label'>Sets</label>
@@ -160,15 +158,15 @@ const WorkoutForm = () => {
                   }
                 </div>
               ))}
-            </form>
+            </form> */}
             <div className="workoutForm-btn-wrapper flex gap-l padding-bottom-large">
 
-              <MainButton
+              {/* <MainButton
                 color={'lightgreen'}
                 disabled={false}
                 text={'Add Set'}
                 type="button"
-                onClick={() => addFormFields()}></MainButton>
+                onClick={() => addFormFields()}></MainButton> */}
               <MainButton
                 disabled={loading}
                 color={'lightgreen'}
