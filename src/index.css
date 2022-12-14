@@ -1,5 +1,5 @@
 :root {
-  --clr_primary: rgb(29,45,70);
+  --clr_primary: rgb(29, 44, 68);
   --clr_button: rgba(13, 245, 227);
   --clr_button_secondary: rgb(208, 190, 212);
   --clr_secondary: rgba(55, 49, 66);
@@ -598,7 +598,7 @@ p {
   border-radius: 10px;
 }
 
-.gymPageCardShadow {
+.gymPageCard-shadow {
   box-shadow: -10px 0px 13px -7px var(--clr_secondary), 10px 0px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(246, 238, 238, 0);
   /* box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); box-shadow: 0px 10px 13px -7px var(--clr_secondary), 5px 5px 15px 5px rgba(0,0,0,0); */
 }
@@ -610,13 +610,20 @@ p {
   background: var(--clr_primary);
   color: var(--clr_text_light);
 }
+.gymPageCard-header{
+  pointer-events: none;
+}
+.gymPageCard-header-text{
+  margin: .5rem 0 0 .5rem;
+}
 
-.trash {
+.gymPageCard-trash{
   width: 1rem;
   height: inherit;
+  margin: .5rem .5rem 0 0 ;
   cursor: pointer;
   z-index: 100;
-  /* cursor: pointer; */
+  pointer-events: visible;
   color: var(--clr_danger);
   border-bottom: none;
 }
@@ -679,7 +686,7 @@ p {
 }
 
 .btn-trash  {
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
   cursor: pointer;
   fill: red;
   height: 2rem;
@@ -700,4 +707,5 @@ p {
 }
 .displayWorkoutDetail-header{
   color: var(--clr_text_light);
+    margin-bottom: 1rem;
 }

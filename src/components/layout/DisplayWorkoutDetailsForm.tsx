@@ -8,14 +8,14 @@ import MainButton from "../ButtonMain"
 import { BsTrash } from "react-icons/bs"
 
 
-const DisplayWorkoutDetails = () => {
+const DisplayWorkoutDetailsForm = () => {
 
 
     const [newData, setNewData] = useState<any>([])
     const [message, setMessage] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
-    const [formValues, setFormValues] = useState(
+    const [exerciseValues, setExerciseValues] = useState(
         [{
             sets: 1,
             load: 0,
@@ -34,43 +34,37 @@ const DisplayWorkoutDetails = () => {
 
 
     const handleChange = (i: number, e: any) => {
-        const newFormValues = [...formValues] as any
+        const newFormValues = [...exerciseValues] as any
         newFormValues[i][e.target.name] = e.target.value
-        setFormValues(newFormValues);
+        setExerciseValues(newFormValues);
     }
 
     const addFormFields = () => {
-        setFormValues([...formValues, { sets: 1, load: 0, reps: 0 }])
+        setExerciseValues([...exerciseValues, { sets: 1, load: 0, reps: 0 }])
     }
 
     const removeFormFields = (i: number) => {
-        let newFormValues = [...formValues];
+        let newFormValues = [...exerciseValues];
         newFormValues.splice(i, 1);
-        setFormValues(newFormValues)
+        setExerciseValues(newFormValues)
     }
-    const exercises = formValues
+    // const exercises = formValues
 
     //To do: check if push is working on new users
     const handleSubmit = async (e: { preventDefault: () => void }) => {
         setMessage('Exercise Added!!!')
-        const exercises = formValues
+        const exercises = exerciseValues
         e.preventDefault()
         setLoading(true)
 
         const db = getDatabase();
-        push(ref(db, `${currentUser.uid}`), {
+        push(ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}/${uuid}`), {
             timestamp: Date.now(),
-            exercises,
+            exerciseValues,
             uuid
         })
-            // push(ref(db, `${currentUser.uid}/${musclePartUrl}/${title.toUpperCase()}`), {
-            //   timestamp: Date.now(),
-            //   title: `${title.toUpperCase()}`,
-            //   exercises,
-            //   uuid
-            // })
             .then(() => {
-                setFormValues(
+                setExerciseValues(
                     [{
                         sets: 1,
                         load: 0,
@@ -90,14 +84,12 @@ const DisplayWorkoutDetails = () => {
             })
     }
 
-
-
     return (
         <>
             <main className="conteiner">
                 <section>
                     <h2 className="displayWorkoutDetail-header">{title}</h2>
-                    {formValues.map((e, index) => (
+                    {exerciseValues.map((e, index) => (
                         <div className="flex center" key={index}>
                             <div className="flex-column gap-s center ">
                                 <label className='workoutForm-label'>Sets</label>
@@ -156,4 +148,4 @@ const DisplayWorkoutDetails = () => {
 }
 
 
-export default DisplayWorkoutDetails
+export default DisplayWorkoutDetailsForm

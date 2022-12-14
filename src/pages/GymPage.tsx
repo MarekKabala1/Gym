@@ -184,12 +184,12 @@ const GymPage = (props: any) => {
                             {
                                 React.Children.toArray(
                                     state.workouts! && state.workouts.map((muscleGroupe: (any), id: number) => (
-                                        <div className="gymPageCardShadow padding-normal"
+                                        <div className="gymPageCard-shadow "
                                             key={muscleGroupe.id}>
-                                            <div className="flex f-space-b">
-                                                <p>{muscleGroupe}</p>
+                                            <div className=" gymPageCard-header flex f-space-b">
+                                                <p className=" gymPageCard-header-text">{muscleGroupe}</p>
                                                 <BsTrash
-                                                    className="trash"
+                                                    className=" gymPageCard-trash"
                                                     id={muscleGroupe}
                                                     key={muscleGroupe.id}
                                                     color="red"

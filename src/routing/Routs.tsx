@@ -14,7 +14,7 @@ import PageNotFound from "../pages/PageNotFound";
 import GymPage from "../pages/GymPage";
 import Loading from "../pages/Loading";
 import WorkoutPage from "../pages/WorkoutPage";
-import DisplayWorkoutDetails from "../components/layout/DisplayWorkoutDetails";
+import DisplayWorkoutDetails from "../components/layout/DisplayWorkoutDetailsForm";
 
 const Routs = () => {
 
