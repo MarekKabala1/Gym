@@ -14,7 +14,7 @@ import PageNotFound from "../pages/PageNotFound";
 import GymPage from "../pages/GymPage";
 import Loading from "../pages/Loading";
 import WorkoutPage from "../pages/WorkoutPage";
-import DisplayWorkoutDetails from "../components/layout/DisplayWorkoutDetailsForm";
+import DisplayWorkoutDetails from "../components/layout/DisplayWorkoutDetails";
 
 const Routs = () => {
 
@@ -34,6 +34,7 @@ const Routs = () => {
                     <Route path="/gym" element={<GymPage />} />
                     <Route path="/gym/:workout" element={<WorkoutPage />} />
                     <Route path="/gym/:workout/:uuid" element={<DisplayWorkoutDetails />} />
+                    {/* <Route path="/gym/:workout/:uuid" element={<DisplayWorkoutDetailsForm />} /> */}
 
                     {/* </Route> */}
                 </Routes>

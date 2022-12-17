@@ -30,4 +30,4 @@ https://github.com/MarekKabala1/Gym
 
 https://mkabala.co.uk
 
-#### Work Aplication in progres not working proply sorry
+#### Work Application in progress not working properly sorry

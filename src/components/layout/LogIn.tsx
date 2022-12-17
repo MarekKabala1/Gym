@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { IoMdClose } from 'react-icons/io';
+import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 //firebase firestore
@@ -16,6 +17,7 @@ const LogIn = () => {
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+    const [visible, setVisible] = useState<boolean>(false)
     let navigate = useNavigate();
     // const { uid } = useParams();
 
@@ -49,6 +51,9 @@ const LogIn = () => {
         setPassword('')
         setLoading(false)
     }
+    const visiblePassword = () => {
+        setVisible(!visible)
+    }
 
     return (
         <div className="form_wrapper">
@@ -64,14 +69,15 @@ const LogIn = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input className="textField"
+                <input className="inputPassword textField"
                     name="password"
-                    type="password"
+                    type={visible ? 'text' : 'password'}
                     placeholder='Password'
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <span className='inputPassword_eye'>{visible ? <BsEyeSlash onClick={visiblePassword} /> : <BsEye onClick={visiblePassword} />}</span>
                 <p className='resetPassword-link'><Link to='/resetpassword'><span>Forgot Password</span></Link></p>
                 <button disabled={loading} className='register' type="submit">Log In</button>
                 <p className='form-line' style={{ color: '#d0bed4' }}>or</p>
