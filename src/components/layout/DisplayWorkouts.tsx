@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../firebseConfig/AuthContext';
 import Loading from '../../pages/Loading';
 
@@ -11,6 +11,7 @@ const DisplayWorkouts = () => {
     const [newData, setNewData] = useState<any>([])
     const [error, setError] = useState<any>('')
     const [loading, setLoading] = useState<boolean>(false)
+    let parms = useParams()
 
     const { currentUser } = useAuth()
 
@@ -43,7 +44,7 @@ const DisplayWorkouts = () => {
                 Object.values(data).map((val: any) => {
                     exercisesArray.push(val)
                     setNewData((oldArray: any) => [...oldArray, val])
-                    // console.dir(exercisesArray, newData);
+                    console.log(exercisesArray, newData);
                     return newData
                 })
             } else {

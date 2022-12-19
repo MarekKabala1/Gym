@@ -26,25 +26,29 @@ const DisplayWorkoutDetails = () => {
 
     useEffect(() => {
         const db = getDatabase();
-        const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}/${uuid}/-NJWAlqXR0MGdpvVugk4/exerciseValues`);
+        const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}`);
         onValue(Ref, (snapshot) => {
             const data = snapshot.val();
             if (data !== null) {
                 // setLoading(false)
                 Object.values(data).map((val: any) => {
-                    setNewData([])
                     exercisesArray.push(val)
+                    console.log(exercisesArray)
+                    setNewData([])
                     exercisesArray.map((exercise: any) => {
-                        exercisesArray1.push(exercise)
+                        // exercisesArray1.push(exercise)
                         setNewData((oldArray: any) => [...oldArray, exercise])
 
                         return newData
                     })
                     console.log(newData);
                 })
+                newData.forEach((ex: any) => {
+                    console.log(ex, '1')
+                })
             }
         })
-    }, [])
+    }, [currentUser])
 
 
     return (
@@ -61,16 +65,18 @@ const DisplayWorkoutDetails = () => {
                                 newData! && newData.map((exercise: (any), _uuid: number) => (
                                     <div className="flex center gap-xl">
                                         <div>
-                                            <h6>Set</h6>
-                                            <p>{exercise.sets}</p>
-                                        </div>
-                                        <div>
-                                            <h6>Load</h6>
-                                            <p>{exercise.load}</p>
-                                        </div>
-                                        <div>
-                                            <h6>Reps</h6>
-                                            <p>{exercise.reps}</p>
+                                            <h6>Date</h6>
+                                            <p>{new Intl.DateTimeFormat
+                                                ('en-US',
+                                                    {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    }).format(exercise.timestamp)}</p>
+                                            <p>{exercise.uuid}</p>
+                                            <p>{exercise.title}</p>
                                         </div>
                                     </div>
 

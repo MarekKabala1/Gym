@@ -29,7 +29,7 @@ const WorkoutForm = () => {
     const db = getDatabase();
     push(ref(db, `${currentUser.uid}/${musclePartUrl}`), {
       title: `${title.toUpperCase()}`,
-      uuid
+      uuid: uuid
     })
 
       .then(() => {

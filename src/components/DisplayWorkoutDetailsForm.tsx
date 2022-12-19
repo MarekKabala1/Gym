@@ -44,8 +44,8 @@ const DisplayWorkoutDetailsForm = (props: any) => {
     setLoading(true)
 
     const db = getDatabase();
-    push(ref(db, `${currentUser.uid}/${props.workout}/${props.id}`), {
-      timestamp: Date.now(),
+    push(ref(db, `${currentUser.uid}/${props.workout}`), {
+      createdAt: Date.now(),
       exerciseValues,
       uuid: `${props.id}`
     })
