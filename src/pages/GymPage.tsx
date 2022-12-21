@@ -65,6 +65,7 @@ const GymPage = (props: any) => {
             await updateDoc(userRef, {
                 exercise: arrayUnion(workOut.toUpperCase()),
             })
+
                 .then(() => {
                     setWorkOut('')
                     setError(null)

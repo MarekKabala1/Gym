@@ -1,5 +1,5 @@
 import { Alert } from '@mui/material'
-import { getDatabase, push, ref } from 'firebase/database'
+import { getDatabase, push, ref, set } from 'firebase/database'
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../../firebseConfig/AuthContext'
@@ -27,7 +27,7 @@ const WorkoutForm = () => {
     setLoading(true)
 
     const db = getDatabase();
-    push(ref(db, `${currentUser.uid}/${musclePartUrl}`), {
+    set(ref(db, `${currentUser.uid}/${musclePartUrl}/${uuid}`), {
       title: `${title.toUpperCase()}`,
       uuid: uuid
     })

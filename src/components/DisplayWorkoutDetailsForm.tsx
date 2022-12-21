@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { getDatabase, ref, push } from "firebase/database"
+import { getDatabase, ref, push, set } from "firebase/database"
 import { useAuth } from "../firebseConfig/AuthContext"
 import MainButton from "./ButtonMain"
 import { BsTrash } from "react-icons/bs"
@@ -44,10 +44,10 @@ const DisplayWorkoutDetailsForm = (props: any) => {
     setLoading(true)
 
     const db = getDatabase();
-    push(ref(db, `${currentUser.uid}/${props.workout}`), {
+    set(ref(db, `${currentUser.uid}/${props.workout}/${props.uuid}/${Date.now()}`), {
       createdAt: Date.now(),
       exerciseValues,
-      uuid: `${props.id}`
+      uuid: `${props.uuid}`
     })
       .then(() => {
         setExerciseValues(

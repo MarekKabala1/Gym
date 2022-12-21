@@ -10,6 +10,7 @@ import DisplayWorkoutDetailsForm from "../DisplayWorkoutDetailsForm"
 const DisplayWorkoutDetails = () => {
 
     const [newData, setNewData] = useState<any>([])
+    const [newData1, setNewData1] = useState<any>([])
     // const [message, setMessage] = useState<string>('')
     // const [error, setError] = useState<string>('')
     // const [loading, setLoading] = useState<boolean>(false)
@@ -26,28 +27,34 @@ const DisplayWorkoutDetails = () => {
 
     useEffect(() => {
         const db = getDatabase();
-        const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}`);
+        const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}/${parms.uuid}`);
         onValue(Ref, (snapshot) => {
             const data = snapshot.val();
-            if (data !== null) {
-                // setLoading(false)
-                Object.values(data).map((val: any) => {
-                    exercisesArray.push(val)
-                    console.log(exercisesArray)
-                    setNewData([])
-                    exercisesArray.map((exercise: any) => {
-                        // exercisesArray1.push(exercise)
-                        setNewData((oldArray: any) => [...oldArray, exercise])
+            setNewData((newData: any) => [...newData, data])
+            console.log(data);
+            // if (data !== null) {
+            //     // setLoading(false)
+            //     Object.values(data).map((val: any) => {
+            //         exercisesArray.push(val)
+            //         // console.log(exercisesArray)
+            //         exercisesArray.map((exercise: any) => {
+            //             setNewData([])
+            //             exercisesArray1.push(exercise)
+            //             setNewData((oldArray: any) => [...oldArray, exercise])
 
-                        return newData
-                    })
-                    console.log(newData);
-                })
-                newData.forEach((ex: any) => {
-                    console.log(ex, '1')
-                })
-            }
+            // return console.log(newData)
         })
+        // setNewData1([])
+        // exercisesArray1.map((ex: any) => {
+        //     setNewData1((newData1: any) => [...newData, ex])
+        //     return console.dir(newData1)
+        // })
+        // console.log(newData);
+        // })
+
+
+        // }
+        // })
     }, [currentUser])
 
 
@@ -57,7 +64,7 @@ const DisplayWorkoutDetails = () => {
                 <section>
                     <h2 className="displayWorkoutDetail-header">{title}</h2>
                     <DisplayWorkoutDetailsForm
-                        id={uuid}
+                        uuid={uuid}
                         workout={`${parms.workout?.toLocaleUpperCase()}`} />
                     <div>
                         {
@@ -73,8 +80,9 @@ const DisplayWorkoutDetails = () => {
                                                         month: '2-digit',
                                                         day: '2-digit',
                                                         hour: '2-digit',
-                                                        minute: '2-digit'
-                                                    }).format(exercise.timestamp)}</p>
+                                                        minute: '2-digit',
+                                                        second: '2-digit'
+                                                    }).format(exercise.createdAt)}</p>
                                             <p>{exercise.uuid}</p>
                                             <p>{exercise.title}</p>
                                         </div>
