@@ -14,7 +14,6 @@ const DisplayWorkoutDetails = () => {
     // const [message, setMessage] = useState<string>('')
     // const [error, setError] = useState<string>('')
     // const [loading, setLoading] = useState<boolean>(false)
-    let exercisesArray: any[] = []
     let exercisesArray1: any[] = []
 
 
@@ -23,38 +22,56 @@ const DisplayWorkoutDetails = () => {
     const title = location.state
     const { currentUser } = useAuth()
     let parms = useParams()
-    // console.log(uuid, uuid1)
 
     useEffect(() => {
+        // const db = getDatabase();
+        // const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toUpperCase()}`);
+        // onValue(Ref, (snapshot) => {
+        //     setNewData1([])
+        //     const data = snapshot.val();
+        //     console.log(data)
+        //     // setLoading(false)
+        //     let exercisesArray: any[] = []
+        //     if (data !== null) {
+
+        //         Object.values(data).map((val: any) => {
+        //             setNewData([])
+        //             exercisesArray.push(val)
+        //             setNewData((oldArray: any) => [...oldArray, val])
+        //             console.log(newData, exercisesArray);
+
+        //             return newData
+        //         })
+
+        //         newData.map((ex: any) => {
+        //             setNewData1([])
+        //             exercisesArray1.push(ex)
+        //             setNewData1((oldArray: any) => [...oldArray, ex])
+        //             console.log(newData1.key);
+        //         })
+
+        //     }
+        // })
         const db = getDatabase();
-        const Ref = ref(db, `${currentUser.uid}/${parms.workout?.toLocaleUpperCase()}/${parms.uuid}`);
-        onValue(Ref, (snapshot) => {
-            const data = snapshot.val();
-            setNewData((newData: any) => [...newData, data])
-            console.log(data);
-            // if (data !== null) {
-            //     // setLoading(false)
-            //     Object.values(data).map((val: any) => {
-            //         exercisesArray.push(val)
-            //         // console.log(exercisesArray)
-            //         exercisesArray.map((exercise: any) => {
-            //             setNewData([])
-            //             exercisesArray1.push(exercise)
-            //             setNewData((oldArray: any) => [...oldArray, exercise])
+        const getWorkout = ref(db, `${currentUser.uid}/${parms.workout?.toUpperCase()}/${title.toUpperCase()}`);
 
-            // return console.log(newData)
+        onValue(getWorkout, (snapshot) => {
+            if (snapshot.exists()) {
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    console.log(childKey)
+                    console.dir(childData)
+                    setNewData([])
+                    exercisesArray1.push(childData)
+                    setNewData((oldArray: any) => [...oldArray, childData])
+                    console.log(newData[0].createdAt);
+
+                    return newData
+                })
+            };
         })
-        // setNewData1([])
-        // exercisesArray1.map((ex: any) => {
-        //     setNewData1((newData1: any) => [...newData, ex])
-        //     return console.dir(newData1)
-        // })
-        // console.log(newData);
-        // })
 
-
-        // }
-        // })
     }, [currentUser])
 
 
@@ -62,35 +79,34 @@ const DisplayWorkoutDetails = () => {
         <>
             <main className="conteiner">
                 <section>
-                    <h2 className="displayWorkoutDetail-header">{title}</h2>
+                    <h2 className="displayWorkoutDetail-header">{title.toUpperCase()}</h2>
                     <DisplayWorkoutDetailsForm
                         uuid={uuid}
+                        title={title}
                         workout={`${parms.workout?.toLocaleUpperCase()}`} />
                     <div>
-                        {
-                            React.Children.toArray(
-                                newData! && newData.map((exercise: (any), _uuid: number) => (
-                                    <div className="flex center gap-xl">
-                                        <div>
-                                            <h6>Date</h6>
-                                            <p>{new Intl.DateTimeFormat
-                                                ('en-US',
-                                                    {
-                                                        year: 'numeric',
-                                                        month: '2-digit',
-                                                        day: '2-digit',
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                        second: '2-digit'
-                                                    }).format(exercise.createdAt)}</p>
-                                            <p>{exercise.uuid}</p>
-                                            <p>{exercise.title}</p>
+                        <div className="flex center gap-xl">
+                            <h6>Date</h6>
+                            {
+                                React.Children.toArray(
+                                    newData! && newData.map((exercise: any, key = exercise.uuid) => (
+                                        <div key={key}>
+                                            <p>{new Intl.DateTimeFormat('en-US',
+                                                {
+                                                    year: 'numeric',
+                                                    month: '2-digit',
+                                                    day: '2-digit',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    second: '2-digit'
+                                                }).format(exercise.createdAt)}</p>
+                                            {/* <p>{exercise["-NKiXQ8S_THFCBhypCeL"].createdAt}</p> */}
                                         </div>
-                                    </div>
 
-                                ))
-                            )
-                        }
+                                    ))
+                                )
+                            }
+                        </div>
                     </div>
                 </section>
             </main>

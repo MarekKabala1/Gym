@@ -4,6 +4,7 @@ import { useAuth } from "../firebseConfig/AuthContext"
 import MainButton from "./ButtonMain"
 import { BsTrash } from "react-icons/bs"
 import { Alert } from "@mui/material"
+import { uid } from "uid"
 
 const DisplayWorkoutDetailsForm = (props: any) => {
 
@@ -18,6 +19,7 @@ const DisplayWorkoutDetailsForm = (props: any) => {
     }])
 
   const { currentUser } = useAuth()
+  const uuid = uid()
   // console.log(props.workout, props.id)
 
   const handleChange = (i: number, e: any) => {
@@ -42,12 +44,12 @@ const DisplayWorkoutDetailsForm = (props: any) => {
     setMessage('Exercise Added!!!')
     e.preventDefault()
     setLoading(true)
+    let exerciseDetails: [] = []
 
     const db = getDatabase();
-    set(ref(db, `${currentUser.uid}/${props.workout}/${props.uuid}/${Date.now()}`), {
+    push(ref(db, `${currentUser.uid}/${props.workout}/${props.title.toUpperCase()}/${exerciseDetails}`), {
       createdAt: Date.now(),
       exerciseValues,
-      uuid: `${props.uuid}`
     })
       .then(() => {
         setExerciseValues(

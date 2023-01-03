@@ -16,13 +16,15 @@ const DisplayWorkouts = () => {
     const { currentUser } = useAuth()
 
     // const db = getDatabase();
-    // const getWorkout = ref(db, `${currentUser.uid}`);
+    // const getWorkout = ref(db, `${currentUser.uid}/${parms.workout?.toUpperCase()}`);
 
     // onValue(getWorkout, (snapshot) => {
     //     if (snapshot.exists()) {
     //         snapshot.forEach((childSnapshot) => {
     //             const childKey = childSnapshot.key;
     //             const childData = childSnapshot.val();
+    //             console.log(childKey)
+    //             console.dir(childData)
     //         });
     //     }
     // });
@@ -44,7 +46,7 @@ const DisplayWorkouts = () => {
                 Object.values(data).map((val: any) => {
                     exercisesArray.push(val)
                     setNewData((oldArray: any) => [...oldArray, val])
-                    console.log(exercisesArray, newData);
+                    console.log(newData);
                     return newData
                 })
             } else {

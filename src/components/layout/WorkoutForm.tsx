@@ -27,9 +27,9 @@ const WorkoutForm = () => {
     setLoading(true)
 
     const db = getDatabase();
-    set(ref(db, `${currentUser.uid}/${musclePartUrl}/${uuid}`), {
-      title: `${title.toUpperCase()}`,
-      uuid: uuid
+    set(ref(db, `${currentUser.uid}/${musclePartUrl}/${title.toUpperCase()}`), {
+      title,
+      uuid
     })
 
       .then(() => {
