@@ -18,6 +18,7 @@ const WorkoutForm = () => {
   const location = useLocation()
   const musclePartUrl = location.state
   const uuid = uid()
+  const description = { title, uuid }
 
 
   //To do: check if push is working on new users
@@ -28,8 +29,7 @@ const WorkoutForm = () => {
 
     const db = getDatabase();
     set(ref(db, `${currentUser.uid}/${musclePartUrl}/${title.toUpperCase()}`), {
-      title,
-      uuid
+      description
     })
 
       .then(() => {

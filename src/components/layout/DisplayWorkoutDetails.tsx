@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { getDatabase, ref, onValue, push } from "firebase/database"
+import { uid } from "uid"
 import { useAuth } from "../../firebseConfig/AuthContext"
 import BottomMenu from "../BottomMenu"
-import { uid } from "uid"
 import DisplayWorkoutDetailsForm from "../DisplayWorkoutDetailsForm"
 
 
@@ -64,15 +64,24 @@ const DisplayWorkoutDetails = () => {
                     console.dir(childData)
                     setNewData([])
                     exercisesArray1.push(childData)
-                    setNewData((oldArray: any) => [...oldArray, childData])
-                    console.log(newData[0].createdAt);
+                    exercisesArray1.map((val) => {
+                        setNewData((newData: any) => [...newData, val])
+                        console.log(newData);
 
-                    return newData
+                        return newData
+                    })
                 })
             };
         })
 
     }, [currentUser])
+
+    const timestamp = 0
+    const milliseconds = timestamp * 1000
+    const dateObject = new Date(milliseconds)
+    const humanDate = dateObject.getDay()
+
+
 
 
     return (
@@ -85,22 +94,14 @@ const DisplayWorkoutDetails = () => {
                         title={title}
                         workout={`${parms.workout?.toLocaleUpperCase()}`} />
                     <div>
-                        <div className="flex center gap-xl">
+                        <div className="flex-column center gap-xl">
                             <h6>Date</h6>
                             {
                                 React.Children.toArray(
                                     newData! && newData.map((exercise: any, key = exercise.uuid) => (
                                         <div key={key}>
-                                            <p>{new Intl.DateTimeFormat('en-US',
-                                                {
-                                                    year: 'numeric',
-                                                    month: '2-digit',
-                                                    day: '2-digit',
-                                                    hour: '2-digit',
-                                                    minute: '2-digit',
-                                                    second: '2-digit'
-                                                }).format(exercise.createdAt)}</p>
-                                            {/* <p>{exercise["-NKiXQ8S_THFCBhypCeL"].createdAt}</p> */}
+                                            <p>{(exercise.createdAt)}</p>
+
                                         </div>
 
                                     ))

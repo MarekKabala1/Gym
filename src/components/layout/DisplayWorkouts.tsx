@@ -46,7 +46,7 @@ const DisplayWorkouts = () => {
                 Object.values(data).map((val: any) => {
                     exercisesArray.push(val)
                     setNewData((oldArray: any) => [...oldArray, val])
-                    console.log(newData);
+                    console.log(newData, exercisesArray);
                     return newData
                 })
             } else {
@@ -72,11 +72,11 @@ const DisplayWorkouts = () => {
                                 React.Children.toArray(
                                     newData! && newData.map((exercise: (any), _uuid: number) => (
                                         <Link
-                                            to={exercise.uuid}
-                                            state={exercise.title}
-                                            id={exercise.uuid}
-                                            key={exercise.uuid}
-                                            className='workoutPage-body-link'>{exercise.title}</Link>
+                                            to={exercise.description.uuid}
+                                            state={exercise.description.title}
+                                            id={exercise.description.uuid}
+                                            key={exercise.description.uuid}
+                                            className='workoutPage-body-link'>{exercise.description.title}</Link>
 
                                     ))
                                 )
