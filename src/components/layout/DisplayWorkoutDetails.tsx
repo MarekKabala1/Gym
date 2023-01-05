@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { getDatabase, ref, onValue, push } from "firebase/database"
+import { format, formatDistanceStrict } from 'date-fns'
 import { uid } from "uid"
 import { useAuth } from "../../firebseConfig/AuthContext"
 import BottomMenu from "../BottomMenu"
 import DisplayWorkoutDetailsForm from "../DisplayWorkoutDetailsForm"
+
 
 
 const DisplayWorkoutDetails = () => {
@@ -60,13 +62,10 @@ const DisplayWorkoutDetails = () => {
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
-                    console.log(childKey)
-                    console.dir(childData)
                     setNewData([])
                     exercisesArray1.push(childData)
                     exercisesArray1.map((val) => {
                         setNewData((newData: any) => [...newData, val])
-                        console.log(newData);
 
                         return newData
                     })
@@ -76,10 +75,10 @@ const DisplayWorkoutDetails = () => {
 
     }, [currentUser])
 
-    const timestamp = 0
-    const milliseconds = timestamp * 1000
+    const timestamp = 1672833628040
+    const milliseconds = timestamp
     const dateObject = new Date(milliseconds)
-    const humanDate = dateObject.getDay()
+    console.log(format(new Date(dateObject), 'MM/dd/yyyy'))
 
 
 
@@ -88,19 +87,19 @@ const DisplayWorkoutDetails = () => {
         <>
             <main className="conteiner">
                 <section>
-                    <h2 className="displayWorkoutDetail-header">{title.toUpperCase()}</h2>
+                    <h2 className="displayWorkoutDetails-header">{title.toUpperCase()}</h2>
                     <DisplayWorkoutDetailsForm
                         uuid={uuid}
                         title={title}
                         workout={`${parms.workout?.toLocaleUpperCase()}`} />
                     <div>
-                        <div className="flex-column center gap-xl">
-                            <h6>Date</h6>
+                        <div className="displayWorkoutDetails-date flex-column center gap-l">
+                            <h2 className="displayWorkoutDetails-date-subheader">Date</h2>
                             {
                                 React.Children.toArray(
                                     newData! && newData.map((exercise: any, key = exercise.uuid) => (
-                                        <div key={key}>
-                                            <p>{(exercise.createdAt)}</p>
+                                        <div className="displayWorkoutDetails-date-subheader-details" key={key}>
+                                            <p>{new Date(exercise.createdAt).toString()}</p>
 
                                         </div>
 

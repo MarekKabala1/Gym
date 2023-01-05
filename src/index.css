@@ -717,7 +717,19 @@ p {
 .workoutPage-body-link:first-child{
   padding-top: 1rem ;
 }
-.displayWorkoutDetail-header{
+.displayWorkoutDetails-header{
   color: var(--clr_text_light);
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
+.displayWorkoutDetails-date-subheader{
+  color: var(--clr_text_light);
+  font-size: 1rem;
+}
+.displayWorkoutDetails-date-subheader-details{
+  color: var(--clr_text_light);
+
+}
+.displayWorkoutDetails-date-subheader-details:last-child{
+  display: none;
+}
+
