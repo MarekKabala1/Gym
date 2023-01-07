@@ -56,6 +56,7 @@ const DisplayWorkoutDetailsForm = (props: any) => {
 			{
 				createdAt: Date.now(),
 				exerciseValues,
+				uuid: uuid,
 			}
 		)
 			.then(() => {

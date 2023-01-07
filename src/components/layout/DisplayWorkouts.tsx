@@ -3,6 +3,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../firebseConfig/AuthContext';
 import Loading from '../../pages/Loading';
+import { BsTrash } from 'react-icons/bs';
 
 const DisplayWorkouts = () => {
 	const location = useLocation();
@@ -57,6 +58,10 @@ const DisplayWorkouts = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentUser]);
 
+	const deleteExerciseValue = (e: { target: any }) => {
+		console.log(e.target);
+	};
+
 	return (
 		<>
 			{loading ? (
@@ -70,14 +75,23 @@ const DisplayWorkouts = () => {
 						{React.Children.toArray(
 							newData! &&
 								newData.map((exercise: any, _uuid: number) => (
-									<Link
-										to={exercise.description.uuid}
-										state={exercise.description.title}
-										id={exercise.description.uuid}
-										key={exercise.description.uuid}
-										className='workoutPage-body-link'>
-										{exercise.description.title}
-									</Link>
+									<div className='flex gap-s center'>
+										<Link
+											to={exercise.description.uuid}
+											state={exercise.description.title}
+											id={exercise.description.uuid}
+											key={exercise.description.uuid}
+											className='workoutPage-body-link'>
+											{exercise.description.title}
+										</Link>
+										<BsTrash
+											className=' gymPageCard-trash'
+											id={exercise.description.uuid}
+											key={exercise.description.uuid}
+											color='red'
+											onClick={deleteExerciseValue}
+										/>
+									</div>
 								))
 						)}
 					</div>

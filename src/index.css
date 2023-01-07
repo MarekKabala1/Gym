@@ -734,6 +734,7 @@ p {
 .workoutPage-body-link {
 	color: var(--clr_text_light);
 	text-transform: capitalize;
+	padding-bottom: 0.8rem;
 }
 .workoutPage-body-link:first-child {
 	padding-top: 1rem;
@@ -750,8 +751,18 @@ p {
 .displayWorkoutDetails-date-subheader-details p {
 	color: var(--clr_text_light);
 	font-size: 0.7rem;
-  margin-top: .6rem;
 }
 .displayWorkoutDetails-date-subheader-details:last-child {
 	display: none;
+}
+.displayWorkoutDetails-details h3{
+	color: var(--clr_text_light);
+	font-size: .8rem;
+}
+.displayWorkoutDetails-details p{
+	border: 1px solid var(--clr_text_light);
+	padding: .2rem;
+}
+.displayWorkoutDetails-details {
+	margin-bottom: 1rem;
 }

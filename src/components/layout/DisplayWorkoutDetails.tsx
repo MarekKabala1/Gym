@@ -37,8 +37,8 @@ const DisplayWorkoutDetails = () => {
 					const childKey = childSnapshot.key;
 					const childData = childSnapshot.val();
 					console.log(childKey);
-					setNewData([]);
 					exercisesArray1.push(childData);
+					setNewData([]);
 					exercisesArray1.map((val) => {
 						setNewData((newData: any) => [...newData, val]);
 
@@ -48,8 +48,9 @@ const DisplayWorkoutDetails = () => {
 			}
 		});
 	}, [currentUser]);
+
 	const deleteExerciseValue = (e: { target: any }) => {
-		console.log(e.target);
+		console.log(e.target.id);
 	};
 
 	return (
@@ -72,17 +73,45 @@ const DisplayWorkoutDetails = () => {
 									newData.map((exercise: any, key = exercise.uuid) => (
 										<div
 											className='displayWorkoutDetails-date-subheader-details flex gap-s'
-											key={key}>
-											<p>
-												{new Intl.DateTimeFormat('en-GB', {
-													dateStyle: 'full',
-												}).format(exercise.createdAt)}
-											</p>
-
+											key={exercise.uuid}>
+											<div>
+												<p style={{ marginBottom: '1rem' }}>
+													{new Intl.DateTimeFormat('en-GB', {
+														// dateStyle: 'full',
+														year: 'numeric',
+														month: 'long',
+														day: 'numeric',
+														hour: 'numeric',
+														minute: 'numeric',
+													}).format(exercise.createdAt)}
+												</p>
+												<div>
+													{exercise.exerciseValues! &&
+														exercise.exerciseValues.map((el: any, key: any) => {
+															console.log(el.load, el.sets, el.reps);
+															return (
+																<div className=' flex gap center'>
+																	<div className='displayWorkoutDetails-details flex center gap'>
+																		<h3>SET</h3>
+																		<p>{el.sets}</p>
+																	</div>
+																	<div className='displayWorkoutDetails-details flex center gap'>
+																		<h3>LOAD</h3>
+																		<p>{el.load}</p>
+																	</div>
+																	<div className='displayWorkoutDetails-details flex center gap'>
+																		<h3>REPS</h3>
+																		<p>{el.reps}</p>
+																	</div>
+																</div>
+															);
+														})}
+												</div>
+											</div>
 											<BsTrash
 												className=' gymPageCard-trash'
-												id={exercise}
-												key={key}
+												id={exercise.uuid}
+												key={exercise.uuid}
 												color='red'
 												onClick={deleteExerciseValue}
 											/>
