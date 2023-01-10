@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import WorkoutForm from '../components/layout/WorkoutForm';
-import BottomMenu from '../components/BottomMenu';
+import WorkoutForm from '../../components/layout/gym/WorkoutForm';
+import BottomMenu from '../../components/BottomMenu';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import Loading from './Loading';
+import Loading from '../Loading';
 import React from 'react';
 import { Alert } from '@mui/material';
-import DisplayWorkouts from '../components/layout/DisplayWorkouts';
+import DisplayWorkouts from '../../components/layout/gym/DisplayWorkouts';
 
 const WorkoutPage = () => {
 	const [loading, setLoading] = useState<boolean>(false);

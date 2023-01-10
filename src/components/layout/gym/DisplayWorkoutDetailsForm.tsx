@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { getDatabase, ref, push, set } from 'firebase/database';
-import { useAuth } from '../firebseConfig/AuthContext';
-import MainButton from './ButtonMain';
+import { getDatabase, ref, push } from 'firebase/database';
+import { useAuth } from '../../../firebseConfig/AuthContext';
+import MainButton from '../../ButtonMain';
 import { BsTrash } from 'react-icons/bs';
 import { Alert } from '@mui/material';
 import { uid } from 'uid';

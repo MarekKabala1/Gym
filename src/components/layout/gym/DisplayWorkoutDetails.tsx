@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
-import { format, formatDistance } from 'date-fns';
-import { uid } from 'uid';
-import { useAuth } from '../../firebseConfig/AuthContext';
-import BottomMenu from '../BottomMenu';
-import DisplayWorkoutDetailsForm from '../DisplayWorkoutDetailsForm';
+import {
+	getDatabase,
+	ref,
+	onValue,
+	push,
+	onChildRemoved,
+} from 'firebase/database';
+import { useAuth } from '../../../firebseConfig/AuthContext';
+import BottomMenu from '../../BottomMenu';
+import DisplayWorkoutDetailsForm from './DisplayWorkoutDetailsForm';
 import { BsTrash } from 'react-icons/bs';
 
 const DisplayWorkoutDetails = () => {
 	const [newData, setNewData] = useState<any>([]);
-	const [newData1, setNewData1] = useState<any>([]);
+	// const [newData1, setNewData1] = useState<any>([]);
 	// const [message, setMessage] = useState<string>('')
 	// const [error, setError] = useState<string>('')
 	// const [loading, setLoading] = useState<boolean>(false)
@@ -36,7 +40,7 @@ const DisplayWorkoutDetails = () => {
 				snapshot.forEach((childSnapshot) => {
 					const childKey = childSnapshot.key;
 					const childData = childSnapshot.val();
-					console.log(childKey);
+					// console.log(childKey);
 					exercisesArray1.push(childData);
 					setNewData([]);
 					exercisesArray1.map((val) => {
@@ -48,9 +52,39 @@ const DisplayWorkoutDetails = () => {
 			}
 		});
 	}, [currentUser]);
+	// case 'DELETE_WORKOUT':
+	// 	return {
+	// 		workouts: state.workouts.filter((x) => x !== action.payload.id),
+	// 	};
+	// default:
+	// 	return state;
 
 	const deleteExerciseValue = (e: { target: any }) => {
-		console.log(e.target.id);
+		const db = getDatabase();
+		const getWorkout = ref(
+			db,
+			`${
+				currentUser.uid
+			}/${parms.workout?.toUpperCase()}/${title.toUpperCase()}`
+		);
+		onValue(getWorkout, (snapshot) => {
+			if (snapshot.exists()) {
+				snapshot.forEach((childSnapshot) => {
+					const childKey = childSnapshot.key;
+					const childData = childSnapshot.val();
+					// console.log(childData.uuid);
+					// console.log(e.target.id);
+
+					onChildRemoved(getWorkout, (data) => {
+						console.log(data);
+					});
+
+					if (e.target.id === childData.uuid) {
+						console.log('delete data');
+					}
+				});
+			}
+		});
 	};
 
 	return (
@@ -67,7 +101,9 @@ const DisplayWorkoutDetails = () => {
 					/>
 					<div>
 						<div className='displayWorkoutDetails-date flex-column center gap-l'>
-							<h2 className='displayWorkoutDetails-date-subheader'>Date</h2>
+							<h2 className='displayWorkoutDetails-date-subheader'>
+								Exercise Data
+							</h2>
 							{React.Children.toArray(
 								newData! &&
 									newData.map((exercise: any, key = exercise.uuid) => (
@@ -88,20 +124,20 @@ const DisplayWorkoutDetails = () => {
 												<div>
 													{exercise.exerciseValues! &&
 														exercise.exerciseValues.map((el: any, key: any) => {
-															console.log(el.load, el.sets, el.reps);
+															// console.log(el.load, el.sets, el.reps);
 															return (
-																<div className=' flex gap center'>
+																<div key={key} className=' flex gap center'>
 																	<div className='displayWorkoutDetails-details flex center gap'>
 																		<h3>SET</h3>
-																		<p>{el.sets}</p>
+																		<p key={el.sets}>{el.sets}</p>
 																	</div>
 																	<div className='displayWorkoutDetails-details flex center gap'>
 																		<h3>LOAD</h3>
-																		<p>{el.load}</p>
+																		<p key={el.index}>{el.load}</p>
 																	</div>
 																	<div className='displayWorkoutDetails-details flex center gap'>
 																		<h3>REPS</h3>
-																		<p>{el.reps}</p>
+																		<p key={el.reps.index}>{el.reps}</p>
 																	</div>
 																</div>
 															);

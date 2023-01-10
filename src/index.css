@@ -471,7 +471,6 @@ p {
 	padding: 2rem 2rem;
 	max-width: 100vw;
 	min-height: 100vh;
-	max-height: 100vh;
 }
 
 .userPage-flex_gap {
@@ -490,7 +489,7 @@ p {
 .mainContent {
 	max-width: 100%;
 	max-height: 100%;
-	gap: 5rem;
+	flex-wrap: wrap;
 	margin-top: 3rem;
 }
 
@@ -500,7 +499,7 @@ p {
 }
 
 .imgWrapper {
-	width: 95%;
+	width: 130px;
 	height: 150px;
 	cursor: pointer;
 	border-radius: 5px;
@@ -516,7 +515,6 @@ p {
 	background-blend-mode: lighten;
 	mix-blend-mode: lighten;
 	text-align: center;
-	margin: auto;
 }
 
 .imgNutri {
@@ -525,7 +523,6 @@ p {
 	background-size: cover;
 	background-blend-mode: lighten;
 	mix-blend-mode: lighten;
-	margin: auto;
 }
 
 .userPage_imgText {
