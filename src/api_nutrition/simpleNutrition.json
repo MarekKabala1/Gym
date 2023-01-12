@@ -1,0 +1,404 @@
+{
+  "Foods": [
+    {
+      "Name": "White Long-Grain Rice",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 365,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.7,
+        "Unit": "g"
+      },
+      "Saturated Fat": {
+        "Value": 0.1,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 79.4,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 0.1,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 1.2,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 7,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 1,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 55,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Canned Tomatoes",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 27,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.2,
+        "Unit": "g"
+      },
+      "Saturated Fat": {
+        "Value": 0.03,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 5.8,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 3.6,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 1.5,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 1.1,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.04,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 10,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 250,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Tomatoes",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 18,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.2,
+        "Unit": "g"
+      },
+      "Saturated Fat": {
+        "Value": 0.03,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 3.9,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 2.6,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 1.2,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 0.9,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 2,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 147,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Bananas",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 89,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.3,
+        "Unit": "g"
+      },
+      "Saturated Fat": {
+        "Value": 0.1,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 23,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 12,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 2.6,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 1.1,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 1,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 358,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Soya unsweetened milk",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 33,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 1.7,
+        "Unit": "g"
+      },
+      "SaturatedFat": {
+        "Value": 0.2,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 1.7,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 0.4,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 0.4,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 2.9,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Trans Fatty Acids": {
+        "Value": 0,
+        "Unit": "g"
+      }
+    },
+    {
+      "Name": "Whole grain Penne Pasta",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 365,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 2,
+        "Unit": "g"
+      },
+      "SaturatedFat": {
+        "Value": 0.5,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 72,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 3,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 6,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 12,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 2,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 70,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Strawberry",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 32,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.3,
+        "Unit": "g"
+      },
+      "SaturatedFat": {
+        "Value": 0,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 7.7,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 4.9,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 2,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 0.7,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 1,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 153,
+        "Unit": "mg"
+      }
+    },
+    {
+      "Name": "Apple",
+      "Weight": {
+        "Value": 100,
+        "Unit": "g"
+      },
+      "Energy": {
+        "Value": 52,
+        "Unit": "kcal"
+      },
+      "Fat": {
+        "Value": 0.2,
+        "Unit": "g"
+      },
+      "SaturatedFat": {
+        "Value": 0.02,
+        "Unit": "g"
+      },
+      "Carbohydrates": {
+        "Value": 14,
+        "Unit": "g"
+      },
+      "Sugars": {
+        "Value": 10,
+        "Unit": "g"
+      },
+      "Fiber": {
+        "Value": 2,
+        "Unit": "g"
+      },
+      "Protein": {
+        "Value": 0.3,
+        "Unit": "g"
+      },
+      "Salt": {
+        "Value": 0.01,
+        "Unit": "g"
+      },
+      "Cholesterol": {
+        "Value": 0,
+        "Unit": "mg"
+      },
+      "Sodium": {
+        "Value": 1,
+        "Unit": "mg"
+      },
+      "Potassium": {
+        "Value": 107,
+        "Unit": "mg"
+      }
+    }
+  ]
+}

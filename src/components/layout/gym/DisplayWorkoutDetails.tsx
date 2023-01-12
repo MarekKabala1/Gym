@@ -14,11 +14,12 @@ import { BsTrash } from 'react-icons/bs';
 
 const DisplayWorkoutDetails = () => {
 	const [newData, setNewData] = useState<any>([]);
-	// const [newData1, setNewData1] = useState<any>([]);
+	const [newData1, setNewData1] = useState<any>([]);
 	// const [message, setMessage] = useState<string>('')
 	// const [error, setError] = useState<string>('')
 	// const [loading, setLoading] = useState<boolean>(false)
 	let exercisesArray1: any[] = [];
+	let exercisesArray: any[] = [];
 
 	let { uuid } = useParams();
 	const location = useLocation();
@@ -59,7 +60,8 @@ const DisplayWorkoutDetails = () => {
 	// default:
 	// 	return state;
 
-	const deleteExerciseValue = (e: { target: any }) => {
+	//Check what is wrong
+	const deleteExerciseValue = (e: any) => {
 		const db = getDatabase();
 		const getWorkout = ref(
 			db,
@@ -72,15 +74,20 @@ const DisplayWorkoutDetails = () => {
 				snapshot.forEach((childSnapshot) => {
 					const childKey = childSnapshot.key;
 					const childData = childSnapshot.val();
-					// console.log(childData.uuid);
+					// console.log(childData);
 					// console.log(e.target.id);
-
-					onChildRemoved(getWorkout, (data) => {
-						console.log(data);
-					});
-
+					setNewData1([]);
+					setNewData1(Object.values(childData));
+					// const target = e.target as HTMLElement;
 					if (e.target.id === childData.uuid) {
-						console.log('delete data');
+						onChildRemoved(getWorkout, (childKey) => {
+							console.log(childKey);
+							const filteredData = newData1.filter(
+								(x: any) => x !== e.target.id
+							);
+							setNewData1(filteredData);
+							console.log('delete data', newData1, childKey);
+						});
 					}
 				});
 			}
