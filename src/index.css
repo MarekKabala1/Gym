@@ -471,6 +471,7 @@ p {
 	padding: 2rem 2rem;
 	max-width: 100vw;
 	min-height: 100vh;
+	margin-bottom: 2rem;
 }
 
 .userPage-flex_gap {
@@ -499,7 +500,7 @@ p {
 }
 
 .imgWrapper {
-	width: 130px;
+	width: 150px;
 	height: 150px;
 	cursor: pointer;
 	border-radius: 5px;
@@ -741,6 +742,7 @@ p {
 	color: var(--clr_text_light);
 	margin-bottom: 1rem;
 }
+
 .displayWorkoutDetails-date-subheader {
 	color: var(--clr_text_light);
 	font-size: 1rem;

@@ -6,11 +6,14 @@ import {
 	onValue,
 	push,
 	onChildRemoved,
+	get,
+	child,
 } from 'firebase/database';
 import { useAuth } from '../../../firebseConfig/AuthContext';
 import BottomMenu from '../../BottomMenu';
 import DisplayWorkoutDetailsForm from './DisplayWorkoutDetailsForm';
 import { BsTrash } from 'react-icons/bs';
+import { database } from '../../../firebseConfig/fireaseConfig';
 
 const DisplayWorkoutDetails = () => {
 	const [newData, setNewData] = useState<any>([]);
@@ -69,25 +72,22 @@ const DisplayWorkoutDetails = () => {
 				currentUser.uid
 			}/${parms.workout?.toUpperCase()}/${title.toUpperCase()}`
 		);
+
 		onValue(getWorkout, (snapshot) => {
 			if (snapshot.exists()) {
 				snapshot.forEach((childSnapshot) => {
 					const childKey = childSnapshot.key;
 					const childData = childSnapshot.val();
 					// console.log(childData);
-					// console.log(e.target.id);
-					setNewData1([]);
-					setNewData1(Object.values(childData));
-					// const target = e.target as HTMLElement;
+					exercisesArray.push(Object.values(childData));
+					console.dir(exercisesArray);
+
 					if (e.target.id === childData.uuid) {
-						onChildRemoved(getWorkout, (childKey) => {
-							console.log(childKey);
-							const filteredData = newData1.filter(
-								(x: any) => x !== e.target.id
-							);
-							setNewData1(filteredData);
-							console.log('delete data', newData1, childKey);
-						});
+						console.log(e.target.id, childData.uuid);
+						const filteredData = exercisesArray.filter(
+							(x: any) => x !== e.target.id
+						);
+						console.log(filteredData, exercisesArray);
 					}
 				});
 			}
@@ -96,8 +96,8 @@ const DisplayWorkoutDetails = () => {
 
 	return (
 		<>
-			<main className='conteiner'>
-				<section>
+			<main className='conteiner displayWorkoutDetails-container'>
+				<section className='displayWorkoutDetails-section'>
 					<h2 className='displayWorkoutDetails-header'>
 						{title.toUpperCase()}
 					</h2>
