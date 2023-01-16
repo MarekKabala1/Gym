@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, push } from 'firebase/database';
 import { useAuth } from '../../../firebseConfig/AuthContext';
 import MainButton from '../../ButtonMain';
@@ -17,8 +17,8 @@ const DisplayWorkoutDetailsForm = (props: any) => {
 			reps: 0,
 		},
 	]);
-
 	const { currentUser } = useAuth();
+	useEffect(() => {}, [currentUser]);
 	const uuid = uid();
 	// console.log(props.workout, props.id)
 

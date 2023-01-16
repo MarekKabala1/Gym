@@ -29,6 +29,7 @@ const DisplayWorkoutDetails = () => {
 	const title = location.state;
 	const { currentUser } = useAuth();
 	let parms = useParams();
+	console.log(newData);
 
 	useEffect(() => {
 		const db = getDatabase();
@@ -38,8 +39,9 @@ const DisplayWorkoutDetails = () => {
 				currentUser.uid
 			}/${parms.workout?.toUpperCase()}/${title.toUpperCase()}`
 		);
-
 		onValue(getWorkout, (snapshot) => {
+			exercisesArray1 = [];
+			setNewData([]);
 			if (snapshot.exists()) {
 				snapshot.forEach((childSnapshot) => {
 					const childKey = childSnapshot.key;
@@ -48,7 +50,7 @@ const DisplayWorkoutDetails = () => {
 					exercisesArray1.push(childData);
 					setNewData([]);
 					exercisesArray1.map((val) => {
-						setNewData((newData: any) => [...newData, val]);
+						setNewData((oldArray: any) => [...oldArray, val]);
 
 						return newData;
 					});
@@ -56,12 +58,6 @@ const DisplayWorkoutDetails = () => {
 			}
 		});
 	}, [currentUser]);
-	// case 'DELETE_WORKOUT':
-	// 	return {
-	// 		workouts: state.workouts.filter((x) => x !== action.payload.id),
-	// 	};
-	// default:
-	// 	return state;
 
 	//Check what is wrong
 	const deleteExerciseValue = (e: any) => {
@@ -74,6 +70,7 @@ const DisplayWorkoutDetails = () => {
 		);
 
 		onValue(getWorkout, (snapshot) => {
+			exercisesArray = [];
 			if (snapshot.exists()) {
 				snapshot.forEach((childSnapshot) => {
 					const childKey = childSnapshot.key;
@@ -84,16 +81,15 @@ const DisplayWorkoutDetails = () => {
 
 					if (e.target.id === childData.uuid) {
 						console.log(e.target.id, childData.uuid);
-						const filteredData = exercisesArray.filter(
-							(x: any) => x !== e.target.id
+						setNewData(
+							newData.filter((val: { uuid: any }) => val.uuid !== e.target.id)
 						);
-						console.log(filteredData, exercisesArray);
+						console.log(newData);
 					}
 				});
 			}
 		});
 	};
-
 	return (
 		<>
 			<main className='conteiner displayWorkoutDetails-container'>
@@ -115,7 +111,7 @@ const DisplayWorkoutDetails = () => {
 								newData! &&
 									newData.map((exercise: any, key = exercise.uuid) => (
 										<div
-											className='displayWorkoutDetails-date-subheader-details flex gap-s'
+											className='displayWorkoutDetails-date-subheader-details flex gap-s center'
 											key={exercise.uuid}>
 											<div>
 												<p style={{ marginBottom: '1rem' }}>
@@ -153,10 +149,10 @@ const DisplayWorkoutDetails = () => {
 											</div>
 											<BsTrash
 												className=' gymPageCard-trash'
-												id={exercise.uuid}
-												key={exercise.uuid}
 												color='red'
 												onClick={deleteExerciseValue}
+												id={exercise.uuid}
+												key={exercise.uuid}
 											/>
 										</div>
 									))
