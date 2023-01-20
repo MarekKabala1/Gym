@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, remove } from 'firebase/database';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../firebseConfig/AuthContext';
 import Loading from '../../../pages/Loading';
 import { BsTrash } from 'react-icons/bs';
+import { Alert } from '@mui/material';
 
 const DisplayWorkouts = () => {
 	const location = useLocation();
@@ -12,12 +13,14 @@ const DisplayWorkouts = () => {
 	const [newData, setNewData] = useState<any>([]);
 	const [error, setError] = useState<any>('');
 	const [loading, setLoading] = useState<boolean>(false);
+	const [massage, setMessage] = useState<string>();
 
 	const { currentUser } = useAuth();
 
+	const db = getDatabase();
+	const getWorkout = ref(db, `${currentUser.uid}/${musclePartUrl}`);
+
 	useEffect(() => {
-		const db = getDatabase();
-		const getWorkout = ref(db, `${currentUser.uid}/${musclePartUrl}`);
 		onValue(getWorkout, (snapshot) => {
 			setNewData([]);
 			setLoading(true);
@@ -43,7 +46,18 @@ const DisplayWorkouts = () => {
 	}, [currentUser]);
 
 	const deleteExerciseValue = (e: { target: any }) => {
-		console.log(e.target);
+		const workoutDbRef = ref(
+			db,
+			`${currentUser.uid}/${musclePartUrl}/${e.target.id.toUpperCase()}`
+		);
+		remove(workoutDbRef)
+			.then(() => {
+				setLoading(false);
+				setMessage('Exercise data removed');
+			})
+			.catch(() => {
+				setError('Something went wrong!!!Refresh and try again ');
+			});
 	};
 
 	return (
@@ -55,6 +69,8 @@ const DisplayWorkouts = () => {
 					<h2 className='workoutPage-body-header padding-bottom'>
 						{musclePartUrl}
 					</h2>
+					{massage && <Alert severity='success'>{massage}</Alert>}
+					{error && <Alert severity='error'>{error}</Alert>}
 					<div className='flex-column gap'>
 						{React.Children.toArray(
 							newData! &&
@@ -70,8 +86,8 @@ const DisplayWorkouts = () => {
 										</Link>
 										<BsTrash
 											className=' gymPageCard-trash'
-											id={exercise.description.uuid}
-											key={exercise.description.uuid}
+											id={exercise.description.title}
+											key={exercise.description.title}
 											color='red'
 											onClick={deleteExerciseValue}
 										/>

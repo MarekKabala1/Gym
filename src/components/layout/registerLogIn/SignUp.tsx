@@ -55,6 +55,7 @@ const SignUp = () => {
 				created: new Date(),
 				weekRutines: [],
 			});
+			window.localStorage.setItem(`${firstName}`, user.uid);
 			const newExercise = doc(collection(db, 'exercise'), id);
 			await setDoc(newExercise, {
 				exercise: [],

@@ -77,14 +77,6 @@ const GymPage = (props: any) => {
 	};
 
 	const fetchWorkoutData = async (user: User) => {
-		// const Ref = doc(db, "users", `${user.uid}`);
-		// onSnapshot(Ref, async (_doc) => {
-		//     const Snap = await getDoc(Ref);
-		//     const data: any = Snap.data()
-		//     dispatch({ type: 'SET_WORKOUT', payload: data.weekRutines })
-		//     console.log("data fetched", state.workouts)
-		// return { dispatch }
-		// })
 		setLoading(true);
 		const Ref = doc(db, 'exercise', `${user.uid}`);
 		const Snap = await getDoc(Ref);
